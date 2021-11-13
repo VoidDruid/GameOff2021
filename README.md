@@ -2,8 +2,6 @@
 
 > Управленческий sim для геймджема GameOff, *made with Godot*
 
-Лицензии используемых текстур, звуков и пр. в `common/media licenses`, шрифты с лицензиями в `common/fonts`. Все остальные ассеты сделаны нами.
-
 Команда:
 
 - [VoidDruid](https://github.com/VoidDruid) - идея, программирование
@@ -17,6 +15,8 @@
 Описание игры.
 
 ---
+
+Лицензии используемых текстур, звуков и пр. в `common/media licenses`, шрифты с лицензиями в `common/fonts`.
 
 **Attributions**:
 
