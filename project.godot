@@ -13,15 +13,31 @@ _global_script_classes=[ {
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
+"base": "Node",
+"class": "SimulationCore",
+"language": "GDScript",
+"path": "res://scripts/simulation/Core.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"GitAPI": "",
+"SimulationCore": ""
 }
 
 [application]
 
 config/name="Game Off 2021"
+run/main_scene="res://scenes/main/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+consts="*res://scripts/consts.gd"
+utils="*res://scripts/utils.gd"
+
+[debug]
+
+gdscript/warnings/treat_warnings_as_errors=true
 
 [editor_plugins]
 
@@ -30,6 +46,10 @@ enabled=PoolStringArray( "res://addons/GodotTIE/plugin.cfg", "res://addons/godot
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[locale]
+
+translations=PoolStringArray( "res://gamedata/translations/ui.en.translation", "res://gamedata/translations/names.en.translation", "res://gamedata/translations/names.ru.translation", "res://gamedata/translations/texts.en.translation", "res://gamedata/translations/texts.ru.translation", "res://gamedata/translations/ui.ru.translation" )
 
 [physics]
 

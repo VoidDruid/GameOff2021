@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/uipack_rpg_vector.svg-2028d53b5d881e906c842c6e1aece2e4.image"
+
+[deps]
+
+source_file="res://shared/vfx/ui/elements/uipack_rpg_vector.svg"
+dest_files=[ "res://.import/uipack_rpg_vector.svg-2028d53b5d881e906c842c6e1aece2e4.image" ]
+
+[params]
+

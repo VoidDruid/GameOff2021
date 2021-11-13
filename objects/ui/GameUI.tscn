@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/ui/GameUITheme.tres" type="Theme" id=1]
+[ext_resource path="res://objects/ui/GameManager.gd" type="Script" id=2]
+[ext_resource path="res://objects/ui/overrides/FullScreenUITexture.tres" type="StyleBox" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="GameUI" type="Control" groups=["game_ui"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="__FullWindowBox__" type="VBoxContainer" parent="." groups=["game_ui"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+custom_constants/separation = 0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullWindowPanel" type="Panel" parent="__FullWindowBox__"]
+margin_right = 1024.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_styles/panel = ExtResource( 3 )
+
+[node name="FullWindowBox" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusLabelPanel" type="Panel" parent="__FullWindowBox__" groups=["game_ui"]]
+margin_top = 568.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 32 )
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="StatusLabelContainer" type="MarginContainer" parent="__FullWindowBox__/StatusLabelPanel" groups=["game_ui"]]
+margin_left = 5.0
+margin_top = 5.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusLabel" type="Label" parent="__FullWindowBox__/StatusLabelPanel/StatusLabelContainer" groups=["debug_ui", "dynamic_ui", "game_ui"]]
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+valign = 1
