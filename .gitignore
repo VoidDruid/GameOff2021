@@ -6,6 +6,9 @@ bin/
 build/
 lib/
 
+# Addons
+addons/*
+!addons/LIST.md
 
 ### MacOS
 # General

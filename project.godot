@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="Game Off 2021"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/GodotTIE/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/scrolling_background/plugin.cfg" )
+
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
