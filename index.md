@@ -1,4 +1,4 @@
-# Название игры
+# **Название игры**
 
 Трейлер.
 
@@ -7,9 +7,9 @@
 Скриншоты.
 
 <details>
-  <summary>Attributions</summary>
-
-  - *Icons made by [Freepik](https://www.freepik.com)* from [Flaticon](https://www.flaticon.com/)
-  - [kenney.nl](https://kenney.nl/assets)
-
+  <summary><b>> Attributions</b></summary>
+  <ul>
+    <li><i>Icons made by <a href="https://www.freepik.com">Freepik</a></i> from <a href="https://www.flaticon.com/">Flaticon</a></li>
+    <li><a href="https://kenney.nl/assets">kenney.nl</a></li>
+  </ul>
 </details>
