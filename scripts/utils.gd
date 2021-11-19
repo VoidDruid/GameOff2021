@@ -2,6 +2,7 @@ extends Node
 
 var statusLabel: Label = null
 var is_debug: bool = false
+var last_uid: int = 0
 
 
 func get_node_from_group(group: String, name: String) -> Node:
@@ -61,3 +62,8 @@ func json_readf(path: String):
 	)
 
 	return result_json.result
+
+
+func get_uid() -> String:
+    last_uid += 1
+    return str(last_uid)
