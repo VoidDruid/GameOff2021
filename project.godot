@@ -9,18 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
 "base": "Node",
 "class": "SimulationCore",
 "language": "GDScript",
 "path": "res://scripts/simulation/Core.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": "",
 "SimulationCore": ""
 }
 
@@ -41,11 +35,11 @@ gdscript/warnings/treat_warnings_as_errors=true
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/GodotTIE/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/scrolling_background/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gdnative]
 
-singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+singletons=[  ]
 
 [locale]
 

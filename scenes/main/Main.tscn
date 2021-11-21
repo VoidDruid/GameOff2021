@@ -10,6 +10,14 @@ script = ExtResource( 1 )
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="GameUI" parent="UI" instance=ExtResource( 2 )]
+anchor_left = -0.00124526
+anchor_top = 0.00212535
+anchor_right = 0.998755
+anchor_bottom = 1.00213
+margin_left = -1.03537
+margin_top = 0.984085
+margin_right = -1.0354
+margin_bottom = 0.98407
 simulation_node_path = NodePath("../../SimulationHolder")
 
 [node name="SimulationHolder" type="Node" parent="."]
