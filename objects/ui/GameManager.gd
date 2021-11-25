@@ -4,10 +4,16 @@ export(NodePath) var simulation_node_path
 var simulation: SimulationCore
 var MainWindow: Control
 var CurrentGameWindow: Control
+var LogTabText: RichTextLabel
+# signals
+signal update_log(logs)
 
 func _ready():
 	simulation = get_node(simulation_node_path)
 	MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
+	LogTabText = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs/Text")
+	LogTabText.text = ""
+	var _rs = connect("update_log", self, "_on_Update_log")
 
 
 func _process(_delta):
@@ -35,8 +41,13 @@ func _on_Faculty_pressed(_num):
 	CurrentGameWindow = load("res://objects/Faculty.tscn").instance()
 	MainWindow.add_child(CurrentGameWindow)
 	
+func _on_Update_log(log_list):
+	for log_ in log_list:
+		LogTabText.add_text(log_ + "\n")
+	
 func _on_First_pressed():
-	_on_Faculty_pressed(1)
+	#_on_Faculty_pressed(1)
+	emit_signal("update_log", ["log","log2"])
 
 
 func _on_Second_pressed():

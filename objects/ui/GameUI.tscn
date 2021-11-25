@@ -278,10 +278,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs"]
+[node name="Text" type="RichTextLabel" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "There are such a beautiful logs"
+margin_top = -3.05176e-05
+margin_bottom = -3.05176e-05
+scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
