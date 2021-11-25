@@ -18,6 +18,9 @@ indent_size = 2
 [*.csv]
 insert_final_newline = false
 
+[*.def.m4]
+insert_final_newline = false
+
 [*.{config}]
 indent_size = 4
 
