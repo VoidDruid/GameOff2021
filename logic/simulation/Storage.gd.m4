@@ -61,8 +61,18 @@ func build_map(from_list, to_dict, _resource_name):
         to_dict[elem.uid] = elem
 
 
+# TODO: actual generation
 func generate_starting_characters():
     add_character(T.Character.new("NAME1", "0", SPECIALTY_LIST[0].uid))
+
+    var c = T.Character.new("NAME2", "0", SPECIALTY_LIST[1].uid, 70, 400)
+    c.is_available = true
+    add_character(c)
+
+    c = T.Character.new("NAME3", "0", SPECIALTY_LIST[0].uid)
+    c.is_hired = true
+    c.cost_per_year = 20
+    add_character(c)
 
 
 func load_specialties():

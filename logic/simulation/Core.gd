@@ -8,8 +8,6 @@ var Storage = StorageT.new()
 
 
 func update_character(character):
-    character.is_available = false
-
     if character.is_hired:
         character.is_available = true
 
@@ -45,8 +43,12 @@ func get_characters_list(is_hired=false, for_faculty=null):
 func _ready():
     Storage.load_resources()
     var dt = get_characters_data()
-    print_debug(dt.available_characters[0].name)
-    pass
+    if utils.is_debug:
+        for character in dt.available_characters:
+            print_debug("Available: ", character.name)
+        for character in dt.hired_characters:
+            print_debug("Hired: ", character.name)
+        pass
 
 
 #####################################################################################
@@ -60,7 +62,7 @@ class CharactersData:
 
     func _init(available_characters_=[], hired_characters_=[]):
         available_characters = available_characters_
-        hired_characters_ = hired_characters_
+        hired_characters = hired_characters_
 
 
 func get_characters_data() -> CharactersData:

@@ -84,7 +84,7 @@ NCLASS(Character, SimEntity)
     func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_
         icon_uid = "character_" + icon_uid
-        short_name = "SHORT_" + name
+        short_name = "SHORT_" + name  # TODO: or generate if no translation found
         cost_per_year = cost_per_year_
         price = price_
         if level_ == "auto" or level_ == null:
