@@ -1,8 +1,3 @@
-extends Node
-
-class_name SimulationCore
-
-
 class SimObject:
     var uid: String
 
@@ -11,6 +6,9 @@ class SimObject:
 
 
 class SimNamedObject extends SimObject:
+    static func get_name():
+        return "class_SimNamedObject"
+
     var name: String
 
     func _init(name_):
@@ -18,19 +16,28 @@ class SimNamedObject extends SimObject:
 
 
 class Specialty extends SimNamedObject:
+    static func get_name():
+        return "class_Specialty"
+
     func _init(name_).(name_):
         uid = name_
 
 
 class Faculty extends SimNamedObject:
-    var built: bool = false
+    static func get_name():
+        return "class_Faculty"
+
     var specialty_uid: String
+
+    ### Dynamic fields ###
     var leader_uid: String
     var breakthrough_chance: int
     var enrollee_count: int
     var yearly_cost: int
     var researcher_uid_list = []
     var equipment_uid_list = []
+    var level: int = 1
+    var is_opened: bool = false
 
     func _init(name_).(name_):
         pass
@@ -57,8 +64,14 @@ class FacultyModifier:
 
 
 class SimEntity extends SimNamedObject:
+    static func get_name():
+        return "class_SimEntity"
+
     var icon_uid: String
     var modifiers = []
+
+    func get_effect():
+        return "Effect! La la la" # TODO: real, translatable effect string
 
     func _init(name_, icon_uid_, modifiers_=[]).(name_):
         icon_uid = icon_uid_
@@ -66,16 +79,34 @@ class SimEntity extends SimNamedObject:
 
 
 class Character extends SimEntity:
-    var short_name: String
-    var specialty_uid: int
+    static func get_name():
+        return "class_Character"
 
-    func _init(name_, icon_uid_, specialty_uid_, modifiers_=[]).(name_, icon_uid_, modifiers_):
+    var short_name: String
+    var specialty_uid: String
+    var cost_per_year: int
+    var price: int
+    var level: int
+
+    ### Dynamic fields ###
+    var is_available: bool = false
+    var is_hired: bool = false
+
+    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_
         icon_uid = "character_" + icon_uid
         short_name = "SHORT_" + name
+        cost_per_year = cost_per_year_
+        price = price_
+        if level_ == "auto" or level_ == null:
+            level_ = 2  # TODO: auto calculate level
+        level = level_
 
 
 class Equipment extends SimEntity:
+    static func get_name():
+        return "class_Equipment"
+
     var price: int
     var available_for = []
 
@@ -84,48 +115,8 @@ class Equipment extends SimEntity:
         icon_uid = "equipment_" + icon_uid
         available_for = available_for_
 
-
-# NOTE: PREDEFINED
-var SPECIALTY_LIST = [Specialty.new("PHYSICS_")]
-var SPECIALTY_MAP = {}
-
-# NOTE: PREDEFINED
-var EQUIPMENT_LIST = [Equipment.new("PRINTER", 0, 1000, [])]
-var EQUIPMENT_MAP = {}
-
-# NOTE: GENERATED IN-GAME
-var CHARACTER_LIST = []
-var CHARACTER_MAP = {}
+    func to_string():
+        return "<Equipment " + name + " " + str(price) + " " + str(modifiers) + " " + str(available_for) + ">"
 
 
-func build_map(from_list, to_dict, _resource_name):
-    # TODO: load data for list from json at _resource_name
-    for elem in from_list:
-        to_dict[elem.uid] = elem
-
-
-func add_character(character):
-    CHARACTER_LIST.append(character)
-    CHARACTER_MAP[character.uid] = character
-
-
-func generate_starting_characters():
-    add_character(Character.new("NAME1", 0, SPECIALTY_LIST[0].uid, []))
-
-
-func _init():
-    build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
-    build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
-    generate_starting_characters()
-
-
-class FrontendState:
-    var money: int
-    var trust: int
-
-    func _init():
-        pass
-
-
-func get_frontend_state() -> FrontendState:
-    return FrontendState.new()
+enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}

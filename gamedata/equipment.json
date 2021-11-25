@@ -1,0 +1,13 @@
+[
+  {
+    "name": "PRINTER_",
+    "icon_id": "0",
+    "price": 1000,
+    "modifiers": [
+      {
+        "value": 5,
+        "property": "breakthrough_chance"
+      }
+    ]
+  }
+]
