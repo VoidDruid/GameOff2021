@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://objects/CharacterTab.tscn" type="PackedScene" id=1]
+[gd_scene format=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -20,228 +18,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Available" type="ScrollContainer" parent="Characters"]
+[node name="VBoxAvailable" type="VBoxContainer" parent="Characters"]
 margin_right = 510.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Characters/Available"]
-margin_right = 498.0
-margin_bottom = 806.0
+[node name="Label" type="Label" parent="Characters/VBoxAvailable"]
+margin_right = 510.0
+margin_bottom = 14.0
+align = 1
+
+[node name="Available" type="ScrollContainer" parent="Characters/VBoxAvailable"]
+margin_top = 18.0
+margin_right = 510.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CharacterTab" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 498.0
-margin_bottom = 50.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Characters/VBoxAvailable/Available"]
+margin_right = 510.0
+margin_bottom = 582.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="CharacterTab2" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 54.0
-margin_right = 498.0
-margin_bottom = 104.0
-
-[node name="CharacterTab3" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 108.0
-margin_right = 498.0
-margin_bottom = 158.0
-
-[node name="CharacterTab4" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 162.0
-margin_right = 498.0
-margin_bottom = 212.0
-
-[node name="CharacterTab5" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 216.0
-margin_right = 498.0
-margin_bottom = 266.0
-
-[node name="CharacterTab6" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 270.0
-margin_right = 498.0
-margin_bottom = 320.0
-
-[node name="CharacterTab7" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 324.0
-margin_right = 498.0
-margin_bottom = 374.0
-
-[node name="CharacterTab8" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 378.0
-margin_right = 498.0
-margin_bottom = 428.0
-
-[node name="CharacterTab9" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 432.0
-margin_right = 498.0
-margin_bottom = 482.0
-
-[node name="CharacterTab10" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 486.0
-margin_right = 498.0
-margin_bottom = 536.0
-
-[node name="CharacterTab11" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 540.0
-margin_right = 498.0
-margin_bottom = 590.0
-
-[node name="CharacterTab12" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 594.0
-margin_right = 498.0
-margin_bottom = 644.0
-
-[node name="CharacterTab13" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 648.0
-margin_right = 498.0
-margin_bottom = 698.0
-
-[node name="CharacterTab14" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 702.0
-margin_right = 498.0
-margin_bottom = 752.0
-
-[node name="CharacterTab15" parent="Characters/Available/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 756.0
-margin_right = 498.0
-margin_bottom = 806.0
-
-[node name="Hired" type="ScrollContainer" parent="Characters"]
+[node name="VBoxHired" type="VBoxContainer" parent="Characters"]
 margin_left = 514.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Characters/Hired"]
-margin_right = 498.0
-margin_bottom = 752.0
+[node name="Label" type="Label" parent="Characters/VBoxHired"]
+margin_right = 510.0
+margin_bottom = 14.0
+align = 1
+
+[node name="Hired" type="ScrollContainer" parent="Characters/VBoxHired"]
+margin_top = 18.0
+margin_right = 510.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CharacterTab15" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 498.0
-margin_bottom = 50.0
-
-[node name="CharacterTab16" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 54.0
-margin_right = 498.0
-margin_bottom = 104.0
-
-[node name="CharacterTab17" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 108.0
-margin_right = 498.0
-margin_bottom = 158.0
-
-[node name="CharacterTab18" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 162.0
-margin_right = 498.0
-margin_bottom = 212.0
-
-[node name="CharacterTab19" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 216.0
-margin_right = 498.0
-margin_bottom = 266.0
-
-[node name="CharacterTab20" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 270.0
-margin_right = 498.0
-margin_bottom = 320.0
-
-[node name="CharacterTab21" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 324.0
-margin_right = 498.0
-margin_bottom = 374.0
-
-[node name="CharacterTab22" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 378.0
-margin_right = 498.0
-margin_bottom = 428.0
-
-[node name="CharacterTab23" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 432.0
-margin_right = 498.0
-margin_bottom = 482.0
-
-[node name="CharacterTab24" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 486.0
-margin_right = 498.0
-margin_bottom = 536.0
-
-[node name="CharacterTab25" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 540.0
-margin_right = 498.0
-margin_bottom = 590.0
-
-[node name="CharacterTab26" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 594.0
-margin_right = 498.0
-margin_bottom = 644.0
-
-[node name="CharacterTab27" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 648.0
-margin_right = 498.0
-margin_bottom = 698.0
-
-[node name="CharacterTab28" parent="Characters/Hired/VBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 702.0
-margin_right = 498.0
-margin_bottom = 752.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Characters/VBoxHired/Hired"]
+margin_right = 510.0
+margin_bottom = 582.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

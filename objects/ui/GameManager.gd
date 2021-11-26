@@ -1,9 +1,10 @@
 extends Node
+class_name GameManager
 
 export(NodePath) var simulation_node_path
 var simulation: SimulationCore
 var MainWindow: Control
-var CurrentGameWindow: Control
+var CurrentGameWindow
 var LogTabText: RichTextLabel
 # signals
 signal update_log(logs)
@@ -23,7 +24,7 @@ func _process(_delta):
 func _on_Characters_pressed():
 	if CurrentGameWindow != null:
 		CurrentGameWindow.queue_free()
-	CurrentGameWindow = load("res://objects/Characters.tscn").instance()
+	buildCharactersWindow()
 	MainWindow.add_child(CurrentGameWindow)
 	
 
@@ -64,3 +65,28 @@ func _on_Fourth_pressed():
 
 func _on_Fifth_pressed():
 	_on_Faculty_pressed(5)
+	
+func on_Button_pressed(ch_id):
+	LogTabText.add_text(str(ch_id) + "\n")
+	
+func buildCharactersWindow():
+	CurrentGameWindow = load("res://objects/Characters.tscn").instance()
+	CurrentGameWindow.get_node("Characters/VBoxAvailable/Label").text = "Available Characters"
+	CurrentGameWindow.get_node("Characters/VBoxHired/Label").text = "Hired Characters"
+	var dt = simulation.get_characters_data()
+	for ch in dt.available_characters:
+		var chTab = load("res://objects/CharacterTab.tscn").instance()
+		chTab.get_node("Info").text = ch.name + " price: " + str(ch.price)
+		chTab.get_node("Button").text = "Hire"
+		chTab.character_uid = ch.uid
+		chTab.game_manager_path = @"/root/Main/UI/GameUI"
+		#if !ch.is_available:
+		#chTab.get_node("Button").hide()
+		
+		CurrentGameWindow.get_node("Characters/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
+	
+	for ch in dt.hired_characters:
+		var chTab = load("res://objects/CharacterTab.tscn").instance()
+		chTab.get_node("Info").text = ch.name + " per year: " + str(ch.price)
+		chTab.get_node("Button").text = "Fire"
+		CurrentGameWindow.get_node("Characters/VBoxHired/Hired/VBoxContainer").add_child(chTab)
