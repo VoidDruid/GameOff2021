@@ -7,6 +7,8 @@ var MainWindow: Control
 var CurrentGameWindow
 var LogTabText: RichTextLabel
 var MoneyCounter: Control
+var ReputationCounter: Control
+var DateCounter: Control
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
@@ -21,11 +23,17 @@ func _ready():
     MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
     LogTabText = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs/Text")
     MoneyCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/MoneyCounter")
-    
+    ReputationCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/ReputationCounter")
+    DateCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/DateCounter")
+
     var _rs = simulation.connect("update_log", self, "_on_Update_log")
     _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
     _rs = simulation.connect("money_error", self, "_on_Money_error")
     _rs = simulation.connect("money_updated", self, "_on_Money_updated")
+    _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
+    _rs = simulation.connect("date_updated", self, "_on_Date_updated")
+    
+    simulation.start()
 
 
 func _process(_delta):
@@ -104,6 +112,16 @@ func _on_Money_updated(amount, has_increased):
     MoneyCounter.get_node("Background/Name").text = "Money"
     MoneyCounter.get_node("Background/Number").text = str(amount)
 
+
+func _on_Reputation_updated(amount, has_increased):
+    print_debug(str(amount) + str(has_increased))
+    ReputationCounter.get_node("Background/Name").text = "Reputation"
+    ReputationCounter.get_node("Background/Number").text = str(amount)
+
+
+func _on_Date_updated(date_string):
+    print_debug(str(date_string))
+    DateCounter.get_node("Background/Name").text = str(date_string)
 
 func buildGrantsWindow():
     CurrentGameWindow = load(ui_res_folder + "Grants.tscn").instance()

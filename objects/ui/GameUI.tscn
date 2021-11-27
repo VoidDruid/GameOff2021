@@ -54,7 +54,7 @@ __meta__ = {
 
 [node name="StatusBar" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox"]
 margin_right = 1024.0
-margin_bottom = 50.0
+margin_bottom = 26.0
 rect_pivot_offset = Vector2( -171.681, 366.547 )
 custom_constants/separation = 4
 __meta__ = {
@@ -63,7 +63,7 @@ __meta__ = {
 
 [node name="Counters" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar"]
 margin_right = 874.0
-margin_bottom = 50.0
+margin_bottom = 26.0
 size_flags_horizontal = 3
 
 [node name="MoneyCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
@@ -73,19 +73,19 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
 margin_top = 0.0
-margin_right = 100.0
-margin_bottom = 50.0
+margin_right = 0.0
+margin_bottom = 26.0
 size_flags_stretch_ratio = 0.0
 
-[node name="ConfidenceCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
+[node name="ReputationCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 104.0
+margin_left = 4.0
 margin_top = 0.0
-margin_right = 204.0
-margin_bottom = 50.0
+margin_right = 4.0
+margin_bottom = 26.0
 size_flags_stretch_ratio = 0.0
 
 [node name="DateCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
@@ -93,27 +93,27 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 208.0
+margin_left = 8.0
 margin_top = 0.0
-margin_right = 308.0
-margin_bottom = 50.0
+margin_right = 8.0
+margin_bottom = 26.0
 size_flags_stretch_ratio = 0.0
 
 [node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters"]
-margin_left = 312.0
-margin_right = 312.0
-margin_bottom = 50.0
+margin_left = 12.0
+margin_right = 12.0
+margin_bottom = 26.0
 texture = ExtResource( 5 )
 expand = true
 
 [node name="Tabs" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar"]
 margin_left = 878.0
 margin_right = 1024.0
-margin_bottom = 50.0
+margin_bottom = 26.0
 
 [node name="Characters" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Tabs"]
 margin_right = 85.0
-margin_bottom = 50.0
+margin_bottom = 26.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Characters"
@@ -121,18 +121,18 @@ text = "Characters"
 [node name="Grants" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Tabs"]
 margin_left = 89.0
 margin_right = 146.0
-margin_bottom = 50.0
+margin_bottom = 26.0
 text = "Grants"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox"]
-margin_top = 54.0
+margin_top = 30.0
 margin_right = 1024.0
 margin_bottom = 568.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer"]
 margin_right = 300.0
-margin_bottom = 514.0
+margin_bottom = 538.0
 
 [node name="Faculties" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer"]
 margin_right = 300.0
@@ -238,7 +238,7 @@ __meta__ = {
 [node name="Logs" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer"]
 margin_top = 204.0
 margin_right = 300.0
-margin_bottom = 514.0
+margin_bottom = 538.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 3
@@ -268,7 +268,7 @@ __meta__ = {
 [node name="MainWindow" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer"]
 margin_left = 304.0
 margin_right = 1024.0
-margin_bottom = 514.0
+margin_bottom = 538.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
