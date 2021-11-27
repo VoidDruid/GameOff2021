@@ -18,22 +18,23 @@ var ui_res_folder = "res://objects/ui/"
 var game_manager_path = @"/root/Main/UI/GameUI"
 
 func _ready():
-    CurrentScreen = UNKNOWN_SCREEN
-    simulation = get_node(simulation_node_path)
-    MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
-    LogTabText = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs/Text")
-    MoneyCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/MoneyCounter")
-    ReputationCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/ReputationCounter")
-    DateCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/DateCounter")
+    pass
+    #CurrentScreen = UNKNOWN_SCREEN
+    #simulation = get_node(simulation_node_path)
+    #MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
+    #LogTabText = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs/Text")
+    #MoneyCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/MoneyCounter")
+    #ReputationCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/ReputationCounter")
+   # DateCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/DateCounter")
 
-    var _rs = simulation.connect("update_log", self, "_on_Update_log")
-    _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
-    _rs = simulation.connect("money_error", self, "_on_Money_error")
-    _rs = simulation.connect("money_updated", self, "_on_Money_updated")
-    _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
-    _rs = simulation.connect("date_updated", self, "_on_Date_updated")
+    #var _rs = simulation.connect("update_log", self, "_on_Update_log")
+    #_rs = simulation.connect("characters_updated", self, "_on_Characters_update")
+    #_rs = simulation.connect("money_error", self, "_on_Money_error")
+   # _rs = simulation.connect("money_updated", self, "_on_Money_updated")
+   # _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
+   # _rs = simulation.connect("date_updated", self, "_on_Date_updated")
     
-    simulation.start()
+  #  simulation.start()
 
 
 func _process(_delta):

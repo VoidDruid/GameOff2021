@@ -39,6 +39,11 @@ consts="*res://logic/consts.gd"
 
 gdscript/warnings/treat_warnings_as_errors=true
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )
