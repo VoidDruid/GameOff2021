@@ -1,4 +1,6 @@
 var campus_level = 1
+var money = 1000
+var reputation = 80
 
 var T = load("res://logic/simulation/Classes.gd")
 define(`object_store', `#NOTE: upcase($2)
@@ -107,3 +109,10 @@ func load_resources():
     build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
     build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
     generate_starting_characters()
+
+
+func spend_money(amount: int) -> bool:
+    if money <= amount:
+        return false
+    money -= amount
+    return true

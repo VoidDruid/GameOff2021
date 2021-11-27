@@ -7,6 +7,8 @@ var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()
 
 signal update_log(logs)
+signal characters_updated
+signal money_error
 
 
 func update_character(character):
@@ -61,6 +63,25 @@ func _process(_delta):
 #####################################################################################
 ######################################## API ########################################
 #####################################################################################
+
+
+func hire_character(character_uid):
+    var character = Storage.get_character(character_uid)
+    if character.is_hired:
+        return
+    if not Storage.spend_money(character.price):
+        emit_signal("money_error")
+    character.is_hired = true
+    emit_signal("characters_updated")
+
+
+func fire_character(character_uid):
+    var character = Storage.get_character(character_uid)
+    if not character.is_hired:
+        return
+    character.is_hired = false
+    update_character(character)
+    emit_signal("characters_updated")
 
 
 class CharactersData:
