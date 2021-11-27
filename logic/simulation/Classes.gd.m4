@@ -11,6 +11,9 @@ define(`DATACLASS', `class $1:
 substr(vb, 0, decr(index(vb, `='))) = concat(_, substr(vb, 0, decr(index(vb, `='))))
         ')dnl
 ')dnl
+enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
+
+
 class SimObject:
     var uid: String
 
@@ -114,7 +117,24 @@ NCLASS(Equipment, SimEntity)
         return "<Equipment " + name + " " + str(price) + " " + str(modifiers) + " " + str(available_for) + ">"
 
 
-enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
+NCLASS(Grant, SimNamedObject)
+    description: String = null
+    background_uid: String = null
+    icon_uid: String = null
+    amount: int = 100
+    specialty_uid: String = null
+
+    ### Dynamic fields ###
+    var is_available: bool = false
+    var chance: int = 0
+
+    func _init(name_, amount_, specialty_uid_, description_, icon_uid_,  background_uid_).(name_):
+        uid = name_
+        amount = amount_
+        specialty_uid = specialty_uid_
+        description = description_
+        icon_uid = icon_uid_
+        background_uid = background_uid_
 
 
 #####################################################################################
@@ -123,3 +143,5 @@ enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
 
 
 DATACLASS(CharactersData, available_characters = [], hired_characters = [])dnl
+
+DATACLASS(GrantsData, current_grants = [], available_grants = [], completed_grants = [], goals = [])dnl

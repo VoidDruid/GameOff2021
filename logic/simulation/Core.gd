@@ -33,6 +33,12 @@ func _ready():
     Engine.Storage = Storage
     Engine.emitter = funcref(self, "emitter")
     Storage.load_resources()
+
+    emit_signal("money_updated", Storage.money, true)
+    emit_signal("reputation_updated", Storage.reputation, true)
+    emit_signal("date_updated", "December 3, 2021")  # TODO: translate date
+    emit_signal("update_log", "START_LOG_")
+
     var dt = get_characters_data()
     if utils.is_debug:
         for character in dt.available_characters:

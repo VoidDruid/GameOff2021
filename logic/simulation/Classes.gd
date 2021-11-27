@@ -135,3 +135,15 @@ class CharactersData:
         available_characters = _available_characters
         hired_characters = _hired_characters
         
+class GrantsData:
+    var current_grants = []
+    var available_grants = []
+    var completed_grants = []
+    var goals = []
+    
+    func _init(_current_grants = [],_available_grants = [],_completed_grants = [],_goals = []):
+        current_grants = _current_grants
+        available_grants = _available_grants
+        completed_grants = _completed_grants
+        goals = _goals
+        
