@@ -9,6 +9,9 @@ var Storage = StorageT.new()
 signal update_log(logs)
 signal characters_updated
 signal money_error
+signal money_updated(amount, has_increased)
+signal reputation_updated(amount, has_increased)
+signal date_updated(date_string)
 
 
 func update_character(character):
@@ -60,6 +63,15 @@ func _process(_delta):
     pass
 
 
+func spend_money(amount: int) -> bool:
+    if Storage.spend_money(amount):
+        emit_signal("money_error")
+        return false
+    else:
+        emit_signal("money_updated", Storage.money, false)
+        return true
+
+
 #####################################################################################
 ######################################## API ########################################
 #####################################################################################
@@ -67,10 +79,10 @@ func _process(_delta):
 
 func hire_character(character_uid):
     var character = Storage.get_character(character_uid)
-    if character.is_hired:
+    if character.is_hired or not character.is_available:
         return
-    if not Storage.spend_money(character.price):
-        emit_signal("money_error")
+    if not spend_money(character.price):
+        return
     character.is_hired = true
     emit_signal("characters_updated")
 
