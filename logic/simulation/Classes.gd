@@ -120,3 +120,18 @@ class Equipment extends SimEntity:
 
 
 enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
+
+
+#####################################################################################
+######################################## API ########################################
+#####################################################################################
+
+
+class CharactersData:
+    var available_characters = []
+    var hired_characters = []
+    
+    func _init(_available_characters = [],_hired_characters = []):
+        available_characters = _available_characters
+        hired_characters = _hired_characters
+        

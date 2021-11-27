@@ -5,18 +5,59 @@ export var RANDOMIZATION_FOR_DEBUG = false
 var T = load("res://logic/simulation/Classes.gd")
 var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()
+var EngineT = load("res://logic/simulation/Engine.gd")
+var Engine = EngineT.new()
 
 signal update_log(logs)
 signal characters_updated
 signal money_error
+signal money_updated(amount, has_increased)
+signal reputation_updated(amount, has_increased)
+signal date_updated(date_string)
 
 
-func update_character(character):
-    if character.is_hired:
-        character.is_available = true
+# NOTE: I know this is ugly, but is seems like the only way to do it
+# There is no vararg in gdscript
+func emitter(signal_name, arg1=null, arg2=null, arg3=null):
+    if arg1 == null:
+        emit_signal(signal_name)
+    elif arg2 == null:
+        emit_signal(signal_name, arg1)
+    elif arg3 ==  null:
+        emit_signal(signal_name, arg1, arg2)
+    else:
+        emit_signal(signal_name, arg1, arg2, arg3)
 
-    if Storage.campus_level >= character.level:
-        character.is_available = true
+
+func _ready():
+    Engine.Storage = Storage
+    Engine.emitter = funcref(self, "emitter")
+    Storage.load_resources()
+    var dt = get_characters_data()
+    if utils.is_debug:
+        for character in dt.available_characters:
+            print_debug("Available: ", character.name)
+        for character in dt.hired_characters:
+            print_debug("Hired: ", character.name)
+        pass
+
+
+func _process(_delta):
+    pass
+
+
+func spend_money(amount: int) -> bool:
+    if Storage.spend_money(amount):
+        emit_signal("money_error")
+        return false
+    else:
+        emit_signal("money_updated", Storage.money, false)
+        return true
+
+
+#####################################################################################
+######################################## API ########################################
+#####################################################################################
 
 
 func get_characters_list(is_hired=false, for_faculty=null):
@@ -28,7 +69,7 @@ func get_characters_list(is_hired=false, for_faculty=null):
 
     for character in Storage.CHARACTER_LIST:
         if update_dynamic:
-            update_character(character)
+            Engine.update_character(character)
         if character.is_hired != is_hired:
             continue
         if for_faculty != null:
@@ -44,33 +85,12 @@ func get_characters_list(is_hired=false, for_faculty=null):
     return fitting_characters
 
 
-func _ready():
-    emit_signal("update_log", ["TEST_LOG"])
-    Storage.load_resources()
-    var dt = get_characters_data()
-    if utils.is_debug:
-        for character in dt.available_characters:
-            print_debug("Available: ", character.name)
-        for character in dt.hired_characters:
-            print_debug("Hired: ", character.name)
-        pass
-
-
-func _process(_delta):
-    pass
-
-
-#####################################################################################
-######################################## API ########################################
-#####################################################################################
-
-
 func hire_character(character_uid):
     var character = Storage.get_character(character_uid)
-    if character.is_hired:
+    if character.is_hired or not character.is_available:
         return
-    if not Storage.spend_money(character.price):
-        emit_signal("money_error")
+    if not spend_money(character.price):
+        return
     character.is_hired = true
     emit_signal("characters_updated")
 
@@ -80,21 +100,12 @@ func fire_character(character_uid):
     if not character.is_hired:
         return
     character.is_hired = false
-    update_character(character)
+    Engine.update_character(character)
     emit_signal("characters_updated")
 
 
-class CharactersData:
-    var available_characters = []
-    var hired_characters = []
-
-    func _init(available_characters_=[], hired_characters_=[]):
-        available_characters = available_characters_
-        hired_characters = hired_characters_
-
-
-func get_characters_data() -> CharactersData:
-    return CharactersData.new(
+func get_characters_data():
+    return T.CharactersData.new(
         get_characters_list(false),
         get_characters_list(true)
     )
