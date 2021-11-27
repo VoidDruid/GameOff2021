@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/ui/GameManager.gd"
 }, {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
 "base": "Node",
 "class": "SimulationCore",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "GameManager": "",
+"GitAPI": "",
 "SimulationCore": ""
 }
 
@@ -32,8 +38,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-utils="*res://logic/utils.gd"
 consts="*res://logic/consts.gd"
+utils="*res://logic/utils.gd"
 
 [debug]
 
@@ -41,11 +47,11 @@ gdscript/warnings/treat_warnings_as_errors=true
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/GodotTIE/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/scrolling_background/plugin.cfg" )
 
 [gdnative]
 
-singletons=[  ]
+singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
 [locale]
 
