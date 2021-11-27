@@ -5,6 +5,8 @@ export var RANDOMIZATION_FOR_DEBUG = false
 var T = load("res://logic/simulation/Classes.gd")
 var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()
+var EngineT = load("res://logic/simulation/Engine.gd")
+var Engine = EngineT.new()
 
 signal update_log(logs)
 signal characters_updated
@@ -14,41 +16,22 @@ signal reputation_updated(amount, has_increased)
 signal date_updated(date_string)
 
 
-func update_character(character):
-    if character.is_hired:
-        character.is_available = true
-
-    if Storage.campus_level >= character.level:
-        character.is_available = true
-
-
-func get_characters_list(is_hired=false, for_faculty=null):
-    if for_faculty != null and typeof(for_faculty) == TYPE_STRING:
-        for_faculty = Storage.get_faculty(for_faculty)
-    var update_dynamic = Storage.get_sim_state_of(T.Character)
-
-    var fitting_characters = []
-
-    for character in Storage.CHARACTER_LIST:
-        if update_dynamic:
-            update_character(character)
-        if character.is_hired != is_hired:
-            continue
-        if for_faculty != null:
-            if character.specialty_uid == for_faculty.specialty_uid:
-                fitting_characters.append(character)
-            else:
-                continue
-        fitting_characters.append(character)
-
-    if update_dynamic:
-        Storage.set_sim_state_of(T.Character, T.SimState.IN_SYNC)
-
-    return fitting_characters
+# NOTE: I know this is ugly, but is seems like the only way to do it
+# There is no vararg in gdscript
+func emitter(signal_name, arg1=null, arg2=null, arg3=null):
+    if arg1 == null:
+        emit_signal(signal_name)
+    elif arg2 == null:
+        emit_signal(signal_name, arg1)
+    elif arg3 ==  null:
+        emit_signal(signal_name, arg1, arg2)
+    else:
+        emit_signal(signal_name, arg1, arg2, arg3)
 
 
 func _ready():
-    emit_signal("update_log", ["TEST_LOG"])
+    Engine.Storage = Storage
+    Engine.emitter = funcref(self, "emitter")
     Storage.load_resources()
     var dt = get_characters_data()
     if utils.is_debug:
@@ -77,6 +60,31 @@ func spend_money(amount: int) -> bool:
 #####################################################################################
 
 
+func get_characters_list(is_hired=false, for_faculty=null):
+    if for_faculty != null and typeof(for_faculty) == TYPE_STRING:
+        for_faculty = Storage.get_faculty(for_faculty)
+    var update_dynamic = Storage.get_sim_state_of(T.Character)
+
+    var fitting_characters = []
+
+    for character in Storage.CHARACTER_LIST:
+        if update_dynamic:
+            Engine.update_character(character)
+        if character.is_hired != is_hired:
+            continue
+        if for_faculty != null:
+            if character.specialty_uid == for_faculty.specialty_uid:
+                fitting_characters.append(character)
+            else:
+                continue
+        fitting_characters.append(character)
+
+    if update_dynamic:
+        Storage.set_sim_state_of(T.Character, T.SimState.IN_SYNC)
+
+    return fitting_characters
+
+
 func hire_character(character_uid):
     var character = Storage.get_character(character_uid)
     if character.is_hired or not character.is_available:
@@ -92,21 +100,12 @@ func fire_character(character_uid):
     if not character.is_hired:
         return
     character.is_hired = false
-    update_character(character)
+    Engine.update_character(character)
     emit_signal("characters_updated")
 
 
-class CharactersData:
-    var available_characters = []
-    var hired_characters = []
-
-    func _init(available_characters_=[], hired_characters_=[]):
-        available_characters = available_characters_
-        hired_characters = hired_characters_
-
-
-func get_characters_data() -> CharactersData:
-    return CharactersData.new(
+func get_characters_data():
+    return T.CharactersData.new(
         get_characters_list(false),
         get_characters_list(true)
     )

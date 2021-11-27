@@ -2,6 +2,15 @@ define(`NCLASS', `class $1 extends $2:
     static func get_name():
         return typename($1)
 ')dnl
+define(`DATACLASS', `class $1:
+    foreach(`vb', (`shift($*)'), `var vb
+    ')dnl
+
+    func _init(shift(foreach(`vb', (`shift($*)'), `,concat(_, vb)'))):
+        foreach(`vb', (`shift($*)'), `dnl
+substr(vb, 0, decr(index(vb, `='))) = concat(_, substr(vb, 0, decr(index(vb, `='))))
+        ')dnl
+')dnl
 class SimObject:
     var uid: String
 
@@ -106,3 +115,11 @@ NCLASS(Equipment, SimEntity)
 
 
 enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
+
+
+#####################################################################################
+######################################## API ########################################
+#####################################################################################
+
+
+DATACLASS(CharactersData, available_characters = [], hired_characters = [])dnl
