@@ -1,3 +1,6 @@
+enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
+
+
 class SimObject:
     var uid: String
 
@@ -119,7 +122,27 @@ class Equipment extends SimEntity:
         return "<Equipment " + name + " " + str(price) + " " + str(modifiers) + " " + str(available_for) + ">"
 
 
-enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
+class Grant extends SimNamedObject:
+    static func get_name():
+        return "class_Grant"
+
+    description: String = null
+    background_uid: String = null
+    icon_uid: String = null
+    amount: int = 100
+    specialty_uid: String = null
+
+    ### Dynamic fields ###
+    var is_available: bool = false
+    var chance: int = 0
+
+    func _init(name_, amount_, specialty_uid_, description_, icon_uid_,  background_uid_).(name_):
+        uid = name_
+        amount = amount_
+        specialty_uid = specialty_uid_
+        description = description_
+        icon_uid = icon_uid_
+        background_uid = background_uid_
 
 
 #####################################################################################
@@ -135,6 +158,7 @@ class CharactersData:
         available_characters = _available_characters
         hired_characters = _hired_characters
         
+
 class GrantsData:
     var current_grants = []
     var available_grants = []

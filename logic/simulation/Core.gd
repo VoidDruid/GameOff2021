@@ -34,13 +34,8 @@ func _ready():
     Engine.emitter = funcref(self, "emitter")
     Storage.load_resources()
 
-    emit_signal("money_updated", Storage.money, true)
-    emit_signal("reputation_updated", Storage.reputation, true)
-    emit_signal("date_updated", "December 3, 2021")  # TODO: translate date
-    emit_signal("update_log", "START_LOG_")
-
-    var dt = get_characters_data()
     if utils.is_debug:
+        var dt = get_characters_data()
         for character in dt.available_characters:
             print_debug("Available: ", character.name)
         for character in dt.hired_characters:
@@ -64,6 +59,13 @@ func spend_money(amount: int) -> bool:
 #####################################################################################
 ######################################## API ########################################
 #####################################################################################
+
+
+func start():
+    emit_signal("money_updated", Storage.money, true)
+    emit_signal("reputation_updated", Storage.reputation, true)
+    emit_signal("date_updated", "December 3, 2021")  # TODO: actual date
+    emit_signal("update_log", "START_LOG_")  # TODO: translate
 
 
 func get_characters_list(is_hired=false, for_faculty=null):

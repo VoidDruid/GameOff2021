@@ -142,6 +142,6 @@ NCLASS(Grant, SimNamedObject)
 #####################################################################################
 
 
-DATACLASS(CharactersData, available_characters = [], hired_characters = [])dnl
+DATACLASS(CharactersData, available_characters = [], hired_characters = [])
 
-DATACLASS(GrantsData, current_grants = [], available_grants = [], completed_grants = [], goals = [])dnl
+DATACLASS(GrantsData, current_grants = [], available_grants = [], completed_grants = [], goals = [])
