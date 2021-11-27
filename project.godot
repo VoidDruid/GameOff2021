@@ -35,6 +35,10 @@ config/icon="res://icon.png"
 utils="*res://logic/utils.gd"
 consts="*res://logic/consts.gd"
 
+[debug]
+
+gdscript/warnings/treat_warnings_as_errors=true
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )
