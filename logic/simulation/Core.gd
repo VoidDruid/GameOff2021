@@ -54,11 +54,11 @@ func _process(_delta):
 
 func spend_money(amount: int) -> bool:
     if Storage.spend_money(amount):
-        emit_signal("money_error")
-        return false
-    else:
         emit_signal("money_updated", Storage.money, false)
         return true
+    else:
+        emit_signal("money_error")
+        return false
 
 
 #####################################################################################
