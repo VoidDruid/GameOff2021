@@ -1,6 +1,11 @@
 var campus_level = 1
 var money = 1000
 var reputation = 80
+var datetime = {
+    "month": 1,
+    "day": 1,
+    "year": 2021,
+}
 
 var T = load("res://logic/simulation/Classes.gd")
 define(`object_store', `#NOTE: upcase($2)

@@ -118,11 +118,11 @@ NCLASS(Equipment, SimEntity)
 
 
 NCLASS(Grant, SimNamedObject)
-    description: String = null
-    background_uid: String = null
-    icon_uid: String = null
-    amount: int = 100
-    specialty_uid: String = null
+    var description = null
+    var background_uid = null
+    var icon_uid = null
+    var amount: int = 100
+    var specialty_uid = null
 
     ### Dynamic fields ###
     var is_available: bool = false

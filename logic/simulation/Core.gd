@@ -1,7 +1,6 @@
 extends Node
 class_name SimulationCore
 
-export var RANDOMIZATION_FOR_DEBUG = false
 var T = load("res://logic/simulation/Classes.gd")
 var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()

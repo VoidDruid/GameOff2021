@@ -126,11 +126,11 @@ class Grant extends SimNamedObject:
     static func get_name():
         return "class_Grant"
 
-    description: String = null
-    background_uid: String = null
-    icon_uid: String = null
-    amount: int = 100
-    specialty_uid: String = null
+    var description: String = null
+    var background_uid: String = null
+    var icon_uid: String = null
+    var amount: int = 100
+    var specialty_uid: String = null
 
     ### Dynamic fields ###
     var is_available: bool = false
