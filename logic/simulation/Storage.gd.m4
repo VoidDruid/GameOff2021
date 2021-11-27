@@ -8,6 +8,7 @@ var datetime = {
 }
 
 var T = load("res://logic/simulation/Classes.gd")
+var emitter = null
 define(`object_store', `#NOTE: upcase($2)
 var upcase($1)_LIST = []
 var upcase($1)_MAP = {}
@@ -44,6 +45,8 @@ object_store(specialty, PREDEFINED)
 object_store(equipment, PREDEFINED)
 object_store(faculty, PREDEFINED)
 object_store(character, IN-GAME)
+object_store(grant, PREDEFINED)
+object_store(goal, PREDEFINED)
 
 func get_sim_state_of(class_):
     match class_.get_name():
@@ -51,6 +54,8 @@ func get_sim_state_of(class_):
         simple_sync_get(faculty)
         simple_sync_get(specialty)
         simple_sync_get(equipment)
+        simple_sync_get(grant)
+        simple_sync_get(goal)
         _:
             return null
 
@@ -61,6 +66,8 @@ func set_sim_state_of(class_, state=T.SimState.OUT_OF_SYNC):
         simple_sync_set(faculty)
         simple_sync_set(specialty)
         simple_sync_set(equipment)
+        simple_sync_set(grant)
+        simple_sync_set(goal)
 
 
 func build_map(from_list, to_dict, _resource_name):
@@ -108,16 +115,54 @@ func load_equipment():
         ))
 
 
+func load_grants():
+    var grant_data = utils.json_readf("res://gamedata/grants.json")
+    for data in grant_data:
+        GRANT_LIST.append(T.Grant.new(
+            data["name"],
+            data.get("amount", 100),
+            data["specialty_uid"],
+            data["difficulty"],
+            data.get("level", 1),
+            data.get("description", null),
+            data.get("icon_uid", null),
+            data.get("background_uid", null)
+        ))
+
+
+func load_goals():
+    var goal_data = utils.json_readf("res://gamedata/goals.json")
+    for data in goal_data:
+        GOAL_LIST.append(T.Goal.new(
+            data["name"],
+            data["description"],
+            data.get("icon_uid", null),
+            data["requirements"]
+        ))
+
+
 func load_resources():
     load_specialties()
     load_equipment()
+    load_grants()
+    load_goals()
     build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
     build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
+    build_map(GRANT_LIST, GRANT_MAP, "grant")
+    build_map(GOAL_LIST, GOAL_MAP, "goal")
     generate_starting_characters()
 
 
 func spend_money(amount: int) -> bool:
     if money <= amount:
+        emitter.call_func("money_error")
         return false
     money -= amount
+    emitter.call_func("money_updated", money, false)
+    return true
+
+
+func gain_money(amount: int) -> bool:
+    money += amount
+    emitter.call_func("money_updated", money, true)
     return true

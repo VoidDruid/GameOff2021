@@ -123,18 +123,40 @@ NCLASS(Grant, SimNamedObject)
     var icon_uid = null
     var amount: int = 100
     var specialty_uid = null
+    var level = 1
+    var difficulty = 1
 
     ### Dynamic fields ###
     var is_available: bool = false
+    var is_taken: bool = false
+    var is_in_progress = false
+    var is_completed = false
     var chance: int = 0
 
-    func _init(name_, amount_, specialty_uid_, description_, icon_uid_,  background_uid_).(name_):
+    func _init(name_, amount_, specialty_uid_, difficulty_, level_, description_=null, icon_uid_=null,  background_uid_=null).(name_):
         uid = name_
         amount = amount_
         specialty_uid = specialty_uid_
+        difficulty = difficulty_
+        level = level_
         description = description_
         icon_uid = icon_uid_
         background_uid = background_uid_
+
+
+NCLASS(Goal, SimNamedObject)
+    var description = null
+    var icon_uid = null
+    var requirements = null
+
+    ### Dynamic fields ###
+    var progress: int = 0
+
+    func _init(name_, description_, icon_uid_, requirements_).(name_):
+        uid = name_
+        description = description_
+        icon_uid = icon_uid_
+        requirements = requirements_
 
 
 #####################################################################################

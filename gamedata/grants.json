@@ -1,0 +1,27 @@
+[
+  {
+    "name": "GRANT_BIO1",
+    "amount": 150,
+    "specialty_uid": "BIOLOGY_",
+    "difficulty": 1
+  },
+  {
+    "name": "GRANT_BIO2",
+    "amount": 200,
+    "specialty_uid": "BIOLOGY_",
+    "difficulty": 20
+  },
+  {
+    "name": "GRANT_PHYS1",
+    "amount": 170,
+    "specialty_uid": "PHYSICS_",
+    "difficulty": 15
+  },
+  {
+    "name": "GRANT_PHYS2",
+    "amount": 240,
+    "specialty_uid": "PHYSICS_",
+    "level": 2,
+    "difficulty": 25
+  }
+]

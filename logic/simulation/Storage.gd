@@ -8,6 +8,7 @@ var datetime = {
 }
 
 var T = load("res://logic/simulation/Classes.gd")
+var emitter = null
 
 #NOTE: PREDEFINED
 var SPECIALTY_LIST = []
@@ -117,6 +118,60 @@ func add_character(character, skip_check=false):
     CHARACTER_LIST.append(character)
     CHARACTER_MAP[character.uid] = character
 
+#NOTE: PREDEFINED
+var GRANT_LIST = []
+var GRANT_MAP = {}
+var _is_grant_updated = T.SimState.OUT_OF_SYNC
+
+
+func get_grant(grant_uid):
+    return GRANT_MAP[grant_uid]
+
+
+func _find_in_grant_list(grant):
+    var i = 0
+    for obj in GRANT_LIST:
+        if obj.uid == grant.uid:
+            return i
+        i += 1
+    return null
+
+
+func add_grant(grant, skip_check=false):
+    if not skip_check:
+        var index = _find_in_grant_list(grant)
+        if index != null:
+            GRANT_LIST.remove(index)
+    GRANT_LIST.append(grant)
+    GRANT_MAP[grant.uid] = grant
+
+#NOTE: PREDEFINED
+var GOAL_LIST = []
+var GOAL_MAP = {}
+var _is_goal_updated = T.SimState.OUT_OF_SYNC
+
+
+func get_goal(goal_uid):
+    return GOAL_MAP[goal_uid]
+
+
+func _find_in_goal_list(goal):
+    var i = 0
+    for obj in GOAL_LIST:
+        if obj.uid == goal.uid:
+            return i
+        i += 1
+    return null
+
+
+func add_goal(goal, skip_check=false):
+    if not skip_check:
+        var index = _find_in_goal_list(goal)
+        if index != null:
+            GOAL_LIST.remove(index)
+    GOAL_LIST.append(goal)
+    GOAL_MAP[goal.uid] = goal
+
 
 func get_sim_state_of(class_):
     match class_.get_name():
@@ -128,6 +183,10 @@ func get_sim_state_of(class_):
             return _is_specialty_updated 
         "class_Equipment":
             return _is_equipment_updated 
+        "class_Grant":
+            return _is_grant_updated 
+        "class_Goal":
+            return _is_goal_updated 
         _:
             return null
 
@@ -142,6 +201,10 @@ func set_sim_state_of(class_, state=T.SimState.OUT_OF_SYNC):
             _is_specialty_updated = state
         "class_Equipment":
             _is_equipment_updated = state
+        "class_Grant":
+            _is_grant_updated = state
+        "class_Goal":
+            _is_goal_updated = state
 
 
 func build_map(from_list, to_dict, _resource_name):
@@ -189,16 +252,54 @@ func load_equipment():
         ))
 
 
+func load_grants():
+    var grant_data = utils.json_readf("res://gamedata/grants.json")
+    for data in grant_data:
+        GRANT_LIST.append(T.Grant.new(
+            data["name"],
+            data.get("amount", 100),
+            data["specialty_uid"],
+            data["difficulty"],
+            data.get("level", 1),
+            data.get("description", null),
+            data.get("icon_uid", null),
+            data.get("background_uid", null)
+        ))
+
+
+func load_goals():
+    var goal_data = utils.json_readf("res://gamedata/goals.json")
+    for data in goal_data:
+        GOAL_LIST.append(T.Goal.new(
+            data["name"],
+            data["description"],
+            data.get("icon_uid", null),
+            data["requirements"]
+        ))
+
+
 func load_resources():
     load_specialties()
     load_equipment()
+    load_grants()
+    load_goals()
     build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
     build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
+    build_map(GRANT_LIST, GRANT_MAP, "grant")
+    build_map(GOAL_LIST, GOAL_MAP, "goal")
     generate_starting_characters()
 
 
 func spend_money(amount: int) -> bool:
     if money <= amount:
+        emitter.call_func("money_error")
         return false
     money -= amount
+    emitter.call_func("money_updated", money, false)
+    return true
+
+
+func gain_money(amount: int) -> bool:
+    money += amount
+    emitter.call_func("money_updated", money, true)
     return true
