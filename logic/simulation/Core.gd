@@ -8,12 +8,12 @@ var Storage = StorageT.new()
 var EngineT = load("res://logic/simulation/Engine.gd")
 var Engine = EngineT.new()
 
-#signal update_log(logs)
+signal update_log(logs)
 signal characters_updated
 signal money_error
 signal money_updated(amount, has_increased)
-#signal reputation_updated(amount, has_increased)
-#signal date_updated(date_string)
+signal reputation_updated(amount, has_increased)
+signal date_updated(date_string)
 
 
 # NOTE: I know this is ugly, but is seems like the only way to do it
