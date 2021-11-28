@@ -81,6 +81,10 @@ func start():
     emit_signal("update_log", "START_LOG_")  # TODO: translate
 
 
+func get_specialty_color(specialty_uid) -> Color:
+    return Storage.get_specialty(specialty_uid).color
+
+
 func hire_character(character_uid):
     var character = Storage.get_character(character_uid)
     if character.is_hired or not character.is_available:

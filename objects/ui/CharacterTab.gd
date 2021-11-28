@@ -13,7 +13,7 @@ func _on_Button_pressed():
         game_manager.on_ChButton_pressed(character_uid, character_is_hired)
 
 
-var char_info_panel = "TextureRect/HBoxContainer/VBoxContainer"
+var char_info_panel = "Background/HBoxContainer/VBoxContainer"
 var char_top_path = char_info_panel + "/TopRow"
 var char_bottom_path = char_info_panel + "/BottomRow"
 var char_name_label_path = char_top_path + "/CharNameLabel"
@@ -27,7 +27,7 @@ func setup_for_character(character, EffectLabel, is_hired):
         str(character.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
     )
     if !character.is_available and !is_hired:
-         get_node("TextureRect/HBoxContainer/TextureButton").hide()
+         get_node("Background/HBoxContainer/TextureButton").hide()
 
     var bottom_row = get_node(char_bottom_path)
     for modifier in character.modifiers:

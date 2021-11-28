@@ -1,6 +1,9 @@
 extends Node
 class_name GameManager
 
+export(Color) var light_color
+export(Color) var dark_light_color
+
 export(NodePath) var simulation_node_path
 var simulation: SimulationCore
 var MainWindow: Control
@@ -31,6 +34,11 @@ var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
 var HCharacterTab_res = load(ui_res_folder + "HCharacterTab.tscn")
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var GrantTab_res = load(ui_res_folder + "GrantTab.tscn")
+
+
+func get_color_index(index) -> Color:
+    return dark_light_color if index % 2 == 0 else light_color
+
 
 func _ready():
     CurrentScreen = UNKNOWN_SCREEN
@@ -175,7 +183,7 @@ func _on_Date_updated(date_string):
 
 func buildGrantsWindow():
     CurrentGameWindow = Grants_res.instance()
-    CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
+    CurrentGameWindow.get_node("VBoxContainer/Grants/Backgrounds/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/Control/Label").text = tr("GRANTS_CURRENT")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/Control/Label").text = tr("GRANTS_FINISHED")
     
@@ -189,20 +197,24 @@ func buildGrantsWindow():
 
 func buildCharactersWindow():
     CurrentGameWindow = Characters_res.instance()
-    CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Control/Label").text = "Available Characters"
-    CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Control/Label").text = "Hired Characters"
     var dt = simulation.get_characters_data()
 
     # build available characters
+    var i = 0
     for ch in dt.available_characters:
         var chTab = ACharacterTab_res.instance()
         chTab.game_manager = self
+        chTab.get_node("Background").color = get_color_index(i)
         chTab.setup_for_character(ch, EffectLabel, false)
         CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
+        i += 1
 
     # build hired characters
+    i = 0
     for ch in dt.hired_characters:
         var chTab = HCharacterTab_res.instance()
         chTab.game_manager = self
+        chTab.get_node("Background").color = get_color_index(i)
         chTab.setup_for_character(ch, EffectLabel, true)
         CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)
+        i += 1
