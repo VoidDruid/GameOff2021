@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/ui/CharacterTab.gd" type="Script" id=1]
 [ext_resource path="res://objects/ui/overrides/char_tab.svg" type="Texture" id=2]
 [ext_resource path="res://objects/ui/overrides/plus.svg" type="Texture" id=3]
+[ext_resource path="res://objects/ui/GameUITheme.tres" type="Theme" id=4]
+[ext_resource path="res://objects/ui/UIInfoFontCursive.tres" type="DynamicFont" id=5]
+[ext_resource path="res://objects/ui/UINamesFont.tres" type="DynamicFont" id=6]
 
 [node name="CharacterTab" type="Control"]
 anchor_right = 1.0
@@ -11,10 +14,13 @@ margin_right = -1320.0
 margin_bottom = -984.0
 rect_min_size = Vector2( 0, 96 )
 size_flags_horizontal = 3
+theme = ExtResource( 4 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
+bad_color = Color( 0.929412, 0.109804, 0.141176, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -41,6 +47,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TopRow" type="HBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
+margin_right = 513.0
+margin_bottom = 31.0
+
+[node name="CharNameLabel" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer/TopRow"]
+margin_right = 84.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "asdasda"
+
+[node name="CharInfoLabel" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer/TopRow"]
+margin_left = 88.0
+margin_top = 2.0
+margin_right = 172.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "asdasdada"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomRow" type="HBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 513.0
+margin_bottom = 35.0
+
 [node name="TextureButton" type="TextureButton" parent="TextureRect/HBoxContainer"]
 margin_left = 517.0
 margin_right = 600.0
@@ -53,3 +87,5 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="pressed" from="TextureRect/HBoxContainer/TextureButton" to="." method="_on_Button_pressed"]

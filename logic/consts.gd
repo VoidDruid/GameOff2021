@@ -5,3 +5,5 @@ const DYNAMIC_UI_N: String = "dynamic_ui"
 const GAME_UI_N: String = "game_ui"
 
 const STATUS_LABEL_N: String = "StatusLabel"
+
+const RANDOM: String = "random"

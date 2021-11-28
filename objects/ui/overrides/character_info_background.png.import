@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/char_tab.svg-a54afe3290a3de2ad6d428991626ba94.stex"
+path="res://.import/character_info_background.png-81ce5620bf7c49e90df9703a6d1d9186.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/ui/overrides/char_tab.svg"
-dest_files=[ "res://.import/char_tab.svg-a54afe3290a3de2ad6d428991626ba94.stex" ]
+source_file="res://objects/ui/overrides/character_info_background.png"
+dest_files=[ "res://.import/character_info_background.png-81ce5620bf7c49e90df9703a6d1d9186.stex" ]
 
 [params]
 

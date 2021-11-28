@@ -20,6 +20,17 @@ var CurrentScreen
 var ui_res_folder = "res://objects/ui/"
 var game_manager_path = @"/root/Main/UI/GameUI"
 
+var pressed_texture_res = load(ui_res_folder + "overrides/pressed_button.svg")
+var FeedTab_res = load(ui_res_folder + "FeedTab.tscn")
+var FeedTabY_res = load(ui_res_folder + "FeedTabY.tscn")
+var FeedTabB_res = load(ui_res_folder + "FeedTabB.tscn")
+var GrantTab_res = load(ui_res_folder + "GrantTab.tscn")
+var Grants_res = load(ui_res_folder + "Grants.tscn")
+var Characters_res = load(ui_res_folder + "Characters.tscn")
+var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
+var HCharacterTab_res = load(ui_res_folder + "HCharacterTab.tscn")
+var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
+
 func _ready():
     CurrentScreen = UNKNOWN_SCREEN
     simulation = get_node(simulation_node_path)
@@ -31,14 +42,14 @@ func _ready():
     FacultiesButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties")
     CharactersButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters")
     GrantsButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants")
-    
-    #_rs = simulation.connect("characters_updated", self, "_on_Characters_update")
-    var _rs = simulation.connect("money_updated", self, "_on_Money_updated")
+
+    var _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
+    _rs = simulation.connect("money_updated", self, "_on_Money_updated")
     _rs = simulation.connect("money_error", self, "_on_Money_error")
     _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
     _rs = simulation.connect("date_updated", self, "_on_Date_updated")
     _rs = simulation.connect("update_log", self, "_on_Update_log")
-    
+
     simulation.start()
 
 
@@ -46,17 +57,16 @@ func _process(_delta):
     pass
 
 func on_Menu_button_pressed(is_ch, is_gr, is_fc):
-    var pressed_texture = load(ui_res_folder + "overrides/pressed_button.svg")
     if is_ch:
-        CharactersButton.set_normal_texture(pressed_texture)
+        CharactersButton.set_normal_texture(pressed_texture_res)
         GrantsButton.set_normal_texture(null)
         FacultiesButton.set_normal_texture(null)
     elif is_gr:
-        GrantsButton.set_normal_texture(pressed_texture)
+        GrantsButton.set_normal_texture(pressed_texture_res)
         FacultiesButton.set_normal_texture(null)
         CharactersButton.set_normal_texture(null)
     elif is_fc:
-        FacultiesButton.set_normal_texture(pressed_texture)
+        FacultiesButton.set_normal_texture(pressed_texture_res)
         GrantsButton.set_normal_texture(null)
         CharactersButton.set_normal_texture(null)
 
@@ -96,11 +106,11 @@ func _on_Update_log(log_list):
         var tab
         var r = randi()%3
         if r == 0:
-            tab = load(ui_res_folder + "FeedTab.tscn").instance()
+            tab = FeedTab_res.instance()
         elif r == 1:
-            tab = load(ui_res_folder + "FeedTabY.tscn").instance()
+            tab = FeedTabY_res.instance()
         else:
-            tab = load(ui_res_folder + "FeedTabB.tscn").instance()
+            tab = FeedTabB_res.instance()
         tab.get_node("TextureRect/RichTextLabel").text = log_
         FeedTable.add_child(tab)
 
@@ -127,11 +137,12 @@ func _on_Fifth_pressed():
     _on_Faculty_pressed(5)
 
 
-func on_ChButton_pressed(ch_id, is_hire):
-    if is_hire:
-        simulation.hire_character(ch_id)
-    else:
+func on_ChButton_pressed(ch_id, is_hired):
+    print_debug("CALLED: ", ch_id, is_hired)
+    if is_hired:
         simulation.fire_character(ch_id)
+    else:
+        simulation.hire_character(ch_id)
 
 func _on_Characters_update():
     if CurrentScreen != CHARACTERS_SCREEN:
@@ -162,7 +173,7 @@ func _on_Date_updated(date_string):
     DateCounter.get_node("TextureRect/Label").text = str(date_string)
 
 func buildGrantsWindow():
-    CurrentGameWindow = load(ui_res_folder + "Grants.tscn").instance()
+    CurrentGameWindow = Grants_res.instance()
     CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/AvailableGrants/Label").text = "Available Grants"
     CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/CurrentGrantsLabel").text = "Current Grants"
     CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/FinishedGrantsLabel").text = "Finished Grants"
@@ -170,7 +181,7 @@ func buildGrantsWindow():
     var dt = simulation.get_characters_data()
     # available grants
     for gr in dt.available_characters:
-        var grTab = load(ui_res_folder + "GrantTab.tscn").instance()
+        var grTab = GrantTab_res.instance()
         grTab.get_node("Info").text = gr.name + " price: " + str(gr.price)
         grTab.get_node("Button").text = "Hire"
         grTab.grant_uid = gr.uid
@@ -182,7 +193,7 @@ func buildGrantsWindow():
 
     # current grants
     for gr in dt.available_characters:
-        var grTab = load(ui_res_folder + "GrantTab.tscn").instance()
+        var grTab = GrantTab_res.instance()
         grTab.get_node("Info").text = gr.name + " price: " + str(gr.price)
         grTab.get_node("Button").text = "Hire"
         grTab.grant_uid = gr.uid
@@ -194,7 +205,7 @@ func buildGrantsWindow():
 
     # finished grants
     for gr in dt.available_characters:
-        var grTab = load(ui_res_folder + "GrantTab.tscn").instance()
+        var grTab = GrantTab_res.instance()
         grTab.get_node("Info").text = gr.name + " price: " + str(gr.price)
         grTab.get_node("Button").text = "Hire"
         grTab.grant_uid = gr.uid
@@ -204,28 +215,23 @@ func buildGrantsWindow():
             grTab.get_node("Button").hide()
         CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/FinishedGrants/VBoxContainer").add_child(grTab)
 
-            
 
 func buildCharactersWindow():
-    CurrentGameWindow = load(ui_res_folder + "Characters.tscn").instance()
+    CurrentGameWindow = Characters_res.instance()
     CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Control/Label").text = "Available Characters"
     CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Control/Label").text = "Hired Characters"
     var dt = simulation.get_characters_data()
 
     # build available characters
     for ch in dt.available_characters:
-        var chTab = load(ui_res_folder + "ACharacterTab.tscn").instance()
-        chTab.get_node("TextureRect/Label").text = ch.name
-        chTab.character_uid = ch.uid
-        chTab.game_manager_path = game_manager_path
-        if !ch.is_available:
-            chTab.get_node("TextureRect/TextureButton").hide()
+        var chTab = ACharacterTab_res.instance()
+        chTab.game_manager = self
+        chTab.setup_for_character(ch, false)
         CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
 
     # build hired characters
     for ch in dt.hired_characters:
-        var chTab = load(ui_res_folder + "HCharacterTab.tscn").instance()
-        chTab.get_node("TextureRect/Label").text = ch.name
-        chTab.character_uid = ch.uid
-        chTab.game_manager_path = game_manager_path
+        var chTab = HCharacterTab_res.instance()
+        chTab.game_manager = self
+        chTab.setup_for_character(ch, true)
         CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)

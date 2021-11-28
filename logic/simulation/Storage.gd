@@ -222,7 +222,7 @@ func load_characters():
         for mod_data in modifiers_data:
             modifiers.append(parse_modifier(mod_data))
         var specialty_uid = data["specialty_uid"]
-        if specialty_uid == "random":
+        if specialty_uid == consts.RANDOM:
             specialty_uid = SPECIALTY_LIST[randi() % SPECIALTY_LIST.size()].uid
         var character = T.Character.new(
             data["name"],
