@@ -60,8 +60,8 @@ anchor_top = 0.0152848
 anchor_right = 1.0
 anchor_bottom = 1.01528
 margin_left = 45.0
-margin_top = 21.0
-margin_bottom = -21.0
+margin_top = 22.8472
+margin_bottom = -19.1528
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 text = "Available Grants"
 __meta__ = {
@@ -108,10 +108,10 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants"]
 margin_right = 944.0
-margin_bottom = 54.0
+margin_bottom = 107.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.12
+size_flags_stretch_ratio = 0.27
 
 [node name="Label" type="Label" parent="VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/Control"]
 anchor_right = 1.0
@@ -126,7 +126,7 @@ __meta__ = {
 }
 
 [node name="CurrentGrantsScroll" type="ScrollContainer" parent="VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants"]
-margin_top = 58.0
+margin_top = 111.0
 margin_right = 944.0
 margin_bottom = 508.0
 size_flags_horizontal = 3
@@ -134,7 +134,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/CurrentGrantsScroll"]
 margin_right = 944.0
-margin_bottom = 418.0
+margin_bottom = 397.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -158,10 +158,10 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants"]
 margin_right = 944.0
-margin_bottom = 54.0
+margin_bottom = 107.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.12
+size_flags_stretch_ratio = 0.27
 
 [node name="Label" type="Label" parent="VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/Control"]
 anchor_right = 1.0
@@ -176,7 +176,7 @@ __meta__ = {
 }
 
 [node name="FinishedGrantsScroll" type="ScrollContainer" parent="VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants"]
-margin_top = 58.0
+margin_top = 111.0
 margin_right = 944.0
 margin_bottom = 508.0
 size_flags_horizontal = 3
@@ -184,7 +184,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll"]
 margin_right = 944.0
-margin_bottom = 418.0
+margin_bottom = 397.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
