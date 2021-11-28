@@ -5,7 +5,7 @@
 [ext_resource path="res://objects/ui/overrides/plus.svg" type="Texture" id=3]
 [ext_resource path="res://objects/ui/GameUIMainFont.tres" type="DynamicFont" id=4]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1408.0

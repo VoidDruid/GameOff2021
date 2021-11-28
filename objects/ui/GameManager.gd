@@ -23,7 +23,7 @@ var game_manager_path = @"/root/Main/UI/GameUI"
 func _ready():
     CurrentScreen = UNKNOWN_SCREEN
     simulation = get_node(simulation_node_path)
-    #MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
+    MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/GameWindow")
     MoneyCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Money")
     ReputationCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Reputation")
     DateCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control")
@@ -62,17 +62,19 @@ func on_Menu_button_pressed(is_ch, is_gr, is_fc):
 
 func _on_Characters_pressed():
     on_Menu_button_pressed(true, false, false)
-    #if CurrentGameWindow != null:
-    #    CurrentGameWindow.queue_free()
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     CurrentScreen = CHARACTERS_SCREEN
-   # buildCharactersWindow()
-   # MainWindow.add_child(CurrentGameWindow)
+    buildCharactersWindow()
+    MainWindow.add_child(CurrentGameWindow)
 
 
 func _on_Grants_pressed():
     on_Menu_button_pressed(false, true, false)
-   # if CurrentGameWindow != null:
-   #     CurrentGameWindow.queue_free()
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     CurrentScreen = GRANTS_SCREEN
    # buildGrantsWindow()
    # MainWindow.add_child(CurrentGameWindow)
@@ -80,8 +82,9 @@ func _on_Grants_pressed():
 
 func _on_Faculties_pressed():
     on_Menu_button_pressed(false, false, true)
-  #  if CurrentGameWindow != null:
-  #      CurrentGameWindow.queue_free()
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     CurrentScreen = FACULTY_SCREEN
   #  CurrentGameWindow = load(ui_res_folder + "Faculty.tscn").instance()
   #  MainWindow.add_child(CurrentGameWindow)
@@ -205,28 +208,24 @@ func buildGrantsWindow():
 
 func buildCharactersWindow():
     CurrentGameWindow = load(ui_res_folder + "Characters.tscn").instance()
-    CurrentGameWindow.get_node("Characters/VBoxAvailable/Label").text = "Available Characters"
-    CurrentGameWindow.get_node("Characters/VBoxHired/Label").text = "Hired Characters"
+    CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Control/Label").text = "Available Characters"
+    CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Control/Label").text = "Hired Characters"
     var dt = simulation.get_characters_data()
 
     # build available characters
     for ch in dt.available_characters:
-        var chTab = load(ui_res_folder + "CharacterTab.tscn").instance()
-        chTab.get_node("Info").text = ch.name + " price: " + str(ch.price)
-        chTab.get_node("Button").text = "Hire"
+        var chTab = load(ui_res_folder + "ACharacterTab.tscn").instance()
+        chTab.get_node("TextureRect/Label").text = ch.name
         chTab.character_uid = ch.uid
         chTab.game_manager_path = game_manager_path
-        chTab.character_is_hire = true;
         if !ch.is_available:
-            chTab.get_node("Button").hide()
-        CurrentGameWindow.get_node("Characters/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
+            chTab.get_node("TextureRect/TextureButton").hide()
+        CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
 
     # build hired characters
     for ch in dt.hired_characters:
-        var chTab = load(ui_res_folder + "CharacterTab.tscn").instance()
-        chTab.get_node("Info").text = ch.name + " price: " + str(ch.price)
-        chTab.get_node("Button").text = "Fire"
+        var chTab = load(ui_res_folder + "HCharacterTab.tscn").instance()
+        chTab.get_node("TextureRect/Label").text = ch.name
         chTab.character_uid = ch.uid
         chTab.game_manager_path = game_manager_path
-        chTab.character_is_hire = false;
-        CurrentGameWindow.get_node("Characters/VBoxHired/Hired/VBoxContainer").add_child(chTab)
+        CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)
