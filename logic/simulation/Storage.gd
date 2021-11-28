@@ -7,6 +7,8 @@ var datetime = {
     "year": 2021,
 }
 
+var OBJECT_DATA_DIR = "res://gamedata/objects/"
+
 var T = load("res://logic/simulation/Classes.gd")
 var emitter = null
 
@@ -226,8 +228,12 @@ func generate_starting_characters():
     add_character(c)
 
 
+func load_uid(obj, data):
+    obj.uid = data.get("uid", obj.uid)
+
+
 func load_specialties():
-    var specialties_data = utils.json_readf("res://gamedata/specialties.json")
+    var specialties_data = utils.json_readf(OBJECT_DATA_DIR + "specialties.json")
     for data in specialties_data:
         SPECIALTY_LIST.append(T.Specialty.new(data["name"]))
 
@@ -237,25 +243,27 @@ func parse_modifier(data):
 
 
 func load_equipment():
-    var equipment_data = utils.json_readf("res://gamedata/equipment.json")
-    for data in equipment_data:
+    var equipment_data = utils.json_readf(OBJECT_DATA_DIR + "equipment.json")
+    for data in equipment_data.values():
         var modifiers_data = data.get("modifiers", [])
         var modifiers = []
         for mod_data in modifiers_data:
             modifiers.append(parse_modifier(mod_data))
-        EQUIPMENT_LIST.append(T.Equipment.new(
+        var equipment = T.Equipment.new(
             data["name"],
-            data["icon_id"],
+            data.get("icon_uid", null),
             data["price"],
-            modifiers,
-            data.get("available_for", [])
-        ))
+            modifiers
+        )
+        load_uid(equipment, data)
+        EQUIPMENT_LIST.append(equipment)
 
 
 func load_grants():
-    var grant_data = utils.json_readf("res://gamedata/grants.json")
-    for data in grant_data:
-        GRANT_LIST.append(T.Grant.new(
+    var grant_data = utils.json_readf(OBJECT_DATA_DIR + "grants.json")
+    for data in grant_data.values():
+        # TODO: freeze defaults in _init and here
+        var grant = T.Grant.new(
             data["name"],
             data.get("amount", 100),
             data["specialty_uid"],
@@ -264,18 +272,40 @@ func load_grants():
             data.get("description", null),
             data.get("icon_uid", null),
             data.get("background_uid", null)
-        ))
+        )
+        load_uid(grant, data)
+        GRANT_LIST.append(grant)
 
 
 func load_goals():
-    var goal_data = utils.json_readf("res://gamedata/goals.json")
-    for data in goal_data:
-        GOAL_LIST.append(T.Goal.new(
+    var goal_data = utils.json_readf(OBJECT_DATA_DIR + "goals.json")
+    for data in goal_data.values():
+        var goal = T.Goal.new(
             data["name"],
             data["description"],
             data.get("icon_uid", null),
             data["requirements"]
-        ))
+        )
+        load_uid(goal, data)
+        GOAL_LIST.append(goal)
+
+
+func load_faculties():
+    var faculties_data = utils.json_readf(OBJECT_DATA_DIR + "faculties.json")
+    for data in faculties_data.values():
+        # TODO: freeze defaults in _init and here
+        var faculty = T.Faculty.new(
+            data["name"],
+            data["specialty_uid"],
+            data.get("icon_uid", null),
+            data.get("default_cost", 100),
+            data.get("default_enrollee_count", 15),
+            data.get("default_enrolee_cost", 5),
+            data.get("default_breakthrough_chance", 15),
+            data.get("equipment_uid_list", [])
+        )
+        load_uid(faculty, data)
+        FACULTY_LIST.append(faculty)
 
 
 func load_resources():
@@ -283,10 +313,12 @@ func load_resources():
     load_equipment()
     load_grants()
     load_goals()
+    load_faculties()
     build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
     build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
     build_map(GRANT_LIST, GRANT_MAP, "grant")
     build_map(GOAL_LIST, GOAL_MAP, "goal")
+    build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
     generate_starting_characters()
 
 

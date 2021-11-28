@@ -1,5 +1,5 @@
-[
-  {
+{
+  "goal1": {
     "name": "GOAL1",
     "description": "GOAL1_DESCRIPTION",
     "icon_uid": null,
@@ -12,4 +12,4 @@
       ]
     }
   }
-]
+}

@@ -10,6 +10,7 @@ var Engine = EngineT.new()
 signal update_log(logs)
 signal characters_updated
 signal grants_updated
+signal faculty_updated(faculty_uid)
 signal money_error
 signal money_updated(amount, has_increased)
 signal reputation_updated(amount, has_increased)
@@ -81,6 +82,7 @@ func fire_character(character_uid):
         return
     character.is_hired = false
     Engine.update_character(character)
+    Storage.set_sim_state_of(T.Faculty, T.SimState.OUT_OF_SYNC)
     emit_signal("characters_updated")
 
 
@@ -116,3 +118,7 @@ func get_grants_data():
         }),
         Engine.get_goals_list()
     )
+
+
+func get_faculty_data(faculty_uid):
+    return Engine.get_faculty_info(faculty_uid)

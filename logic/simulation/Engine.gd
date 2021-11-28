@@ -26,8 +26,31 @@ func update_grant(grant):
         grant.is_available = true
 
 
-# TODO: goal check
+func update_faculty(faculty):
+    # TODO: check characters (fired, specialty, etc.) and apply effects and cost
+    # TODO: check leader (fired, specialty, etc.) and apply effects and cost
+    # TODO: check enrollees and apply effect and cost
+    # TODO: check equipment and apply effects
+    # TODO: calculate faculty level
+    faculty.breakthrough_chance = faculty.default_breakthrough_chance
+    faculty.enrollee_count = faculty.default_enrollee_count
+    faculty.enrollee_cost = faculty.default_enrollee_cost
+    faculty.yearly_cost = faculty.default_cost
+
+
+func update_faculties():
+    var is_synced = Storage.get_sim_state_of(T.Faculty)
+    if is_synced:
+        return
+    for faculty in Storage.FACULTY_LIST:
+        update_faculty(faculty)
+    Storage.set_sim_state_of(T.Faculty, T.SimState.IN_SYNC)
+
+
 func update_goal(_goal):
+    # TODO: check how many specific grants completed
+    # TODO: check how many grants in each required field completed
+    # TODO: calc progress
     pass
 
 
@@ -108,3 +131,11 @@ func get_grants_list(filters):
 func get_goals_list():
     update_goals()
     return Storage.GOAL_LIST
+
+
+func get_faculty_info(faculty_uid):
+    var faculty = Storage.get_faculty(faculty_uid)
+    var is_synced = Storage.get_sim_state_of(T.Faculty)
+    if not is_synced:
+        update_faculty(faculty)
+    return faculty
