@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/ui/UIInfoFont.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.152941, 0.435294, 0.74902, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -65.5
+margin_top = -15.5
+margin_right = 65.5
+margin_bottom = 15.5
+rect_min_size = Vector2( 131, 31 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.184326
+margin_top = -0.184387
+margin_right = -0.184326
+margin_bottom = -0.184387
+custom_styles/panel = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -13.0
+margin_right = 20.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "37%"
+align = 1
