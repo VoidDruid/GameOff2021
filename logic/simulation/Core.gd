@@ -43,11 +43,17 @@ func _ready():
     if utils.is_debug:
         var dt = get_grants_data()
         for obj in dt.available_grants:
-            print_debug("Available: ", obj.name)
+            print_debug("Available: ", obj.name, " ", obj.level, " ", obj.is_available)
         for obj in dt.current_grants:
             print_debug("Current: ", obj.name)
         for obj in dt.completed_grants:
             print_debug("Completed: ", obj.name)
+
+        for obj in Storage.EQUIPMENT_LIST:
+            print_debug("EQ: ", obj.name, " ", obj.uid, " ", obj.price)
+
+        for obj in Storage.FACULTY_LIST:
+            print_debug("FACULTY: ", obj.specialty_uid, " ", obj.equipment_uid_list, " ", obj.icon_uid, " ", obj.default_cost)
 
 
 func _process(_delta):

@@ -12,6 +12,8 @@ func update_character(character):
 
 
 func update_grant(grant):
+    grant.is_available = Storage.campus_level >= grant.level
+
     if grant.is_completed:
         grant.is_taken = true
         grant.is_in_progress = false
@@ -22,8 +24,7 @@ func update_grant(grant):
     if grant.is_taken or grant.is_in_progress:
         grant.is_available = true
 
-    if Storage.campus_level >= grant.level:
-        grant.is_available = true
+
 
 
 func update_faculty(faculty):

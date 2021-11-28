@@ -302,7 +302,7 @@ func load_faculties():
             data.get("default_enrollee_count", 15),
             data.get("default_enrolee_cost", 5),
             data.get("default_breakthrough_chance", 15),
-            data.get("equipment_uid_list", [])
+            data.get("equipment", [])
         )
         load_uid(faculty, data)
         FACULTY_LIST.append(faculty)
