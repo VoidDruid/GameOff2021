@@ -32,7 +32,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackgroundColor" type="ColorRect" parent="HBoxContainer"]
+[node name="Background" type="ColorRect" parent="HBoxContainer"]
 margin_left = 5.0
 margin_right = 600.0
 margin_bottom = 96.0
