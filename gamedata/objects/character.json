@@ -15,6 +15,17 @@
    "acd8c13423ef687e3cb6336469601a78": {
       "cost_per_year": 70,
       "level": 2,
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.050000000000000003
+         },
+         {
+            "positive": false,
+            "property": "yearly_cost",
+            "value": 0.029999999999999999
+         }
+      ],
       "name": "G_NAME3",
       "overrides": {
          "is_available": true,
