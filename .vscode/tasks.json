@@ -1,12 +1,30 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
       {
         "label": "Build M4 templates",
         "type": "shell",
         "command": "make apply_m4",
+        "group": "build",
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "Build Jsonnet templates",
+        "type": "shell",
+        "command": "make apply_jsonnet",
+        "group": "build",
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "Build ALL templates",
+        "type": "shell",
+        "command": "make",
         "group": "build",
         "presentation": {
           "reveal": "always",

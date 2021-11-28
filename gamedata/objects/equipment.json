@@ -1,0 +1,14 @@
+{
+   "printer": {
+      "icon_id": "0",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 5
+         }
+      ],
+      "name": "PRINTER_",
+      "price": 1000,
+      "uid": "a1cc39e1cf4742b378be8dd4fce838d7"
+   }
+}

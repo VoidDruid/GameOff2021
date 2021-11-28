@@ -1,6 +1,16 @@
 var campus_level = 1
+var money = 1000
+var reputation = 80
+var datetime = {
+    "month": 1,
+    "day": 1,
+    "year": 2021,
+}
+
+var OBJECT_DATA_DIR = "res://gamedata/objects/"
 
 var T = load("res://logic/simulation/Classes.gd")
+var emitter = null
 
 #NOTE: PREDEFINED
 var SPECIALTY_LIST = []
@@ -110,6 +120,60 @@ func add_character(character, skip_check=false):
     CHARACTER_LIST.append(character)
     CHARACTER_MAP[character.uid] = character
 
+#NOTE: PREDEFINED
+var GRANT_LIST = []
+var GRANT_MAP = {}
+var _is_grant_updated = T.SimState.OUT_OF_SYNC
+
+
+func get_grant(grant_uid):
+    return GRANT_MAP[grant_uid]
+
+
+func _find_in_grant_list(grant):
+    var i = 0
+    for obj in GRANT_LIST:
+        if obj.uid == grant.uid:
+            return i
+        i += 1
+    return null
+
+
+func add_grant(grant, skip_check=false):
+    if not skip_check:
+        var index = _find_in_grant_list(grant)
+        if index != null:
+            GRANT_LIST.remove(index)
+    GRANT_LIST.append(grant)
+    GRANT_MAP[grant.uid] = grant
+
+#NOTE: PREDEFINED
+var GOAL_LIST = []
+var GOAL_MAP = {}
+var _is_goal_updated = T.SimState.OUT_OF_SYNC
+
+
+func get_goal(goal_uid):
+    return GOAL_MAP[goal_uid]
+
+
+func _find_in_goal_list(goal):
+    var i = 0
+    for obj in GOAL_LIST:
+        if obj.uid == goal.uid:
+            return i
+        i += 1
+    return null
+
+
+func add_goal(goal, skip_check=false):
+    if not skip_check:
+        var index = _find_in_goal_list(goal)
+        if index != null:
+            GOAL_LIST.remove(index)
+    GOAL_LIST.append(goal)
+    GOAL_MAP[goal.uid] = goal
+
 
 func get_sim_state_of(class_):
     match class_.get_name():
@@ -121,6 +185,10 @@ func get_sim_state_of(class_):
             return _is_specialty_updated 
         "class_Equipment":
             return _is_equipment_updated 
+        "class_Grant":
+            return _is_grant_updated 
+        "class_Goal":
+            return _is_goal_updated 
         _:
             return null
 
@@ -135,6 +203,10 @@ func set_sim_state_of(class_, state=T.SimState.OUT_OF_SYNC):
             _is_specialty_updated = state
         "class_Equipment":
             _is_equipment_updated = state
+        "class_Grant":
+            _is_grant_updated = state
+        "class_Goal":
+            _is_goal_updated = state
 
 
 func build_map(from_list, to_dict, _resource_name):
@@ -156,8 +228,12 @@ func generate_starting_characters():
     add_character(c)
 
 
+func load_uid(obj, data):
+    obj.uid = data.get("uid", obj.uid)
+
+
 func load_specialties():
-    var specialties_data = utils.json_readf("res://gamedata/specialties.json")
+    var specialties_data = utils.json_readf(OBJECT_DATA_DIR + "specialties.json")
     for data in specialties_data:
         SPECIALTY_LIST.append(T.Specialty.new(data["name"]))
 
@@ -167,24 +243,95 @@ func parse_modifier(data):
 
 
 func load_equipment():
-    var equipment_data = utils.json_readf("res://gamedata/equipment.json")
-    for data in equipment_data:
+    var equipment_data = utils.json_readf(OBJECT_DATA_DIR + "equipment.json")
+    for data in equipment_data.values():
         var modifiers_data = data.get("modifiers", [])
         var modifiers = []
         for mod_data in modifiers_data:
             modifiers.append(parse_modifier(mod_data))
-        EQUIPMENT_LIST.append(T.Equipment.new(
+        var equipment = T.Equipment.new(
             data["name"],
-            data["icon_id"],
+            data.get("icon_uid", null),
             data["price"],
-            modifiers,
-            data.get("available_for", [])
-        ))
+            modifiers
+        )
+        load_uid(equipment, data)
+        EQUIPMENT_LIST.append(equipment)
+
+
+func load_grants():
+    var grant_data = utils.json_readf(OBJECT_DATA_DIR + "grants.json")
+    for data in grant_data.values():
+        # TODO: freeze defaults in _init and here
+        var grant = T.Grant.new(
+            data["name"],
+            data.get("amount", 100),
+            data["specialty_uid"],
+            data["difficulty"],
+            data.get("level", 1),
+            data.get("description", null),
+            data.get("icon_uid", null),
+            data.get("background_uid", null)
+        )
+        load_uid(grant, data)
+        GRANT_LIST.append(grant)
+
+
+func load_goals():
+    var goal_data = utils.json_readf(OBJECT_DATA_DIR + "goals.json")
+    for data in goal_data.values():
+        var goal = T.Goal.new(
+            data["name"],
+            data["description"],
+            data.get("icon_uid", null),
+            data["requirements"]
+        )
+        load_uid(goal, data)
+        GOAL_LIST.append(goal)
+
+
+func load_faculties():
+    var faculties_data = utils.json_readf(OBJECT_DATA_DIR + "faculties.json")
+    for data in faculties_data.values():
+        # TODO: freeze defaults in _init and here
+        var faculty = T.Faculty.new(
+            data["name"],
+            data["specialty_uid"],
+            data.get("icon_uid", null),
+            data.get("default_cost", 100),
+            data.get("default_enrollee_count", 15),
+            data.get("default_enrolee_cost", 5),
+            data.get("default_breakthrough_chance", 15),
+            data.get("equipment", [])
+        )
+        load_uid(faculty, data)
+        FACULTY_LIST.append(faculty)
 
 
 func load_resources():
     load_specialties()
     load_equipment()
+    load_grants()
+    load_goals()
+    load_faculties()
     build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
     build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
+    build_map(GRANT_LIST, GRANT_MAP, "grant")
+    build_map(GOAL_LIST, GOAL_MAP, "goal")
+    build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
     generate_starting_characters()
+
+
+func spend_money(amount: int) -> bool:
+    if money <= amount:
+        emitter.call_func("money_error")
+        return false
+    money -= amount
+    emitter.call_func("money_updated", money, false)
+    return true
+
+
+func gain_money(amount: int) -> bool:
+    money += amount
+    emitter.call_func("money_updated", money, true)
+    return true

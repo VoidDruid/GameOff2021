@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/ui/Counter.gd" type="Script" id=1]
+[ext_resource path="res://objects/ui/overrides/money.svg" type="Texture" id=2]
+
+[node name="Counter" type="MarginContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -50.0
+margin_bottom = -50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Name" type="Label" parent="TextureRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -125.0
+margin_right = 125.0
+margin_bottom = 14.0
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="Label" parent="TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -7.0
+margin_right = 125.0
+margin_bottom = 7.0
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
