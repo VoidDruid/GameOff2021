@@ -30,6 +30,7 @@ var Characters_res = load(ui_res_folder + "Characters.tscn")
 var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
 var HCharacterTab_res = load(ui_res_folder + "HCharacterTab.tscn")
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
+var GrantTab_res = load(ui_res_folder + "GrantTab.tscn")
 
 func _ready():
     CurrentScreen = UNKNOWN_SCREEN
@@ -177,6 +178,13 @@ func buildGrantsWindow():
     CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/Control/Label").text = tr("GRANTS_CURRENT")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/Control/Label").text = tr("GRANTS_FINISHED")
+    
+    var dt = simulation.get_grants_data()
+    var i = 0;
+    for gr in dt.available_grants:
+        var grTab = GrantTab_res.instance()
+        if i % 2 == 0:
+            grTab.
 
 
 func buildCharactersWindow():
