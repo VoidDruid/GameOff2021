@@ -8,6 +8,8 @@
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -1408.0
+margin_bottom = -760.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -31,19 +33,20 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 112.0
+margin_right = 512.0
+margin_bottom = 59.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Add" type="TextureButton" parent="VBoxContainer/Control"]
-anchor_left = 0.951
-anchor_top = 0.492259
-anchor_right = 0.951
-anchor_bottom = 0.492259
-margin_left = -97.0
-margin_top = -52.2963
-margin_bottom = 50.7037
+anchor_left = 1.0
+anchor_top = 0.507388
+anchor_right = 1.0
+anchor_bottom = 0.507388
+margin_left = -84.5615
+margin_top = -30.9776
+margin_right = -32.5615
+margin_bottom = 36.0224
 texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {
@@ -51,13 +54,12 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer/Control"]
-anchor_left = 0.125
 anchor_top = 0.5
-anchor_right = 0.125
-anchor_bottom = 0.596
-margin_top = -21.0
+anchor_bottom = 0.5
+margin_left = 45.0
+margin_top = -23.832
 margin_right = 218.0
-margin_bottom = 21.0
+margin_bottom = 23.832
 custom_fonts/font = ExtResource( 4 )
 text = "Карта Универа"
 __meta__ = {
@@ -65,9 +67,9 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-margin_top = 116.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_top = 63.0
+margin_right = 512.0
+margin_bottom = 320.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.31
