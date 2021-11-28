@@ -86,8 +86,8 @@ func _on_Grants_pressed():
         CurrentGameWindow.queue_free()
         CurrentGameWindow = null
     CurrentScreen = GRANTS_SCREEN
-   # buildGrantsWindow()
-   # MainWindow.add_child(CurrentGameWindow)
+    buildGrantsWindow()
+    MainWindow.add_child(CurrentGameWindow)
 
 
 func _on_Faculties_pressed():
@@ -174,46 +174,9 @@ func _on_Date_updated(date_string):
 
 func buildGrantsWindow():
     CurrentGameWindow = Grants_res.instance()
-    CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/AvailableGrants/Label").text = "Available Grants"
-    CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/CurrentGrantsLabel").text = "Current Grants"
-    CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/FinishedGrantsLabel").text = "Finished Grants"
-
-    var dt = simulation.get_characters_data()
-    # available grants
-    for gr in dt.available_characters:
-        var grTab = GrantTab_res.instance()
-        grTab.get_node("Info").text = gr.name + " price: " + str(gr.price)
-        grTab.get_node("Button").text = "Hire"
-        grTab.grant_uid = gr.uid
-        grTab.game_manager_path = game_manager_path
-        #grTab.character_is_hire = true;
-        if !gr.is_available:
-            grTab.get_node("Button").hide()
-        CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/AvailableGrants/AvailableGrantsScroll/VBoxContainer").add_child(grTab)
-
-    # current grants
-    for gr in dt.available_characters:
-        var grTab = GrantTab_res.instance()
-        grTab.get_node("Info").text = gr.name + " price: " + str(gr.price)
-        grTab.get_node("Button").text = "Hire"
-        grTab.grant_uid = gr.uid
-        grTab.game_manager_path = game_manager_path
-        #grTab.character_is_hire = true;
-        if !gr.is_available:
-            grTab.get_node("Button").hide()
-        CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/CurrentGrants/VBoxContainer").add_child(grTab)
-
-    # finished grants
-    for gr in dt.available_characters:
-        var grTab = GrantTab_res.instance()
-        grTab.get_node("Info").text = gr.name + " price: " + str(gr.price)
-        grTab.get_node("Button").text = "Hire"
-        grTab.grant_uid = gr.uid
-        grTab.game_manager_path = game_manager_path
-        #grTab.character_is_hire = true;
-        if !gr.is_available:
-            grTab.get_node("Button").hide()
-        CurrentGameWindow.get_node("VBoxContainer/HBoxContainer/VBoxContainer/FinishedGrants/VBoxContainer").add_child(grTab)
+    CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
+    CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/Control/Label").text = tr("GRANTS_CURRENT")
+    CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/Control/Label").text = tr("GRANTS_FINISHED")
 
 
 func buildCharactersWindow():
