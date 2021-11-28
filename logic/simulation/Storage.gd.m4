@@ -6,6 +6,7 @@ var datetime = {
     "day": 1,
     "year": 2021,
 }
+var grant_limit = 1
 
 var OBJECT_DATA_DIR = "res://gamedata/objects/"
 
@@ -49,6 +50,8 @@ object_store(faculty, PREDEFINED)
 object_store(character, PREDEFINED)
 object_store(grant, PREDEFINED)
 object_store(goal, PREDEFINED)
+
+var grant_to_faculty = {}
 
 func get_sim_state_of(class_):
     match class_.get_name():
@@ -199,6 +202,8 @@ func load_resources():
     _load_resource(goal)
     _load_resource(faculty)
     _load_resource(character)
+    for grant in GRANT_LIST:
+        grant_to_faculty[grant.uid] = null
 
 
 func spend_money(amount: int) -> bool:
