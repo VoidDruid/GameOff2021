@@ -38,9 +38,17 @@ func _ready():
     Engine.emitter = emitter_ref
 
     Storage.load_resources()
-    Storage.FACULTY_LIST[0].staff_uid_list.append(Storage.CHARACTER_LIST[0].uid)
+
+    # TODO: remove debug stuff
+    if utils.is_debug:
+        Storage.GRANT_LIST[0].is_taken = true
+        Storage.GRANT_LIST[1].is_completed = true
+        Storage.FACULTY_LIST[0].is_opened = true
+        Storage.FACULTY_LIST[0].staff_uid_list.append(Storage.CHARACTER_LIST[2].uid)
+
     Engine.update_all()
 
+    # TODO: remove debug stuff
     if utils.is_debug:
         var dt = get_grants_data()
         for obj in dt.available_grants:
@@ -59,6 +67,7 @@ func _ready():
                 "breakthrough_chance: ", obj.breakthrough_chance, " ",
                 "yearly_cost: ", obj.yearly_cost, " ",
                 "level: ", obj.level, " ",
+                "chars: ", obj.staff_uid_list, " ",
                 "CHARS effects: ", obj.character_mods_abs, " ", obj.character_mods_rel, " ",
                 "LEADER effects: ", obj.leader_mods_abs, " ", obj.leader_mods_rel, " ",
                 "EQ effects: ", obj.equipment_mods_abs, " ", obj.equipment_mods_rel, " "
@@ -83,6 +92,66 @@ func start():
 
 func get_specialty_color(specialty_uid) -> Color:
     return Storage.get_specialty(specialty_uid).color
+
+
+func assign_grant(faculty_uid, grant_uid):
+    var prev_faculty_uid = Storage.grant_to_faculty[grant_uid]
+    if prev_faculty_uid != null:
+        var prev_faculty = Storage.get_faculty(prev_faculty_uid)
+        prev_faculty.grant_uid = null
+        Engine.update_faculty(prev_faculty)
+
+    var faculty = Storage.get_faculty(faculty_uid)
+    faculty.grant_uid = grant_uid
+    Storage.grant_to_faculty[grant_uid] = faculty_uid
+    Engine.update_faculty(faculty)
+
+
+func remove_character_from_work(character):
+    if character.faculty_uid == null:
+        return
+
+    var prev_faculty = Storage.get_faculty(character.faculty_uid)
+    if prev_faculty.leader_uid == character.uid:
+        prev_faculty.leader_uid = null
+    else:
+        prev_faculty.staff_uid_list.remove(prev_faculty.staff_uid_list.find(character.uid))
+
+    character.faculty_uid = null
+    Engine.update_faculty(prev_faculty)
+
+
+
+func assign_leader(faculty_uid, character_uid):
+    var character = Storage.get_character(character_uid)
+    remove_character_from_work(character)
+
+    var faculty = Storage.get_faculty(faculty_uid)
+    character.faculty_uid = faculty_uid
+    faculty.leader_uid = character_uid
+    Engine.update_faculty(faculty)
+
+
+func add_staff(faculty_uid, character_uid):
+    var character = Storage.get_character(character_uid)
+    remove_character_from_work(character)
+
+    var faculty = Storage.get_faculty(faculty_uid)
+    character.faculty_uid = faculty_uid
+    faculty.staff_uid_list.append(character_uid)
+    Engine.update_faculty(faculty)
+
+
+func remove_staff(faculty_uid, character_uid):
+    var character = Storage.get_character(character_uid)
+    if character.faculty_uid != faculty_uid:
+        utils.notify_error({
+            "character_uid": character_uid,
+            "faculty_uid": faculty_uid,
+            "error": "Tried to remove staff from faculty, but character not working here!"
+        })
+        return
+    remove_character_from_work(character)
 
 
 func hire_character(character_uid):

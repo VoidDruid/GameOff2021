@@ -58,6 +58,7 @@ NCLASS(Faculty, SimNamedObject)
     var modifiers = []
     var level: int = 1
     var is_opened: bool = false
+    var grant_uid = null
     # Mods
     var character_mods_abs = {}
     var character_mods_rel = {}
@@ -127,6 +128,7 @@ NCLASS(Character, SimEntity)
     ### Dynamic fields ###
     var is_available: bool = false
     var is_hired: bool = false
+    var faculty_uid = null
 
     func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_

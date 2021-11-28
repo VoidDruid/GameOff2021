@@ -6,6 +6,7 @@ var datetime = {
     "day": 1,
     "year": 2021,
 }
+var grant_limit = 1
 
 var OBJECT_DATA_DIR = "res://gamedata/objects/"
 
@@ -175,6 +176,8 @@ func add_goal(goal, skip_check=false):
     GOAL_MAP[goal.uid] = goal
 
 
+var grant_to_faculty = {}
+
 func get_sim_state_of(class_):
     match class_.get_name():
         "class_Character":
@@ -339,10 +342,12 @@ func load_resources():
     build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
     load_characters()
     build_map(CHARACTER_LIST, CHARACTER_MAP, "character")
+    for grant in GRANT_LIST:
+        grant_to_faculty[grant.uid] = null
 
 
 func spend_money(amount: int) -> bool:
-    if money <= amount:
+    if money < amount:
         emitter.call_func("money_error")
         return false
     money -= amount

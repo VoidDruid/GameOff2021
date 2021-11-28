@@ -18,12 +18,12 @@
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.050000000000000003
+            "value": 0.10000000000000001
          },
          {
             "positive": false,
             "property": "yearly_cost",
-            "value": 0.029999999999999999
+            "value": 0.050000000000000003
          }
       ],
       "name": "G_NAME3",

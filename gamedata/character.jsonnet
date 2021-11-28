@@ -32,11 +32,11 @@ local characters = [
         modifiers: [
             {
                 property: "breakthrough_chance",
-                value: 0.05,
+                value: 0.10,
             },
             {
                 property: "yearly_cost",
-                value: 0.03,
+                value: 0.05,
                 positive: false
             },
         ],
