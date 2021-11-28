@@ -55,6 +55,7 @@ func _ready():
 
     var _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
     _rs = simulation.connect("money_updated", self, "_on_Money_updated")
+    _rs = simulation.connect("grants_updated", self, "_on_Grants_updated")
     _rs = simulation.connect("money_error", self, "_on_Money_error")
     _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
     _rs = simulation.connect("date_updated", self, "_on_Date_updated")
@@ -154,11 +155,27 @@ func on_ChButton_pressed(ch_id, is_hired):
     else:
         simulation.hire_character(ch_id)
 
+func on_GrButton_pressed(gr_id):
+    print_debug("CALLED: ", gr_id)
+    simulation.take_grant(gr_id)
+
+
+func _on_Grants_updated():
+    if CurrentScreen != GRANTS_SCREEN:
+        return
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
+    buildGrantsWindow()
+    MainWindow.add_child(CurrentGameWindow)
+
+
 func _on_Characters_update():
     if CurrentScreen != CHARACTERS_SCREEN:
         return
     if CurrentGameWindow != null:
         CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     buildCharactersWindow()
     MainWindow.add_child(CurrentGameWindow)
 

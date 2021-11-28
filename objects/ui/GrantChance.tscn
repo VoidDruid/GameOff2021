@@ -31,6 +31,9 @@ margin_top = -0.184387
 margin_right = -0.184326
 margin_bottom = -0.184387
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="ColorRect"]
 anchor_left = 0.5
