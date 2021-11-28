@@ -29,6 +29,17 @@ local characters = [
             is_available: true,
             is_hired: true
         },
+        modifiers: [
+            {
+                property: "breakthrough_chance",
+                value: 0.05,
+            },
+            {
+                property: "yearly_cost",
+                value: 0.03,
+                positive: false
+            },
+        ],
     },
 ];
 

@@ -84,11 +84,13 @@ class FacultyModifier:
     var value: float
     var absolute: bool
     var property: String
+    var positive: bool = true
 
-    func _init(value_, property_, absolute_=false):
+    func _init(value_, property_, absolute_=false, positive_=true):
         value = value_
         absolute = absolute_
         property = property_
+        positive = positive_
 
     func apply(faculty: Faculty, scale=1.0):
         var new_value = faculty.get(property)

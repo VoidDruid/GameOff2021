@@ -189,12 +189,12 @@ func buildCharactersWindow():
     for ch in dt.available_characters:
         var chTab = ACharacterTab_res.instance()
         chTab.game_manager = self
-        chTab.setup_for_character(ch, false)
+        chTab.setup_for_character(ch, EffectLabel, false)
         CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
 
     # build hired characters
     for ch in dt.hired_characters:
         var chTab = HCharacterTab_res.instance()
         chTab.game_manager = self
-        chTab.setup_for_character(ch, true)
+        chTab.setup_for_character(ch, EffectLabel, true)
         CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)

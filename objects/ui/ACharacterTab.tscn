@@ -34,22 +34,28 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 21.0
+margin_right = -32.0
+margin_bottom = -21.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
-margin_right = 513.0
-margin_bottom = 96.0
+margin_right = 482.0
+margin_bottom = 54.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TopRow" type="HBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
-margin_right = 513.0
+margin_right = 482.0
 margin_bottom = 31.0
+custom_constants/separation = 10
 
 [node name="CharNameLabel" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer/TopRow"]
 margin_right = 84.0
@@ -59,9 +65,9 @@ custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 text = "asdasda"
 
 [node name="CharInfoLabel" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer/TopRow"]
-margin_left = 88.0
+margin_left = 94.0
 margin_top = 2.0
-margin_right = 172.0
+margin_right = 178.0
 margin_bottom = 28.0
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -71,17 +77,18 @@ __meta__ = {
 }
 
 [node name="BottomRow" type="HBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
-margin_top = 35.0
-margin_right = 513.0
-margin_bottom = 35.0
+margin_top = 36.0
+margin_right = 482.0
+margin_bottom = 36.0
+custom_constants/separation = 10
 
 [node name="TextureButton" type="TextureButton" parent="TextureRect/HBoxContainer"]
-margin_left = 517.0
-margin_right = 600.0
-margin_bottom = 96.0
+margin_left = 486.0
+margin_right = 520.0
+margin_bottom = 54.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.16
+size_flags_stretch_ratio = 0.07
 texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {

@@ -252,7 +252,12 @@ func load_specialtys():
 
 
 func parse_modifier(data):
-    return T.FacultyModifier.new(data["value"], data["property"], data.get("absolute", false))
+    return T.FacultyModifier.new(
+        data["value"],
+        data["property"],
+        data.get("absolute", false),
+        data.get("positive", true)
+    )
 
 
 func load_equipments():

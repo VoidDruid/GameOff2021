@@ -5,3 +5,5 @@ CHARACTER_COST_PER_YEAR,cost per year,содержание
 GRANTS_AVAILABLE,Available Grants,Доступные Гранты
 GRANTS_CURRENT,Current Grants,Текущие Гранты
 GRANTS_FINISHED,Finished Grants,Завершенные Гранты
+MOD_BREAKTHROUGH_CHANCE,breakthorough,шанс прорыва
+MOD_YEARLY_COST,yearly cost,содержание факультета
