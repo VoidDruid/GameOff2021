@@ -38,7 +38,8 @@ func _ready():
     Engine.emitter = emitter_ref
 
     Storage.load_resources()
-    Storage.FACULTY_LIST[0].staff_uid_list.append(Storage.CHARACTER_LIST[0].uid)
+    Storage.FACULTY_LIST[0].is_opened = true
+    Storage.FACULTY_LIST[0].staff_uid_list.append(Storage.CHARACTER_LIST[2].uid)
     Engine.update_all()
 
     if utils.is_debug:
@@ -59,6 +60,7 @@ func _ready():
                 "breakthrough_chance: ", obj.breakthrough_chance, " ",
                 "yearly_cost: ", obj.yearly_cost, " ",
                 "level: ", obj.level, " ",
+                "chars: ", obj.staff_uid_list, " ",
                 "CHARS effects: ", obj.character_mods_abs, " ", obj.character_mods_rel, " ",
                 "LEADER effects: ", obj.leader_mods_abs, " ", obj.leader_mods_rel, " ",
                 "EQ effects: ", obj.equipment_mods_abs, " ", obj.equipment_mods_rel, " "

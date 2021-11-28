@@ -28,7 +28,10 @@ func update_grant(grant):
 func process_object_modifiers(object, faculty, abs_container, rel_container, scale=1.0):
     for modifier in object.modifiers:
         var mods_d = abs_container if modifier.absolute else rel_container
-        scale = (1.0 if object.specialty_uid == faculty.specialty_uid else 0.5) * scale
+        if "specialty_uid" in object:
+            scale = (1.0 if object.specialty_uid == faculty.specialty_uid else 0.5) * scale
+        else:
+            scale = 1.0
         var mod = modifier.value * scale
         if modifier.property in mods_d:
             if modifier.absolute:
@@ -62,8 +65,7 @@ func update_faculty(faculty):
         else:
             characters_count += 1
             average_characters_level += character.level
-            for modifier in character.modifiers:
-                process_object_modifiers(character, faculty, character_mods_abs, character_mods_rel)
+            process_object_modifiers(character, faculty, character_mods_abs, character_mods_rel)
         i += 1
     if characters_count == 0:
         average_characters_level = 1
