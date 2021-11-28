@@ -14,10 +14,10 @@ anchor_left = -0.00124526
 anchor_top = 0.00212535
 anchor_right = 0.998755
 anchor_bottom = 1.00213
-margin_left = -1.03537
-margin_top = 0.984085
-margin_right = -1.0354
-margin_bottom = 0.98407
+margin_left = 2.3909
+margin_top = -2.29538
+margin_right = 2.39087
+margin_bottom = -2.29541
 simulation_node_path = NodePath("../../SimulationHolder")
 
 [node name="SimulationHolder" type="Node" parent="."]
