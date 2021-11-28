@@ -23,7 +23,7 @@ func setup_for_character(character, EffectLabel, is_hired):
     get_node(char_name_label_path).text = character.name
     character_uid = character.uid
     get_node(char_cost_label_path).text = (
-        str(character.price) + " " + tr("CHARACTER_PRICE") + ", " +
+        ("" if is_hired else str(character.price) + " " + tr("CHARACTER_PRICE") + ", ") +
         str(character.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
     )
     if !character.is_available and !is_hired:
