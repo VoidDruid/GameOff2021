@@ -9,6 +9,3 @@
 margin_left = -0.450989
 margin_right = -0.450989
 texture = ExtResource( 2 )
-
-[node name="RichTextLabel" parent="TextureRect" index="0"]
-custom_colors/default_color = Color( 0.407843, 0.313726, 0.266667, 1 )
