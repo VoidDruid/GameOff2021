@@ -2,3 +2,6 @@ keys,en,ru
 BACK_,back,назад
 CHARACTER_PRICE,price,покупка
 CHARACTER_COST_PER_YEAR,cost per year,содержание
+GRANTS_AVAILABLE,Available Grants,Доступные Гранты
+GRANTS_CURRENT,Current Grants,Текущие Гранты
+GRANTS_FINISHED,Finished Grants,Завершенные Гранты

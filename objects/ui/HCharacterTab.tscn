@@ -4,9 +4,3 @@
 
 [node name="CharacterTab" instance=ExtResource( 1 )]
 character_is_hired = true
-
-[node name="CharNameLabel" parent="TextureRect/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
-size_flags_vertical = 7
-
-[node name="CharInfoLabel" parent="TextureRect/HBoxContainer/VBoxContainer/HBoxContainer" index="1"]
-text = "adsasdasd"

@@ -54,8 +54,8 @@ margin_bottom = 31.0
 [node name="CharNameLabel" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer/TopRow"]
 margin_right = 84.0
 margin_bottom = 31.0
-custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 text = "asdasda"
 
 [node name="CharInfoLabel" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer/TopRow"]
@@ -63,8 +63,8 @@ margin_left = 88.0
 margin_top = 2.0
 margin_right = 172.0
 margin_bottom = 28.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "asdasdada"
 __meta__ = {
 "_edit_use_anchors_": false
