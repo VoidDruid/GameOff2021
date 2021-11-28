@@ -1,8 +1,8 @@
 {
-    "physics": {
-        "name": "PHYSICS_"
+    physics: {
+        name: "PHYSICS_"
     },
-    "biology": {
-        "name": "BIOLOGY_"
+    biology: {
+        name: "BIOLOGY_"
     },
 }

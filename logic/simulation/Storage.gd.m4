@@ -202,7 +202,7 @@ func load_resources():
 
 
 func spend_money(amount: int) -> bool:
-    if money <= amount:
+    if money < amount:
         emitter.call_func("money_error")
         return false
     money -= amount

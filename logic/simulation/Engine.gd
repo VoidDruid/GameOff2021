@@ -41,6 +41,8 @@ func process_object_modifiers(object, faculty, abs_container, rel_container, sca
 
 
 func update_faculty(faculty):
+    if  not faculty.is_opened:
+        return
     # TODO: check enrollees and apply effect and cost
     faculty.breakthrough_chance = faculty.default_breakthrough_chance
     faculty.enrollee_count = faculty.default_enrollee_count
