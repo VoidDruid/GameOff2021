@@ -1,12 +1,21 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://objects/ui/GameUITheme.tres" type="Theme" id=1]
 [ext_resource path="res://objects/ui/GameManager.gd" type="Script" id=2]
 [ext_resource path="res://objects/ui/overrides/FullScreenUITexture.tres" type="StyleBox" id=3]
-[ext_resource path="res://objects/ui/Counter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/ui/label_HP_bg.png" type="Texture" id=5]
+[ext_resource path="res://objects/ui/overrides/TobBar.svg" type="Texture" id=6]
+[ext_resource path="res://objects/ui/overrides/date.svg" type="Texture" id=7]
+[ext_resource path="res://objects/ui/overrides/reputation.svg" type="Texture" id=8]
+[ext_resource path="res://objects/ui/overrides/money.svg" type="Texture" id=9]
+[ext_resource path="res://objects/ui/Map.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/ui/overrides/map.svg" type="Texture" id=11]
+[ext_resource path="res://common/fonts/Open_Sans/OpenSanst.ttf" type="DynamicFontData" id=12]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 12 )
+
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
 
 [node name="GameUI" type="Control" groups=[
@@ -16,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 __meta__ = {
+"_edit_horizontal_guides_": [  ],
 "_edit_use_anchors_": false
 }
 
@@ -32,264 +42,372 @@ __meta__ = {
 }
 
 [node name="FullWindowPanel" type="Panel" parent="__FullWindowBox__"]
-margin_right = 1024.0
-margin_bottom = 568.0
+margin_right = 1920.0
+margin_bottom = 1048.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 1 )
 custom_styles/panel = ExtResource( 3 )
 
 [node name="FullWindowBox" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.578796
-margin_top = -0.578796
-margin_right = 0.578857
-margin_bottom = -0.578796
+margin_left = 64.0
+margin_top = 64.0
+margin_right = -64.0
+margin_bottom = -64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="StatusBar" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox"]
-margin_right = 1024.0
-margin_bottom = 50.0
-rect_pivot_offset = Vector2( -171.681, 366.547 )
-custom_constants/separation = 4
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Counters" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar"]
-margin_right = 874.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-
-[node name="MoneyCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 100.0
-margin_bottom = 50.0
-size_flags_stretch_ratio = 0.0
-
-[node name="ConfidenceCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 104.0
-margin_top = 0.0
-margin_right = 204.0
-margin_bottom = 50.0
-size_flags_stretch_ratio = 0.0
-
-[node name="DateCounter" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters" instance=ExtResource( 4 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 208.0
-margin_top = 0.0
-margin_right = 308.0
-margin_bottom = 50.0
-size_flags_stretch_ratio = 0.0
-
-[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters"]
-margin_left = 312.0
-margin_right = 312.0
-margin_bottom = 50.0
-texture = ExtResource( 5 )
-expand = true
-
-[node name="Tabs" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar"]
-margin_left = 878.0
-margin_right = 1024.0
-margin_bottom = 50.0
-
-[node name="Characters" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Tabs"]
-margin_right = 85.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Characters"
-
-[node name="Grants" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Tabs"]
-margin_left = 89.0
-margin_right = 146.0
-margin_bottom = 50.0
-text = "Grants"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox"]
-margin_top = 54.0
-margin_right = 1024.0
-margin_bottom = 568.0
+margin_right = 1792.0
+margin_bottom = 920.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 32
+
+[node name="VBoxContainerLeft" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer"]
+margin_right = 502.0
+margin_bottom = 920.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 32
+
+[node name="StatusBar" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_right = 502.0
+margin_bottom = 96.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+custom_constants/separation = 32
+
+[node name="Money" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
+margin_right = 235.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer"]
-margin_right = 300.0
-margin_bottom = 514.0
-
-[node name="Faculties" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer"]
-margin_right = 300.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 300, 200 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties"]
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Money"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -0.174911
-margin_right = -0.174927
-texture = ExtResource( 5 )
+texture = ExtResource( 9 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties"]
+[node name="Name" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Money/TextureRect"]
+anchor_top = 0.00362539
+anchor_right = 1.0
+anchor_bottom = 0.00362539
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
+text = "Money"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Money/TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -117.5
+margin_top = -21.0
+margin_right = 117.5
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
+text = "90000"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Reputation" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
+margin_left = 267.0
+margin_right = 502.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Reputation"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer"]
-margin_right = 300.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="First" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer"]
-margin_right = 148.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-text = "First"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Second" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer"]
-margin_left = 152.0
-margin_right = 300.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-text = "Second"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer"]
-margin_top = 68.0
-margin_right = 300.0
-margin_bottom = 132.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Third" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer2"]
-margin_right = 148.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-text = "Third"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Fourth" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer2"]
-margin_left = 152.0
-margin_right = 300.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-text = "Fourth"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer"]
-margin_top = 136.0
-margin_right = 300.0
-margin_bottom = 200.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Fifth" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer3"]
-margin_right = 300.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-text = "Fifth"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Logs" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer"]
-margin_top = 204.0
-margin_right = 300.0
-margin_bottom = 514.0
-rect_min_size = Vector2( 300, 0 )
-size_flags_horizontal = 0
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 5 )
+texture = ExtResource( 8 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="RichTextLabel" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs"]
+[node name="Name" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Reputation/TextureRect"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -3.05176e-05
-margin_bottom = -3.05176e-05
-scroll_following = true
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 1 )
+text = "Reputation"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainWindow" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer"]
-margin_left = 304.0
-margin_right = 1024.0
-margin_bottom = 514.0
-rect_min_size = Vector2( 100, 100 )
+[node name="Value" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Reputation/TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -117.5
+margin_top = -21.0
+margin_right = 117.5
+margin_bottom = 21.0
+text = "10000"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_top = 128.0
+margin_right = 502.0
+margin_bottom = 225.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
 
-[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow"]
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+texture = ExtResource( 7 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control/TextureRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -21.0
+margin_bottom = 21.0
+text = "Декабрь 2021"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Map" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 257.0
+margin_right = 502.0
+margin_bottom = 556.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.37
+
+[node name="ScrollFeed" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_top = 588.0
+margin_right = 502.0
+margin_bottom = 920.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.41
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollBackground" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Feed" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+margin_bottom = -13.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
+margin_right = 502.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/Control"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 45.0
+margin_top = -21.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "Feed"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
+margin_top = 65.0
+margin_right = 502.0
+margin_bottom = 315.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.05
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/ScrollContainer"]
+margin_right = 502.0
+margin_bottom = 250.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainerRight" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer"]
+margin_left = 534.0
+margin_right = 1792.0
+margin_bottom = 920.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.5
+custom_constants/separation = 32
+
+[node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
+margin_right = 1258.0
+margin_bottom = 97.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.11
+
+[node name="Background" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
+anchor_left = -0.000583861
+anchor_right = 0.999416
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Faculties" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
+margin_right = 399.0
+margin_bottom = 97.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0
+margin_top = -21.0
+margin_right = 61.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "Faculties"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Characters" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
+margin_left = 409.0
+margin_right = 808.0
+margin_bottom = 97.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0
+margin_top = -21.0
+margin_right = 61.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "Characters"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grants" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
+margin_left = 818.0
+margin_right = 1218.0
+margin_bottom = 97.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -47.0
+margin_top = -21.0
+margin_right = 47.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "Grants"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameWindow" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
+margin_top = 129.0
+margin_right = 1258.0
+margin_bottom = 920.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.89
 
 [node name="StatusLabelPanel" type="Panel" parent="__FullWindowBox__" groups=[
 "game_ui",
 ]]
-margin_top = 568.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_top = 1048.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 32 )
 theme = ExtResource( 1 )
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 
 [node name="StatusLabelContainer" type="MarginContainer" parent="__FullWindowBox__/StatusLabelPanel" groups=[
 "game_ui",
@@ -307,17 +425,13 @@ __meta__ = {
 "dynamic_ui",
 "game_ui",
 ]]
-margin_bottom = 20.0
+margin_bottom = 42.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Tabs/Characters" to="." method="_on_Characters_pressed"]
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Tabs/Grants" to="." method="_on_Grants_pressed"]
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer/First" to="." method="_on_First_pressed"]
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer/Second" to="." method="_on_Second_pressed"]
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer2/Third" to="." method="_on_Third_pressed"]
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer2/Fourth" to="." method="_on_Fourth_pressed"]
-[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Faculties/VBoxContainer/HBoxContainer3/Fifth" to="." method="_on_Fifth_pressed"]
+[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties" to="." method="_on_Faculties_pressed"]
+[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters" to="." method="_on_Characters_pressed"]
+[connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants" to="." method="_on_Grants_pressed"]

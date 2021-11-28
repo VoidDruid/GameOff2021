@@ -5,8 +5,13 @@ export(NodePath) var simulation_node_path
 var simulation: SimulationCore
 var MainWindow: Control
 var CurrentGameWindow
-var LogTabText: RichTextLabel
+var FeedTable: Control
 var MoneyCounter: Control
+var ReputationCounter: Control
+var DateCounter: Control
+var FacultiesButton: TextureButton
+var CharactersButton: TextureButton
+var GrantsButton: TextureButton
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
@@ -18,48 +23,86 @@ var game_manager_path = @"/root/Main/UI/GameUI"
 func _ready():
     CurrentScreen = UNKNOWN_SCREEN
     simulation = get_node(simulation_node_path)
-    MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
-    LogTabText = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainer/Logs/Text")
-    MoneyCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/StatusBar/Counters/MoneyCounter")
+    #MainWindow = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/MainWindow")
+    MoneyCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Money")
+    ReputationCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Reputation")
+    DateCounter = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control")
+    FeedTable = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/ScrollContainer/VBoxContainer")
+    FacultiesButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties")
+    CharactersButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters")
+    GrantsButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants")
     
-    var _rs = simulation.connect("update_log", self, "_on_Update_log")
-    _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
+    #_rs = simulation.connect("characters_updated", self, "_on_Characters_update")
+    var _rs = simulation.connect("money_updated", self, "_on_Money_updated")
     _rs = simulation.connect("money_error", self, "_on_Money_error")
-    _rs = simulation.connect("money_updated", self, "_on_Money_updated")
+    _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
+    _rs = simulation.connect("date_updated", self, "_on_Date_updated")
+    _rs = simulation.connect("update_log", self, "_on_Update_log")
+    
+    simulation.start()
 
 
 func _process(_delta):
     pass
 
+func on_Menu_button_pressed(is_ch, is_gr, is_fc):
+    var pressed_texture = load(ui_res_folder + "overrides/pressed_button.svg")
+    if is_ch:
+        CharactersButton.set_normal_texture(pressed_texture)
+        GrantsButton.set_normal_texture(null)
+        FacultiesButton.set_normal_texture(null)
+    elif is_gr:
+        GrantsButton.set_normal_texture(pressed_texture)
+        FacultiesButton.set_normal_texture(null)
+        CharactersButton.set_normal_texture(null)
+    elif is_fc:
+        FacultiesButton.set_normal_texture(pressed_texture)
+        GrantsButton.set_normal_texture(null)
+        CharactersButton.set_normal_texture(null)
 
 func _on_Characters_pressed():
-    if CurrentGameWindow != null:
-        CurrentGameWindow.queue_free()
+    on_Menu_button_pressed(true, false, false)
+    #if CurrentGameWindow != null:
+    #    CurrentGameWindow.queue_free()
     CurrentScreen = CHARACTERS_SCREEN
-    buildCharactersWindow()
-    MainWindow.add_child(CurrentGameWindow)
-
+   # buildCharactersWindow()
+   # MainWindow.add_child(CurrentGameWindow)
 
 
 func _on_Grants_pressed():
-    if CurrentGameWindow != null:
-        CurrentGameWindow.queue_free()
+    on_Menu_button_pressed(false, true, false)
+   # if CurrentGameWindow != null:
+   #     CurrentGameWindow.queue_free()
     CurrentScreen = GRANTS_SCREEN
-    buildGrantsWindow()
-    MainWindow.add_child(CurrentGameWindow)
+   # buildGrantsWindow()
+   # MainWindow.add_child(CurrentGameWindow)
 
 
-func _on_Faculty_pressed(_num):
-    if CurrentGameWindow != null:
-        CurrentGameWindow.queue_free()
+func _on_Faculties_pressed():
+    on_Menu_button_pressed(false, false, true)
+  #  if CurrentGameWindow != null:
+  #      CurrentGameWindow.queue_free()
     CurrentScreen = FACULTY_SCREEN
-    CurrentGameWindow = load(ui_res_folder + "Faculty.tscn").instance()
-    MainWindow.add_child(CurrentGameWindow)
+  #  CurrentGameWindow = load(ui_res_folder + "Faculty.tscn").instance()
+  #  MainWindow.add_child(CurrentGameWindow)
+
 
 func _on_Update_log(log_list):
+    randomize()
     for log_ in log_list:
-        LogTabText.add_text(log_ + "\n")
+        var tab
+        var r = randi()%3
+        if r == 0:
+            tab = load(ui_res_folder + "FeedTab.tscn").instance()
+        elif r == 1:
+            tab = load(ui_res_folder + "FeedTabY.tscn").instance()
+        else:
+            tab = load(ui_res_folder + "FeedTabB.tscn").instance()
+        tab.get_node("TextureRect/RichTextLabel").text = log_
+        FeedTable.add_child(tab)
 
+func _on_Faculty_pressed(_num):
+    pass
 
 func _on_First_pressed():
     _on_Faculty_pressed(1)
@@ -101,9 +144,19 @@ func _on_Money_error():
 
 func _on_Money_updated(amount, has_increased):
     print_debug(str(amount) + str(has_increased))
-    MoneyCounter.get_node("Background/Name").text = "Money"
-    MoneyCounter.get_node("Background/Number").text = str(amount)
+    MoneyCounter.get_node("TextureRect/Name").text = "Money"
+    MoneyCounter.get_node("TextureRect/Value").text = str(amount)
 
+
+func _on_Reputation_updated(amount, has_increased):
+    print_debug(str(amount) + str(has_increased))
+    ReputationCounter.get_node("TextureRect/Name").text = "Reputation"
+    ReputationCounter.get_node("TextureRect/Value").text = str(amount)
+
+
+func _on_Date_updated(date_string):
+    print_debug(str(date_string))
+    DateCounter.get_node("TextureRect/Label").text = str(date_string)
 
 func buildGrantsWindow():
     CurrentGameWindow = load(ui_res_folder + "Grants.tscn").instance()
