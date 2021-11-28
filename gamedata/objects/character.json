@@ -1,0 +1,27 @@
+{
+   "190a5dca91f04e424e8332a9c3eb52a6": {
+      "name": "G_NAME2",
+      "overrides": {
+         "is_available": true
+      },
+      "specialty_uid": "BIOLOGY_",
+      "uid": "190a5dca91f04e424e8332a9c3eb52a6"
+   },
+   "50a1ba3b7b3ad2e0dd77f5de179febc9": {
+      "name": "G_NAME1",
+      "specialty_uid": "PHYSICS_",
+      "uid": "50a1ba3b7b3ad2e0dd77f5de179febc9"
+   },
+   "acd8c13423ef687e3cb6336469601a78": {
+      "cost_per_year": 70,
+      "level": 2,
+      "name": "G_NAME3",
+      "overrides": {
+         "is_available": true,
+         "is_hired": true
+      },
+      "price": 400,
+      "specialty_uid": "random",
+      "uid": "acd8c13423ef687e3cb6336469601a78"
+   }
+}

@@ -1,6 +1,6 @@
 {
   "goal1": {
-    "name": "GOAL1",
+    "name": "GOAL1_",
     "description": "GOAL1_DESCRIPTION",
     "icon_uid": null,
     "requirements": {

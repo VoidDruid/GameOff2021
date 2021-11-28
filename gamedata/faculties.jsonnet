@@ -3,7 +3,7 @@ local equipment = import 'equipment.jsonnet';
 
 {
     "biology": {
-        "name": "BIOLOGY_FACULTY_NAME_",
+        "name": "BIOLOGY_FACULTY_",
         "default_cost": 80,
         "default_enrollee_count": 20,
         "default_breakthrougn_chance": 20,

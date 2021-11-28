@@ -2,7 +2,7 @@
    "goal1": {
       "description": "GOAL1_DESCRIPTION",
       "icon_uid": null,
-      "name": "GOAL1",
+      "name": "GOAL1_",
       "requirements": {
          "BIOLOGY_": 7,
          "PHYSICS_": 1,

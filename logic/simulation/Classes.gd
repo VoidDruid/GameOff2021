@@ -45,8 +45,16 @@ class Faculty extends SimNamedObject:
     var enrollee_cost: int
     var yearly_cost: int
     var staff_uid_list = []
+    var modifiers = []
     var level: int = 1
     var is_opened: bool = false
+    # Mods
+    var character_mods_abs = {}
+    var character_mods_rel = {}
+    var equipment_mods_abs = {}
+    var equipment_mods_rel = {}
+    var leader_mods_abs = {}
+    var leader_mods_rel = {}
 
     func get_equipment_effect() -> String:
         return "EQUIPMENT EFFECT"  # TODO: calc effect
@@ -55,6 +63,7 @@ class Faculty extends SimNamedObject:
         return "STAFF EFFECT"  # TODO: calc effect
 
     func _init(name_, specialty_uid_, icon_uid_=null, default_cost_=100, default_enrollee_count_=15, default_enrollee_cost_=5, default_breakthrough_chance_=15, equipment_uid_list_=[]).(name_):
+        uid = name
         specialty_uid = specialty_uid_
         if icon_uid_ != null:
             icon_uid = "faculty" + "_" + icon_uid_
@@ -75,12 +84,12 @@ class FacultyModifier:
         absolute = absolute_
         property = property_
 
-    func apply(faculty: Faculty):
+    func apply(faculty: Faculty, scale=1.0):
         var new_value = faculty.get(property)
         if absolute:
-            new_value += value
+            new_value += value * scale
         else:
-            new_value *= value
+            new_value *= 1 + (value * scale)
         new_value = int(round(new_value))
         faculty.set(property, new_value)
 
@@ -121,7 +130,7 @@ class Character extends SimEntity:
         short_name = "SHORT_" + name  # TODO: or generate if no translation found
         cost_per_year = cost_per_year_
         price = price_
-        if level_ == "auto" or level_ == null:
+        if level_ == null:
             level_ = 2  # TODO: auto calculate level
         level = level_
 

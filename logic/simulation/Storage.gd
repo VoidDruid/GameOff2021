@@ -93,7 +93,7 @@ func add_faculty(faculty, skip_check=false):
     FACULTY_LIST.append(faculty)
     FACULTY_MAP[faculty.uid] = faculty
 
-#NOTE: IN-GAME
+#NOTE: PREDEFINED
 var CHARACTER_LIST = []
 var CHARACTER_MAP = {}
 var _is_character_updated = T.SimState.OUT_OF_SYNC
@@ -214,25 +214,38 @@ func build_map(from_list, to_dict, _resource_name):
         to_dict[elem.uid] = elem
 
 
-# TODO: actual generation
-func generate_starting_characters():
-    add_character(T.Character.new("NAME1", "0", SPECIALTY_LIST[0].uid))
-
-    var c = T.Character.new("NAME2", "0", SPECIALTY_LIST[1].uid, 70, 400)
-    c.is_available = true
-    add_character(c)
-
-    c = T.Character.new("NAME3", "0", SPECIALTY_LIST[0].uid)
-    c.is_hired = true
-    c.cost_per_year = 20
-    add_character(c)
+func load_characters():
+    var character_data = utils.json_readf(OBJECT_DATA_DIR + "character.json")
+    for data in character_data.values():
+        var modifiers_data = data.get("modifiers", [])
+        var modifiers = []
+        for mod_data in modifiers_data:
+            modifiers.append(parse_modifier(mod_data))
+        var specialty_uid = data["specialty_uid"]
+        if specialty_uid == "random":
+            specialty_uid = SPECIALTY_LIST[randi() % SPECIALTY_LIST.size()].uid
+        var character = T.Character.new(
+            data["name"],
+            data.get("icon_uid", null),
+            specialty_uid,
+            data.get("cost_per_year", 50),
+            data.get("price", 300),
+            data.get("level", null),
+            modifiers
+        )
+        var overrides = data.get("overrides", null)
+        if overrides != null:
+            character.is_available = overrides.get("is_available", false)
+            character.is_hired = overrides.get("is_hired", false)
+        load_uid(character, data)
+        CHARACTER_LIST.append(character)
 
 
 func load_uid(obj, data):
     obj.uid = data.get("uid", obj.uid)
 
 
-func load_specialties():
+func load_specialtys():
     var specialties_data = utils.json_readf(OBJECT_DATA_DIR + "specialties.json")
     for data in specialties_data:
         SPECIALTY_LIST.append(T.Specialty.new(data["name"]))
@@ -242,7 +255,7 @@ func parse_modifier(data):
     return T.FacultyModifier.new(data["value"], data["property"], data.get("absolute", false))
 
 
-func load_equipment():
+func load_equipments():
     var equipment_data = utils.json_readf(OBJECT_DATA_DIR + "equipment.json")
     for data in equipment_data.values():
         var modifiers_data = data.get("modifiers", [])
@@ -290,7 +303,7 @@ func load_goals():
         GOAL_LIST.append(goal)
 
 
-func load_faculties():
+func load_facultys():
     var faculties_data = utils.json_readf(OBJECT_DATA_DIR + "faculties.json")
     for data in faculties_data.values():
         # TODO: freeze defaults in _init and here
@@ -307,19 +320,20 @@ func load_faculties():
         load_uid(faculty, data)
         FACULTY_LIST.append(faculty)
 
-
 func load_resources():
-    load_specialties()
-    load_equipment()
-    load_grants()
-    load_goals()
-    load_faculties()
+    # TODO: checks for uniquness of all uids
+    load_specialtys()
     build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
+    load_equipments()
     build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
+    load_grants()
     build_map(GRANT_LIST, GRANT_MAP, "grant")
+    load_goals()
     build_map(GOAL_LIST, GOAL_MAP, "goal")
+    load_facultys()
     build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
-    generate_starting_characters()
+    load_characters()
+    build_map(CHARACTER_LIST, CHARACTER_MAP, "character")
 
 
 func spend_money(amount: int) -> bool:

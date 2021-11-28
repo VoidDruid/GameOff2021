@@ -24,7 +24,7 @@ func emitter(signal_name, arg1=null, arg2=null, arg3=null):
         emit_signal(signal_name)
     elif arg2 == null:
         emit_signal(signal_name, arg1)
-    elif arg3 ==  null:
+    elif arg3 == null:
         emit_signal(signal_name, arg1, arg2)
     else:
         emit_signal(signal_name, arg1, arg2, arg3)
@@ -36,9 +36,10 @@ func _ready():
     Engine.Storage = Storage
     Engine.T = T
     Engine.emitter = emitter_ref
-    Storage.load_resources()
 
-    print_debug(bool(T.SimState.IN_SYNC))
+    Storage.load_resources()
+    Storage.FACULTY_LIST[0].staff_uid_list.append(Storage.CHARACTER_LIST[0].uid)
+    Engine.update_all()
 
     if utils.is_debug:
         var dt = get_grants_data()
@@ -53,7 +54,15 @@ func _ready():
             print_debug("EQ: ", obj.name, " ", obj.uid, " ", obj.price)
 
         for obj in Storage.FACULTY_LIST:
-            print_debug("FACULTY: ", obj.specialty_uid, " ", obj.equipment_uid_list, " ", obj.icon_uid, " ", obj.default_cost)
+            print_debug(
+                "FACULTY: ", obj.specialty_uid, " ", obj.icon_uid, " ", obj.default_cost, " ", obj.default_breakthrough_chance, " ",
+                "breakthrough_chance: ", obj.breakthrough_chance, " ",
+                "yearly_cost: ", obj.yearly_cost, " ",
+                "level: ", obj.level, " ",
+                "CHARS effects: ", obj.character_mods_abs, " ", obj.character_mods_rel, " ",
+                "LEADER effects: ", obj.leader_mods_abs, " ", obj.leader_mods_rel, " ",
+                "EQ effects: ", obj.equipment_mods_abs, " ", obj.equipment_mods_rel, " "
+            )
 
 
 func _process(_delta):
