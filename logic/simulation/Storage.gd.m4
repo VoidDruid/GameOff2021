@@ -111,7 +111,7 @@ func load_uid(obj, data):
 func load_specialtys():
     var specialties_data = utils.json_readf(OBJECT_DATA_DIR + "specialties.json")
     for data in specialties_data:
-        SPECIALTY_LIST.append(T.Specialty.new(data["name"]))
+        SPECIALTY_LIST.append(T.Specialty.new(data["name"], data.get("color", null)))
 
 
 func parse_modifier(data):

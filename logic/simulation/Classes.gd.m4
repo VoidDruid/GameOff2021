@@ -32,8 +32,11 @@ NCLASS(SimNamedObject, SimObject)
 
 
 NCLASS(Specialty, SimNamedObject)
-    func _init(name_).(name_):
+    var color: Color
+
+    func _init(name_, color_hex_=null).(name_):
         uid = name_
+        color = Color(color_hex_)
 
 
 NCLASS(Faculty, SimNamedObject)

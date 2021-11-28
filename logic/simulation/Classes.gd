@@ -22,8 +22,11 @@ class Specialty extends SimNamedObject:
     static func get_name():
         return "class_Specialty"
 
-    func _init(name_).(name_):
+    var color: Color
+
+    func _init(name_, color_hex_=null).(name_):
         uid = name_
+        color = Color(color_hex_)
 
 
 class Faculty extends SimNamedObject:
