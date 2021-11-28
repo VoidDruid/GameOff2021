@@ -119,7 +119,7 @@ func remove_character_from_work(character):
 
     character.faculty_uid = null
     Engine.update_faculty(prev_faculty)
-
+    emit_signal("faculty_updated", prev_faculty.uid)
 
 
 func assign_leader(faculty_uid, character_uid):
@@ -130,6 +130,7 @@ func assign_leader(faculty_uid, character_uid):
     character.faculty_uid = faculty_uid
     faculty.leader_uid = character_uid
     Engine.update_faculty(faculty)
+    emit_signal("faculty_updated", faculty_uid)
 
 
 func add_staff(faculty_uid, character_uid):
@@ -140,6 +141,7 @@ func add_staff(faculty_uid, character_uid):
     character.faculty_uid = faculty_uid
     faculty.staff_uid_list.append(character_uid)
     Engine.update_faculty(faculty)
+    emit_signal("faculty_updated", faculty_uid)
 
 
 func remove_staff(faculty_uid, character_uid):
@@ -154,9 +156,35 @@ func remove_staff(faculty_uid, character_uid):
     remove_character_from_work(character)
 
 
+func buy_equipment(faculty_uid, equipment_uid):
+    var equipment = Storage.get_equipment(equipment_uid)
+    if equipment.is_active:
+        utils.notify_error({
+            "equipment_uid": equipment_uid,
+            "faculty_uid": faculty_uid,
+            "error": "Tried to buy equipment, but it is already active!"
+        })
+        return
+    if not Storage.spend_money(equipment.price):
+        return
+    equipment.is_active = true
+    emit_signal("faculty_updated", faculty_uid)
+
+
+func set_enrollee_count(faculty_uid, count):
+    var faculty = Storage.get_faculty(faculty_uid)
+    faculty.enrollee_count = count
+    Engine.update_faculty(faculty)
+    emit_signal("faculty_updated", faculty_uid)
+
+
 func hire_character(character_uid):
     var character = Storage.get_character(character_uid)
     if character.is_hired or not character.is_available:
+        utils.notify_error({
+            "character_uid": character_uid,
+            "error": "Tried to hire character, that is either not available or already hired!"
+        })
         return
     if not Storage.spend_money(character.price):
         return
@@ -167,6 +195,10 @@ func hire_character(character_uid):
 func fire_character(character_uid):
     var character = Storage.get_character(character_uid)
     if not character.is_hired:
+        utils.notify_error({
+            "character_uid": character_uid,
+            "error": "Tried to fire character, that is not hired!"
+        })
         return
     character.is_hired = false
     Engine.update_character(character)
@@ -177,6 +209,10 @@ func fire_character(character_uid):
 func take_grant(grant_uid):
     var grant = Storage.get_grant(grant_uid)
     if not grant.is_available or grant.is_taken:
+        utils.notify_error({
+            "grant_uid": grant_uid,
+            "error": "Tried to take grant, that is either not available or already taken!"
+        })
         return
     Storage.gain_money(grant.amount)
     grant.is_taken = true

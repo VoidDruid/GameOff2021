@@ -2,9 +2,9 @@ keys,en,ru
 BACK_,back,назад
 CHARACTER_PRICE,price,покупка
 CHARACTER_COST_PER_YEAR,cost per year,содержание
-GRANTS_AVAILABLE,Available Grants,Доступные Гранты
-GRANTS_CURRENT,Current Grants,Текущие Гранты
-GRANTS_FINISHED,Finished Grants,Завершенные Гранты
+GRANTS_AVAILABLE,Available Grants,Доступные гранты
+GRANTS_CURRENT,Current Grants,Текущие гранты
+GRANTS_FINISHED,Finished Grants,Завершенные гранты
 MOD_BREAKTHROUGH_CHANCE,breakthorough,шанс прорыва
 MOD_YEARLY_COST,yearly cost,содержание факультета
 UNIVERSITY_MAP_,University Map,Карта Университета
@@ -14,3 +14,6 @@ CHARACTERS_,Characters,Персонажи
 GRANTS_,Grants,Гранты
 AVAILABLE_CHARACTERS,Available characters,Доступные персонажи
 HIRED_CHARACTERS,Hired characters,Нанятые персонажи
+GRANT_AMOUNT,Amount,Выплата
+GRANT_DIFFICULTY,Difficulty,Сложность
+,,
