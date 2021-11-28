@@ -3,10 +3,10 @@
 [ext_resource path="res://objects/ui/overrides/characters_list.svg" type="Texture" id=1]
 
 [node name="Control" type="Control"]
-anchor_right = 0.655
-anchor_bottom = 0.732
-margin_right = 0.399902
-margin_bottom = 0.439941
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -20,8 +20,8 @@ __meta__ = {
 }
 
 [node name="Available" type="TextureRect" parent="Characters"]
-margin_right = 612.0
-margin_bottom = 790.0
+margin_right = 944.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -38,8 +38,8 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Characters/Available/VBoxAvailable"]
-margin_right = 612.0
-margin_bottom = 90.0
+margin_right = 944.0
+margin_bottom = 125.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.12
@@ -58,23 +58,23 @@ __meta__ = {
 }
 
 [node name="Available" type="ScrollContainer" parent="Characters/Available/VBoxAvailable"]
-margin_top = 94.0
-margin_right = 612.0
-margin_bottom = 760.0
+margin_top = 129.0
+margin_right = 944.0
+margin_bottom = 1050.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.88
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Characters/Available/VBoxAvailable/Available"]
-margin_right = 612.0
-margin_bottom = 666.0
+margin_right = 944.0
+margin_bottom = 921.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Hired" type="TextureRect" parent="Characters"]
-margin_left = 644.0
-margin_right = 1257.0
-margin_bottom = 790.0
+margin_left = 976.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -91,8 +91,8 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Characters/Hired/VBoxHired"]
-margin_right = 613.0
-margin_bottom = 90.0
+margin_right = 944.0
+margin_bottom = 125.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.12
@@ -111,9 +111,9 @@ __meta__ = {
 }
 
 [node name="Hired" type="ScrollContainer" parent="Characters/Hired/VBoxHired"]
-margin_top = 94.0
-margin_right = 613.0
-margin_bottom = 760.0
+margin_top = 129.0
+margin_right = 944.0
+margin_bottom = 1050.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.88
@@ -122,7 +122,7 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Characters/Hired/VBoxHired/Hired"]
-margin_right = 613.0
-margin_bottom = 666.0
+margin_right = 944.0
+margin_bottom = 921.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

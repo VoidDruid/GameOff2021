@@ -6,4 +6,6 @@
 [node name="CharacterTab" instance=ExtResource( 1 )]
 
 [node name="TextureButton" parent="TextureRect" index="2"]
+margin_left = -64.0862
+margin_right = -13.0862
 texture_normal = ExtResource( 2 )

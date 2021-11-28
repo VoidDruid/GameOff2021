@@ -25,42 +25,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 45.0
-margin_top = 21.0
-margin_bottom = -21.0
-custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="TextureRect"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -281.5
-margin_top = -27.0
-margin_right = 281.5
-margin_bottom = 27.0
-custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-align = 1
-valign = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
+margin_right = 513.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -51.0
-margin_top = -30.4026
-margin_bottom = 31.5974
+[node name="TextureButton" type="TextureButton" parent="TextureRect/HBoxContainer"]
+margin_left = 517.0
+margin_right = 600.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.16
 texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {

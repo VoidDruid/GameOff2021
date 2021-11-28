@@ -64,6 +64,7 @@ func _on_Characters_pressed():
     on_Menu_button_pressed(true, false, false)
     if CurrentGameWindow != null:
         CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     CurrentScreen = CHARACTERS_SCREEN
     buildCharactersWindow()
     MainWindow.add_child(CurrentGameWindow)
@@ -71,8 +72,9 @@ func _on_Characters_pressed():
 
 func _on_Grants_pressed():
     on_Menu_button_pressed(false, true, false)
-   # if CurrentGameWindow != null:
-   #     CurrentGameWindow.queue_free()
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     CurrentScreen = GRANTS_SCREEN
    # buildGrantsWindow()
    # MainWindow.add_child(CurrentGameWindow)
@@ -80,8 +82,9 @@ func _on_Grants_pressed():
 
 func _on_Faculties_pressed():
     on_Menu_button_pressed(false, false, true)
-  #  if CurrentGameWindow != null:
-  #      CurrentGameWindow.queue_free()
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
     CurrentScreen = FACULTY_SCREEN
   #  CurrentGameWindow = load(ui_res_folder + "Faculty.tscn").instance()
   #  MainWindow.add_child(CurrentGameWindow)
