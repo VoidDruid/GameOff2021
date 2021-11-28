@@ -33,6 +33,8 @@ var Characters_res = load(ui_res_folder + "Characters.tscn")
 var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
 var HCharacterTab_res = load(ui_res_folder + "HCharacterTab.tscn")
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
+var PlusButton = load(ui_res_folder + "PlusButton.tscn")
+var GrantChance = load(ui_res_folder + "GrantChance.tscn")
 
 
 func get_color_index(index) -> Color:
@@ -182,9 +184,41 @@ func _on_Date_updated(date_string):
 
 func buildGrantsWindow():
     CurrentGameWindow = Grants_res.instance()
-    CurrentGameWindow.get_node("VBoxContainer/Grants/Backgrounds/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
+    CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/Control/Label").text = tr("GRANTS_CURRENT")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/Control/Label").text = tr("GRANTS_FINISHED")
+    
+    var dt = simulation.get_grants_data()
+
+    #build available grants
+    var i = 0
+    for gr in dt.available_grants:
+        var grTab = GrantTab_res.instance()
+        grTab.game_manager = self
+        grTab.get_node("HBoxContainer/Background").color = get_color_index(i)
+        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, true, false, false)
+        CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/AvailableGrantsScroll/VBoxContainer").add_child(grTab)
+        i += 1
+
+    #build current grants
+    i = 0
+    for gr in dt.current_grants:
+        var grTab = GrantTab_res.instance()
+        grTab.game_manager = self
+        grTab.get_node("HBoxContainer/Background").color = get_color_index(i)
+        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, false, true, false)
+        CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/CurrentGrantsScroll/VBoxContainer").add_child(grTab)
+        i += 1
+    
+    #build finished grants
+    i = 0
+    for gr in dt.completed_grants:
+        var grTab = GrantTab_res.instance()
+        grTab.game_manager = self
+        grTab.get_node("HBoxContainer/Background").color = get_color_index(i)
+        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, false, false, true)
+        CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll/VBoxContainer").add_child(grTab)
+        i += 1
 
 
 func buildCharactersWindow():
