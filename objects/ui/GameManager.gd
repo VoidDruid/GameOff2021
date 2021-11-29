@@ -133,6 +133,7 @@ func _on_Update_log(log_list):
                     "log": log_,
                     "error": "Tried to process log of invalid type " + str(err_type)
                 })
+                continue
         tab = FeedTab_res.instance()
         tab.get_node("Panel").color = get_color_index(log_count)
         tab.get_node("Panel/LeftTabColor").color = log_color
