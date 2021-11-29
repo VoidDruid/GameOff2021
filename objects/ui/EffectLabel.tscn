@@ -3,8 +3,8 @@
 [ext_resource path="res://objects/ui/UIInfoFontCursive.tres" type="DynamicFont" id=1]
 
 [node name="EffectLabel" type="Label"]
-custom_colors/font_color = Color( 0.929412, 0.109804, 0.141176, 1 )
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.109804, 0.141176, 1 )
 text = "+5% sample text"
 __meta__ = {
 "_edit_use_anchors_": false

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/label_HP_bg.png-2a52a716684256c02215617d25b200a8.stex"
+path="res://.import/GrantChanceTab.png-4e718f90a9a7486f04cda24384338893.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/ui/label_HP_bg.png"
-dest_files=[ "res://.import/label_HP_bg.png-2a52a716684256c02215617d25b200a8.stex" ]
+source_file="res://objects/ui/overrides/GrantChanceTab.png"
+dest_files=[ "res://.import/GrantChanceTab.png-4e718f90a9a7486f04cda24384338893.stex" ]
 
 [params]
 
