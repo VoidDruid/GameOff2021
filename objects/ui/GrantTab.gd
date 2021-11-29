@@ -9,7 +9,6 @@ var game_manager: GameManager
 
 
 func _on_Button_pressed():
-    print("HERE")
     if game_manager != null:
         game_manager.on_GrButton_pressed(grant_uid)
 
@@ -24,10 +23,10 @@ func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance
     get_node(grant_left_tab_color_path).color = left_tab_color
     get_node(grant_label).text = grant.name
     grant_uid = grant.uid
+
     if is_available:
         var plus = PlusButton.instance()
         var _rs = plus.get_node("TextureButton").connect("pressed", self, "_on_Button_pressed")
-        print(_rs)
         get_node(grant_add_info_path).add_child(plus)
 
         var amount_label = EffectLabel.instance()
@@ -49,6 +48,7 @@ func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance
         diff_label.text =  str(grant.difficulty) + " " + tr("GRANT_DIFFICULTY")
         diff_label.add_color_override("font_color", bad_color)
         get_node(grant_labels_placeholder).add_child(diff_label)
+
     elif is_completed:
         pass
 

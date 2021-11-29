@@ -105,6 +105,10 @@ func update_faculty(faculty):
     # TODO: smarter level calculation
     faculty.level = (leader_level + int(active_equipment_count / 5) + average_characters_level) / 3
 
+    if faculty.grant_uid != null:
+        var grant = Storage.get_grant(faculty.grant_uid)
+        grant.chance = faculty.breakthrough_chance
+
 
 func update_faculties():
     var is_synced = Storage.get_sim_state_of(T.Faculty)

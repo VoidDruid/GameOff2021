@@ -3,6 +3,7 @@ class_name GameManager
 
 export(Color) var light_color
 export(Color) var dark_light_color
+export(Color) var default_log_color
 
 export(NodePath) var simulation_node_path
 var simulation: SimulationCore
@@ -111,19 +112,34 @@ func _on_Faculties_pressed():
   #  MainWindow.add_child(CurrentGameWindow)
 
 
+var log_count = 0
 func _on_Update_log(log_list):
-    randomize()
+    var tab
+    var log_text
+    var log_color = default_log_color
+    if typeof(log_list) in [TYPE_STRING, TYPE_DICTIONARY]:
+        log_list = [log_list]
     for log_ in log_list:
-        var tab
-        var r = randi()%3
-        if r == 0:
-            tab = FeedTab_res.instance()
-        elif r == 1:
-            tab = FeedTabY_res.instance()
-        else:
-            tab = FeedTabB_res.instance()
-        tab.get_node("TextureRect/RichTextLabel").text = log_
+        match typeof(log_):
+            TYPE_STRING:
+                log_text = log_
+            TYPE_DICTIONARY:
+                log_text = log_["text"]
+                log_color = log_.get_color("color", default_log_color)
+                if typeof(log_color) != TYPE_COLOR:
+                    log_color = Color(log_color)
+            var err_type:
+                utils.notify_error({
+                    "log": log_,
+                    "error": "Tried to process log of invalid type " + str(err_type)
+                })
+        tab = FeedTab_res.instance()
+        tab.get_node("Panel").color = get_color_index(log_count)
+        tab.get_node("Panel/LeftTabColor").color = log_color
+        tab.get_node("Panel/RichTextLabel").text = log_text
         FeedTable.add_child(tab)
+        log_count += 1
+
 
 func _on_Faculty_pressed(_num):
     pass
@@ -204,7 +220,7 @@ func buildGrantsWindow():
     CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/Control/Label").text = tr("GRANTS_CURRENT")
     CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/Control/Label").text = tr("GRANTS_FINISHED")
-    
+
     var dt = simulation.get_grants_data()
 
     #build available grants
@@ -226,7 +242,7 @@ func buildGrantsWindow():
         grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, false, true, false)
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/CurrentGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
-    
+
     #build finished grants
     i = 0
     for gr in dt.completed_grants:
@@ -247,8 +263,10 @@ func buildCharactersWindow():
     for ch in dt.available_characters:
         var chTab = ACharacterTab_res.instance()
         chTab.game_manager = self
+        chTab.EffectLabel = EffectLabel
+        chTab.is_hired = false
+        chTab.character = ch
         chTab.get_node("Background").color = get_color_index(i)
-        chTab.setup_for_character(ch, EffectLabel, false)
         CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
         i += 1
 
@@ -257,7 +275,9 @@ func buildCharactersWindow():
     for ch in dt.hired_characters:
         var chTab = HCharacterTab_res.instance()
         chTab.game_manager = self
+        chTab.EffectLabel = EffectLabel
+        chTab.is_hired = true
+        chTab.character = ch
         chTab.get_node("Background").color = get_color_index(i)
-        chTab.setup_for_character(ch, EffectLabel, true)
         CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)
         i += 1

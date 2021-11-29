@@ -7,6 +7,8 @@ var Storage = StorageT.new()
 var EngineT = load("res://logic/simulation/Engine.gd")
 var Engine = EngineT.new()
 
+enum UpdateType {FACULTY, GRANT, CHARACTER}
+
 signal update_log(logs)
 signal characters_updated
 signal grants_updated
@@ -94,20 +96,42 @@ func get_specialty_color(specialty_uid) -> Color:
     return Storage.get_specialty(specialty_uid).color
 
 
-func assign_grant(faculty_uid, grant_uid):
-    var prev_faculty_uid = Storage.grant_to_faculty[grant_uid]
-    if prev_faculty_uid != null:
-        var prev_faculty = Storage.get_faculty(prev_faculty_uid)
-        prev_faculty.grant_uid = null
-        Engine.update_faculty(prev_faculty)
+func remove_grant(faculty, update=true, allowed_updates=null):
+    if faculty.grant_uid == null:
+        return
+    var prev_grant = Storage.get_grant(faculty.grant_uid)
+    Storage.grant_to_faculty[faculty.grant_uid] = null
+    prev_grant.is_in_progress = false
+    prev_grant.chance = 0
+    faculty.grant_uid = null
 
-    var faculty = Storage.get_faculty(faculty_uid)
-    faculty.grant_uid = grant_uid
-    Storage.grant_to_faculty[grant_uid] = faculty_uid
-    Engine.update_faculty(faculty)
+    if update:
+        if allowed_updates == null or UpdateType.FACULTY in allowed_updates:
+            Engine.update_faculty(faculty)
+            emit_signal("faculty_updated", faculty.uid)
+        if allowed_updates == null or UpdateType.GRANT in allowed_updates:
+            Engine.update_grant(prev_grant)
+            emit_signal("grants_updated")
 
 
-func remove_character_from_work(character):
+func unassign_grant(grant, update=true, allowed_updates=null):
+    var prev_faculty_uid = Storage.grant_to_faculty[grant.uid]
+    if prev_faculty_uid == null:
+        return
+    var prev_faculty = Storage.get_faculty(prev_faculty_uid)
+    prev_faculty.grant_uid = null
+    grant.chance = 0
+
+    if update:
+        if allowed_updates == null or UpdateType.GRANT in allowed_updates:
+            Engine.update_grant(grant)
+            emit_signal("grants_updated")
+        if allowed_updates == null or UpdateType.FACULTY in allowed_updates:
+            Engine.update_faculty(prev_faculty)
+            emit_signal("faculty_updated", prev_faculty.uid)
+
+
+func remove_character_from_work(character, update=true, allowed_updates=null):
     if character.faculty_uid == null:
         return
 
@@ -118,19 +142,43 @@ func remove_character_from_work(character):
         prev_faculty.staff_uid_list.remove(prev_faculty.staff_uid_list.find(character.uid))
 
     character.faculty_uid = null
-    Engine.update_faculty(prev_faculty)
-    emit_signal("faculty_updated", prev_faculty.uid)
+
+    if update and (allowed_updates == null or UpdateType.CHARACTER in allowed_updates):
+        Engine.update_faculty(prev_faculty)
+        emit_signal("faculty_updated", prev_faculty.uid)
 
 
-func assign_leader(faculty_uid, character_uid):
+func assign_leader(faculty_uid, character_uid, update=true, allowed_updates=null):
     var character = Storage.get_character(character_uid)
     remove_character_from_work(character)
 
     var faculty = Storage.get_faculty(faculty_uid)
     character.faculty_uid = faculty_uid
     faculty.leader_uid = character_uid
+
+    if update:
+        if allowed_updates == null or UpdateType.CHARACTER in allowed_updates:
+            Engine.update_character(character)
+            emit_signal("characters_updated")
+        if allowed_updates == null or UpdateType.FACULTY in allowed_updates:
+            Engine.update_faculty(faculty)
+            emit_signal("faculty_updated", faculty_uid)
+
+
+func assign_grant(faculty_uid, grant_uid):
+    var grant = Storage.get_grant(grant_uid)
+    unassign_grant(grant, true, [UpdateType.FACULTY])
+    grant.is_in_progress = true
+
+    var faculty = Storage.get_faculty(faculty_uid)
+    remove_grant(faculty, false)
+    faculty.grant_uid = grant_uid
+    Storage.grant_to_faculty[grant_uid] = faculty_uid
+
+    Engine.update_grant(grant)
     Engine.update_faculty(faculty)
-    emit_signal("faculty_updated", faculty_uid)
+    emit_signal("faculty_updated", faculty.uid)
+    emit_signal("grants_updated")
 
 
 func add_staff(faculty_uid, character_uid):
@@ -200,9 +248,9 @@ func fire_character(character_uid):
             "error": "Tried to fire character, that is not hired!"
         })
         return
+    remove_character_from_work(character)
     character.is_hired = false
     Engine.update_character(character)
-    Storage.set_sim_state_of(T.Faculty, T.SimState.OUT_OF_SYNC)
     emit_signal("characters_updated")
 
 
