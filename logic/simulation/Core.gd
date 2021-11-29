@@ -6,6 +6,8 @@ var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()
 var EngineT = load("res://logic/simulation/Engine.gd")
 var Engine = EngineT.new()
+var ActionsT = load("res://logic/simulation/Actions.gd")
+var Actions = ActionsT.new()
 
 signal update_log(logs)
 signal characters_updated
@@ -20,6 +22,19 @@ signal date_updated(date_string)
 # NOTE: I know this is ugly, but is seems like the only way to do it
 # There is no vararg in gdscript
 func emitter(signal_name, arg1=null, arg2=null, arg3=null):
+    if signal_name.begins_with("grant") and signal_name.ends_with("updated"):
+        Engine.update_goals()
+
+    match signal_name:
+        "grant_updated":
+            signal_name = "grants_updated"
+            arg1 = null
+        "character_updated":
+            signal_name = "characters_updated"
+            arg1 = null
+
+    # TODO: update signals bufferring
+    # (add to buffer and emit only unique at start of new frame?)
     if arg1 == null:
         emit_signal(signal_name)
     elif arg2 == null:
@@ -36,6 +51,10 @@ func _ready():
     Engine.Storage = Storage
     Engine.T = T
     Engine.emitter = emitter_ref
+    Actions.Engine = Engine
+    Actions.Storage = Storage
+    Actions.T = T
+    Actions.emitter = emitter_ref
 
     Storage.load_resources()
 
@@ -79,8 +98,10 @@ func _process(_delta):
 
 
 #####################################################################################
-######################################## API ########################################
+##################################### Public API ####################################
 #####################################################################################
+
+var actions = Actions
 
 
 func start():
@@ -92,133 +113,6 @@ func start():
 
 func get_specialty_color(specialty_uid) -> Color:
     return Storage.get_specialty(specialty_uid).color
-
-
-func assign_grant(faculty_uid, grant_uid):
-    var prev_faculty_uid = Storage.grant_to_faculty[grant_uid]
-    if prev_faculty_uid != null:
-        var prev_faculty = Storage.get_faculty(prev_faculty_uid)
-        prev_faculty.grant_uid = null
-        Engine.update_faculty(prev_faculty)
-
-    var faculty = Storage.get_faculty(faculty_uid)
-    faculty.grant_uid = grant_uid
-    Storage.grant_to_faculty[grant_uid] = faculty_uid
-    Engine.update_faculty(faculty)
-
-
-func remove_character_from_work(character):
-    if character.faculty_uid == null:
-        return
-
-    var prev_faculty = Storage.get_faculty(character.faculty_uid)
-    if prev_faculty.leader_uid == character.uid:
-        prev_faculty.leader_uid = null
-    else:
-        prev_faculty.staff_uid_list.remove(prev_faculty.staff_uid_list.find(character.uid))
-
-    character.faculty_uid = null
-    Engine.update_faculty(prev_faculty)
-    emit_signal("faculty_updated", prev_faculty.uid)
-
-
-func assign_leader(faculty_uid, character_uid):
-    var character = Storage.get_character(character_uid)
-    remove_character_from_work(character)
-
-    var faculty = Storage.get_faculty(faculty_uid)
-    character.faculty_uid = faculty_uid
-    faculty.leader_uid = character_uid
-    Engine.update_faculty(faculty)
-    emit_signal("faculty_updated", faculty_uid)
-
-
-func add_staff(faculty_uid, character_uid):
-    var character = Storage.get_character(character_uid)
-    remove_character_from_work(character)
-
-    var faculty = Storage.get_faculty(faculty_uid)
-    character.faculty_uid = faculty_uid
-    faculty.staff_uid_list.append(character_uid)
-    Engine.update_faculty(faculty)
-    emit_signal("faculty_updated", faculty_uid)
-
-
-func remove_staff(faculty_uid, character_uid):
-    var character = Storage.get_character(character_uid)
-    if character.faculty_uid != faculty_uid:
-        utils.notify_error({
-            "character_uid": character_uid,
-            "faculty_uid": faculty_uid,
-            "error": "Tried to remove staff from faculty, but character not working here!"
-        })
-        return
-    remove_character_from_work(character)
-
-
-func buy_equipment(faculty_uid, equipment_uid):
-    var equipment = Storage.get_equipment(equipment_uid)
-    if equipment.is_active:
-        utils.notify_error({
-            "equipment_uid": equipment_uid,
-            "faculty_uid": faculty_uid,
-            "error": "Tried to buy equipment, but it is already active!"
-        })
-        return
-    if not Storage.spend_money(equipment.price):
-        return
-    equipment.is_active = true
-    emit_signal("faculty_updated", faculty_uid)
-
-
-func set_enrollee_count(faculty_uid, count):
-    var faculty = Storage.get_faculty(faculty_uid)
-    faculty.enrollee_count = count
-    Engine.update_faculty(faculty)
-    emit_signal("faculty_updated", faculty_uid)
-
-
-func hire_character(character_uid):
-    var character = Storage.get_character(character_uid)
-    if character.is_hired or not character.is_available:
-        utils.notify_error({
-            "character_uid": character_uid,
-            "error": "Tried to hire character, that is either not available or already hired!"
-        })
-        return
-    if not Storage.spend_money(character.price):
-        return
-    character.is_hired = true
-    emit_signal("characters_updated")
-
-
-func fire_character(character_uid):
-    var character = Storage.get_character(character_uid)
-    if not character.is_hired:
-        utils.notify_error({
-            "character_uid": character_uid,
-            "error": "Tried to fire character, that is not hired!"
-        })
-        return
-    character.is_hired = false
-    Engine.update_character(character)
-    Storage.set_sim_state_of(T.Faculty, T.SimState.OUT_OF_SYNC)
-    emit_signal("characters_updated")
-
-
-func take_grant(grant_uid):
-    var grant = Storage.get_grant(grant_uid)
-    if not grant.is_available or grant.is_taken:
-        utils.notify_error({
-            "grant_uid": grant_uid,
-            "error": "Tried to take grant, that is either not available or already taken!"
-        })
-        return
-    Storage.gain_money(grant.amount)
-    grant.is_taken = true
-    Engine.update_grant(grant)
-    Engine.update_goals()
-    emit_signal("grants_updated")
 
 
 func get_characters_data():

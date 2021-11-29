@@ -1,5 +1,5 @@
 enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
-
+enum UpdateType {FACULTY, GRANT, CHARACTER, GOAL}
 
 class SimObject:
     var uid: String

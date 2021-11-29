@@ -69,3 +69,11 @@ func json_readf(path: String):
 func get_uid() -> String:
     last_uid += 1
     return str(last_uid)
+
+
+func intersection(first, second):
+    var result = []
+    for item in first:
+        if item in second:
+            result.append(item)
+    return result
