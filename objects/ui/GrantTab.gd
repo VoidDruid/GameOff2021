@@ -28,6 +28,11 @@ func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance
         var plus = PlusButton.instance()
         var _rs = plus.connect("pressed", self, "_on_Button_pressed")
         get_node(grant_background).add_child(plus)
+        
+        if not grant.is_available:
+            plus.disabled = true
+            plus.modulate = Color(1, 1, 1, 0.4)
+            # TODO: add tooltip - why char is unavailable
 
         var amount_label = EffectLabel.instance()
         amount_label.text =  str(grant.amount) + " " + tr("GRANT_AMOUNT")
