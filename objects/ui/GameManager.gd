@@ -32,9 +32,8 @@ var GrantTab_res = load(ui_res_folder + "GrantTab.tscn")
 var Grants_res = load(ui_res_folder + "Grants.tscn")
 var Characters_res = load(ui_res_folder + "Characters.tscn")
 var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
-var HCharacterTab_res = load(ui_res_folder + "HCharacterTab.tscn")
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
-var PlusButton = load(ui_res_folder + "PlusButton.tscn")
+var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
 var GrantChance = load(ui_res_folder + "GrantChance.tscn")
 
 
@@ -166,15 +165,15 @@ func _on_Fifth_pressed():
 
 
 func on_ChButton_pressed(ch_id, is_hired):
-    print_debug("CALLED: ", ch_id, is_hired)
+    print_debug("CALLED CH: ", ch_id, is_hired)
     if is_hired:
-        simulation.fire_character(ch_id)
+        simulation.actions.fire_character(ch_id)
     else:
-        simulation.hire_character(ch_id)
+        simulation.actions.hire_character(ch_id)
 
 func on_GrButton_pressed(gr_id):
-    print_debug("CALLED: ", gr_id)
-    simulation.take_grant(gr_id)
+    print_debug("CALLED GR: ", gr_id)
+    simulation.actions.take_grant(gr_id)
 
 
 func _on_Grants_updated():
@@ -265,7 +264,6 @@ func buildCharactersWindow():
         var chTab = ACharacterTab_res.instance()
         chTab.game_manager = self
         chTab.EffectLabel = EffectLabel
-        chTab.is_hired = false
         chTab.character = ch
         chTab.get_node("Background").color = get_color_index(i)
         CurrentGameWindow.get_node("Characters/Available/VBoxAvailable/Available/VBoxContainer").add_child(chTab)
@@ -274,10 +272,9 @@ func buildCharactersWindow():
     # build hired characters
     i = 0
     for ch in dt.hired_characters:
-        var chTab = HCharacterTab_res.instance()
+        var chTab = ACharacterTab_res.instance()
         chTab.game_manager = self
         chTab.EffectLabel = EffectLabel
-        chTab.is_hired = true
         chTab.character = ch
         chTab.get_node("Background").color = get_color_index(i)
         CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)

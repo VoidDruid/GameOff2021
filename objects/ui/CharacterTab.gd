@@ -1,10 +1,11 @@
 extends Control
 
-export(bool) var character_is_hired
 export(Color) var good_color
 export(Color) var bad_color
 export(Color) var hired_panel_color
 export(Color) var available_panel_color
+export(Texture) var plus_texture
+export(Texture) var cross_texture
 
 var character
 var EffectLabel
@@ -14,7 +15,7 @@ var game_manager: GameManager
 
 func _on_Button_pressed():
     if game_manager != null:
-        game_manager.on_ChButton_pressed(character.uid, character_is_hired)
+        game_manager.on_ChButton_pressed(character.uid, is_hired)
 
 
 var char_info_panel = "Background/HBoxContainer/VBoxContainer"
@@ -26,6 +27,8 @@ var char_cost_label_path = char_cost_panel + "/CharInfoLabel"
 
 
 func _ready():
+    is_hired = character.is_hired
+    
     get_node(char_name_label_path).text = character.name
     var char_cost_label = get_node(char_cost_label_path)
     char_cost_label.text = ("   " +
@@ -33,8 +36,17 @@ func _ready():
         str(character.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
         + "   "
     )
+    var button_n = get_node("Background/TextureButton")
+    if not is_hired:
+        button_n.texture_normal = plus_texture
+    else:
+        button_n.texture_normal = cross_texture
+        button_n.anchor_top += 0.1
+        button_n.anchor_top -= 0.1
+        button_n.anchor_left += 0.01
+        button_n.anchor_right -= 0.01
     if !character.is_available and !is_hired:
-         get_node("Background/HBoxContainer/TextureButton").hide()
+         button_n.hide()
 
     var panel = get_node(char_cost_panel)
     var new_style = StyleBoxFlat.new()

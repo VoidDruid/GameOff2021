@@ -51,6 +51,7 @@ func _ready():
     Engine.Storage = Storage
     Engine.T = T
     Engine.emitter = emitter_ref
+    Actions.Engine = Engine
     Actions.Storage = Storage
     Actions.T = T
     Actions.emitter = emitter_ref
@@ -99,6 +100,8 @@ func _process(_delta):
 #####################################################################################
 ##################################### Public API ####################################
 #####################################################################################
+
+var actions = Actions
 
 
 func start():
