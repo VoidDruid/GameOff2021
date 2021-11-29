@@ -15,7 +15,7 @@ define(`set_icon_uid', `if icon_uid_ != null:
             icon_uid = "$1" + "_" + icon_uid_`'dnl`'
 ')dnl
 enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
-
+enum UpdateType {FACULTY, GRANT, CHARACTER, GOAL}
 
 class SimObject:
     var uid: String
