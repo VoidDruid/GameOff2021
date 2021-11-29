@@ -37,6 +37,12 @@ func _ready():
         + "   "
     )
     var button_n = get_node("Background/TextureButton")
+    if !character.is_available and !is_hired:
+        button_n.disabled = true
+        button_n.modulate = Color(1, 1, 1, 0.4)
+        # TODO: add tooltip - why char is unavailable
+    else:
+        button_n.connect("pressed", self, "_on_Button_pressed")
     if not is_hired:
         button_n.texture_normal = plus_texture
     else:
@@ -45,8 +51,7 @@ func _ready():
         button_n.anchor_top -= 0.1
         button_n.anchor_left += 0.01
         button_n.anchor_right -= 0.01
-    if !character.is_available and !is_hired:
-         button_n.hide()
+    
 
     var panel = get_node(char_cost_panel)
     var new_style = StyleBoxFlat.new()
