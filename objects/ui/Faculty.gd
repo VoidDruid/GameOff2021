@@ -3,12 +3,13 @@ extends Control
 export(Color) var good_color
 export(Texture) var cross_texture
 
-var leader
 var faculty
+var leader
 var simulation: SimulationCore
 var game_manager: GameManager
 
 var grant_chance_button_path = "HBoxContainer/TextureRectRight/Right/GrantChance/Button"
+var enrollee_count_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 var leader_panel_path = "HBoxContainer/LeftTextureRect/Left/FacultyTab"
 var leader_cost_panel_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control/Panel"
 var leader_cost_label_path = leader_cost_panel_path + "/Label"
@@ -16,6 +17,7 @@ var leader_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Leade
 var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects/HBoxContainer"
 var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantChance"
 var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
+var enrolle_counter_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 
 
 func _on_AddStaff_pressed():
@@ -25,10 +27,16 @@ func _on_AddStaff_pressed():
 func _on_GrantButton_pressed():
     #game_manager.on_GrButton_pressed(gr_id)
     pass
+    
+func _on_SpinBox_value_changed(value):
+    game_manager.on_EnrolleeCount_changed(faculty.uid, value)
 
 
 func _ready():
+    get_node(enrollee_count_path).value = faculty.enrollee_count
+    
     var _rs = get_node(grant_chance_button_path).connect("pressed", self, "_on_GrantButton_pressed")
+    _rs = get_node(enrolle_counter_path).connect("value_changed", self, "_on_SpinBox_value_changed")
 
     var grant_tab_percent
     var grant_tab_description
@@ -50,7 +58,7 @@ func _ready():
     for ch_uid in faculty.staff_uid_list:
         var ch = simulation.get_character_data(ch_uid)
         var stTab = game_manager.StaffTab_res.instance()
-        stTab.game_manager = self
+        stTab.game_manager = game_manager
         stTab.character = ch
         stTab.get_node("Background").color = game_manager.get_color_index(i)
         get_node("HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees/VBoxContainer").add_child(stTab)

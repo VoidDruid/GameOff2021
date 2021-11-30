@@ -13,7 +13,6 @@ var char_name_label_path = "Control/Label"
 var char_button_path = "Control/TextureButton"
 
 func _ready():
-    
     get_node(char_name_label_path).text = character.name
     var _rs = get_node(char_button_path).connect("pressed", self, "_on_Button_pressed")
   
