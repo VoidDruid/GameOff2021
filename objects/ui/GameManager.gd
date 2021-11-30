@@ -167,10 +167,11 @@ func on_GrButton_pressed(gr_id):
     simulation.actions.take_grant(gr_id)
 
 func _on_Faculty_update(_faculty_uid):
+    if CurrentScreen != FACULTY_SCREEN:
+        return
     if CurrentGameWindow != null:
         CurrentGameWindow.queue_free()
         CurrentGameWindow = null
-    CurrentScreen = FACULTY_SCREEN
     var faculty_id = simulation.Storage.FACULTY_LIST[0].uid
     buildFacultyWindow(faculty_id)
     MainWindow.add_child(CurrentGameWindow)
@@ -294,8 +295,9 @@ func buildFacultyWindow(faculty_id):
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")
-    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("TextureRectRight/GrantChancePanel/Percent").text = grant_tab_percent
-    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("TextureRectRight/GrantChancePanel/Description").text = grant_tab_description
+
+    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("Button/GrantChancePanel/Percent").text = grant_tab_percent
+    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("Button/GrantChancePanel/Description").text = grant_tab_description
 
     # build empoyees list
     CurrentGameWindow.get_node(faculty_employees_sum_effect_label_path).text = "25 " + tr("MOD_BREAKTHROUGH_CHANCE") #str(faculty.staff_effect) + " " + tr("MOD_BREAKTHROUGH_CHANCE")
