@@ -11,8 +11,8 @@ var game_manager: GameManager
 var grant_chance_button_path = "HBoxContainer/TextureRectRight/Right/GrantChance/Button"
 var enrollee_count_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 var leader_panel_path = "HBoxContainer/LeftTextureRect/Left/FacultyTab"
-var leader_cost_panel_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control/Panel"
-var leader_cost_label_path = leader_cost_panel_path + "/Label"
+var faculty_cost_panel_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control/Panel"
+var faculty_cost_label_path = faculty_cost_panel_path + "/Label"
 var leader_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/LeaderName/Label"
 var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects/HBoxContainer"
 var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantChance"
@@ -70,22 +70,20 @@ func _ready():
         i += 1
 
     var leader_tab = get_node(leader_panel_path)
-    if leader != null:
-        print_debug("HERe")
-        var leader_cost_label = leader_tab.get_node(leader_cost_label_path)
-        print_debug(leader_cost_label)
-        leader_cost_label.text = ("   " +
-            str(leader.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
-            + "   "
-        )
-        var cost_panel = leader_tab.get_node(leader_cost_panel_path)
-        var panel_style = StyleBoxFlat.new()
-        panel_style.set_corner_radius_all(5)
-        panel_style.set_bg_color(game_manager.hired_panel_color)
-        cost_panel.set('custom_styles/panel', panel_style)
-        yield(get_tree(), "idle_frame")
-        cost_panel.rect_min_size.x = leader_cost_label.rect_size.x
+    var faculty_cost_label = leader_tab.get_node(faculty_cost_label_path)
+    faculty_cost_label.text = ("   " +
+        str(faculty.yearly_cost) + " " + tr("FACULTY_COST_PER_YEAR_")
+        + "   "
+    )
+    var cost_panel = leader_tab.get_node(faculty_cost_panel_path)
+    var panel_style = StyleBoxFlat.new()
+    panel_style.set_corner_radius_all(5)
+    panel_style.set_bg_color(game_manager.hired_panel_color)
+    cost_panel.set('custom_styles/panel', panel_style)
+    yield(get_tree(), "idle_frame")
+    cost_panel.rect_min_size.x = faculty_cost_label.rect_size.x
 
+    if leader != null:
         leader_tab.get_node(leader_name_path).text = leader.name
 
         var leader_effects = leader_tab.get_node(leader_effects_path)
