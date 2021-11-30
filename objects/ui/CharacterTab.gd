@@ -12,10 +12,12 @@ var EffectLabel
 var is_hired
 var game_manager: GameManager
 
-
 func _on_Button_pressed():
     if game_manager != null:
-        game_manager.on_ChButton_pressed(character.uid, is_hired)
+        if is_hired:
+            game_manager.on_ChButton_pressed(character.uid, "", game_manager.CHARACTER_FIRE)
+        else:
+            game_manager.on_ChButton_pressed(character.uid, "", game_manager.CHARACTER_HIRE)
 
 
 var char_info_panel = "Background/HBoxContainer/VBoxContainer"
