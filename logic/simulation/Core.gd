@@ -25,6 +25,7 @@ func emitter(signal_name, arg1=null, arg2=null, arg3=null):
     if signal_name.begins_with("grant") and signal_name.ends_with("updated"):
         Engine.update_goals()
 
+    # single update is not implemented for grant, character
     match signal_name:
         "grant_updated":
             signal_name = "grants_updated"
@@ -123,9 +124,10 @@ func get_characters_data():
 
 
 func get_grant_data(grant_uid):
+    var grant = Storage.get_grant(grant_uid)
     if not Storage.get_sim_state_of(T.Grant):
-        Engine.update_grant(grant_uid)
-    return Storage.get_grant(grant_uid)
+        Engine.update_grant(grant)
+    return grant
 
 
 func get_grants_data():
@@ -149,6 +151,7 @@ func get_faculty_data(faculty_uid):
 
 
 func get_character_data(character_uid):
+    var character = Storage.get_character(character_uid)
     if not Storage.get_sim_state_of(T.Character):
-        Engine.update_character(character_uid)
-    return Storage.get_character(char_uid)
+        Engine.update_character(character)
+    return character
