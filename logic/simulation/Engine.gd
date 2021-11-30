@@ -48,7 +48,6 @@ func update_faculty(faculty):
         return
     # TODO: check enrollees and apply effect and cost
     faculty.breakthrough_chance = faculty.default_breakthrough_chance
-    faculty.enrollee_count = faculty.default_enrollee_count
     faculty.enrollee_cost = faculty.default_enrollee_cost
     faculty.yearly_cost = faculty.default_cost
 
