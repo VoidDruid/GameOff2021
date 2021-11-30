@@ -162,9 +162,15 @@ func on_ChButton_pressed(ch_id, f_id, action):
     elif action == STAFF_REMOVE:
         simulation.actions.remove_staff(f_id, ch_id)
 
+
 func on_GrButton_pressed(gr_id):
     print_debug("CALLED GR: ", gr_id)
     simulation.actions.take_grant(gr_id)
+
+
+func on_EnrolleeCount_changed(faculty_uid, count):
+    print_debug("on_EnrolleeCount_changed ", faculty_uid, count)
+    simulation.action.set_enrollee_count(faculty_uid, count)
 
 func _on_Faculty_update(_faculty_uid):
     if CurrentScreen != FACULTY_SCREEN:

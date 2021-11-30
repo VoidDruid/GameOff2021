@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objects/ui/GrantChancePanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/ui/PlusTButton.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://objects/ui/FacultyTab.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/ui/overrides/equipment.svg" type="Texture" id=7]
 [ext_resource path="res://objects/ui/overrides/slider.svg" type="Texture" id=8]
+[ext_resource path="res://objects/ui/UIInfoFont.tres" type="DynamicFont" id=9]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -50,17 +51,18 @@ __meta__ = {
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1348.0
-margin_bottom = 377.0
+margin_bottom = 386.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.18
+size_flags_stretch_ratio = 0.38
 
 [node name="Slider" type="Control" parent="HBoxContainer/LeftTextureRect/Left"]
-margin_top = 409.0
+margin_top = 418.0
 margin_right = 1348.0
-margin_bottom = 728.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.16
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/LeftTextureRect/Left/Slider"]
 anchor_right = 1.0
@@ -71,12 +73,71 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control" type="Control" parent="HBoxContainer/LeftTextureRect/Left/Slider/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnrolleCount" type="Label" parent="HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 1.51096
+margin_top = -14.0
+margin_right = 164.511
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "ENROLEE_COUNT_"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CostPerYear" type="Label" parent="HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -64.0
+margin_top = -14.0
+grow_horizontal = 0
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "2000/year"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control"]
+anchor_left = 0.5
+anchor_top = 0.48703
+anchor_right = 0.5
+anchor_bottom = 0.48703
+margin_left = -37.0
+margin_top = -12.0
+margin_right = 37.0
+margin_bottom = 12.0
+max_value = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="EquipmentList" type="Control" parent="HBoxContainer/LeftTextureRect/Left"]
-margin_top = 760.0
+margin_top = 612.0
 margin_right = 1348.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.46
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList"]
 anchor_right = 1.0
@@ -109,17 +170,18 @@ __meta__ = {
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 540.0
-margin_bottom = 376.0
+margin_bottom = 377.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.56
+size_flags_stretch_ratio = 0.36
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/TextureRectRight/Right"]
-margin_top = 408.0
+margin_top = 409.0
 margin_right = 540.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.64
 texture = ExtResource( 3 )
 expand = true
 
@@ -157,7 +219,7 @@ __meta__ = {
 [node name="Employees" type="ScrollContainer" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired"]
 margin_top = 141.0
 margin_right = 540.0
-margin_bottom = 589.0
+margin_bottom = 588.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.88
@@ -167,14 +229,14 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees"]
 margin_right = 540.0
-margin_bottom = 448.0
+margin_bottom = 447.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SummEffect" type="Control" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired"]
-margin_top = 593.0
+margin_top = 592.0
 margin_right = 540.0
-margin_bottom = 649.0
+margin_bottom = 648.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.11
@@ -189,4 +251,5 @@ margin_top = -13.0
 margin_right = 66.5
 margin_bottom = 13.0
 
+[connection signal="value_changed" from="HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox" to="." method="_on_SpinBox_value_changed"]
 [connection signal="pressed" from="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Tab/AddStaff" to="." method="_on_AddStaff_pressed"]
