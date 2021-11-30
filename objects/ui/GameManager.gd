@@ -22,6 +22,8 @@ var GrantsButton: TextureButton
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
+enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE}
+
 var CurrentScreen
 
 var ui_res_folder = "res://objects/ui/"
@@ -58,7 +60,7 @@ func _ready():
     FacultiesButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties")
     CharactersButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters")
     GrantsButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants")
-
+    
     var _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
     _rs = simulation.connect("money_updated", self, "_on_Money_updated")
     _rs = simulation.connect("grants_updated", self, "_on_Grants_updated")
@@ -66,6 +68,7 @@ func _ready():
     _rs = simulation.connect("reputation_updated", self, "_on_Reputation_updated")
     _rs = simulation.connect("date_updated", self, "_on_Date_updated")
     _rs = simulation.connect("update_log", self, "_on_Update_log")
+    _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
 
     simulation.start()
 
@@ -147,18 +150,31 @@ func _on_Update_log(log_list):
         FeedTable.add_child(tab)
         log_count += 1
 
-
-func on_ChButton_pressed(ch_id, is_hired):
-    print_debug("CALLED CH: ", ch_id, is_hired)
-    if is_hired:
+# enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE}
+func on_ChButton_pressed(ch_id, f_id, action):
+    print_debug("CALLED CH: ", ch_id, action)
+    if action == CHARACTER_FIRE:
         simulation.actions.fire_character(ch_id)
-    else:
+    elif action == CHARACTER_HIRE:
         simulation.actions.hire_character(ch_id)
+    elif action == STAFF_ADD:
+        simulation.actions.add_staff(f_id, ch_id)
+    elif action == STAFF_REMOVE:
+        simulation.actions.remove_staff(f_id, ch_id)
 
 func on_GrButton_pressed(gr_id):
     print_debug("CALLED GR: ", gr_id)
     simulation.actions.take_grant(gr_id)
 
+func _on_Faculty_update(_faculty_uid):
+    if CurrentScreen != FACULTY_SCREEN:
+        return
+    if CurrentGameWindow != null:
+        CurrentGameWindow.queue_free()
+        CurrentGameWindow = null
+    var faculty_id = simulation.Storage.FACULTY_LIST[0].uid
+    buildFacultyWindow(faculty_id)
+    MainWindow.add_child(CurrentGameWindow)
 
 func _on_Grants_updated():
     if CurrentScreen != GRANTS_SCREEN:
@@ -279,8 +295,9 @@ func buildFacultyWindow(faculty_id):
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")
-    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("TextureRectRight/GrantChancePanel/Percent").text = grant_tab_percent
-    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("TextureRectRight/GrantChancePanel/Description").text = grant_tab_description
+
+    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("Button/GrantChancePanel/Percent").text = grant_tab_percent
+    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("Button/GrantChancePanel/Description").text = grant_tab_description
 
     # build empoyees list
     CurrentGameWindow.get_node(faculty_employees_sum_effect_label_path).text = "25 " + tr("MOD_BREAKTHROUGH_CHANCE") #str(faculty.staff_effect) + " " + tr("MOD_BREAKTHROUGH_CHANCE")
@@ -352,3 +369,5 @@ func buildFacultyTab(leader):
             yield(get_tree(), "idle_frame")
             panel.rect_min_size.x = mod_label.rect_size.x
             panel.rect_min_size.y = mod_label.rect_size.y
+    else:
+        pass
