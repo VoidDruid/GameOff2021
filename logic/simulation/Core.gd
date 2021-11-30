@@ -121,7 +121,10 @@ func get_characters_data():
         Engine.get_characters_list(true)
     )
 
+
 func get_grant_data(grant_uid):
+    if not Storage.get_sim_state_of(T.Grant):
+        Engine.update_grant(grant_uid)
     return Storage.get_grant(grant_uid)
 
 
@@ -145,5 +148,7 @@ func get_faculty_data(faculty_uid):
     return Engine.get_faculty_info(faculty_uid)
 
 
-func get_character_data(char_uid):
+func get_character_data(character_uid):
+    if not Storage.get_sim_state_of(T.Character):
+        Engine.update_character(character_uid)
     return Storage.get_character(char_uid)
