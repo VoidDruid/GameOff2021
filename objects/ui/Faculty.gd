@@ -18,6 +18,7 @@ var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Ef
 var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantChance"
 var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
 var enrolle_counter_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
+var cost_per_year_label = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/CostPerYear"
 
 var equipment_list_path = "HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer"
 
@@ -51,6 +52,8 @@ func _ready():
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")
+
+    get_node(cost_per_year_label).text = str(faculty.enrollee_cost) + " / " + tr("ENROLLEE_COST_") 
 
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Percent").text = grant_tab_percent
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Description").text = grant_tab_description
@@ -120,6 +123,7 @@ func _ready():
         print(eq)
         var eq_tab = game_manager.EquipmentTab_res.instance()
         eq_tab.game_manager = self
+        eq_tab.equipment = eq
         eq_tab.EffectLabel = game_manager.EffectLabel
         eq_tab.get_node("Background").color = game_manager.get_color_index(i)
         get_node("HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer").add_child(eq_tab)

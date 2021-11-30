@@ -25,4 +25,6 @@ GRANT_UNKNOWN,No grant selected,Грант не выбран
 REPUTATION_,Reputation,Доверие
 EQUIPMENT_,Equipment,Оборудование
 FACULTY_COST_PER_YEAR_,faculty cost per year,содержание факультета
+ENROLLEE_COST_,per year,год
+PRINTER_,Printer,Принтер
 ,,
