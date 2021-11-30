@@ -27,14 +27,17 @@ func _on_AddStaff_pressed():
 func _on_GrantButton_pressed():
     #game_manager.on_GrButton_pressed(gr_id)
     pass
-    
+
 func _on_SpinBox_value_changed(value):
     game_manager.on_EnrolleeCount_changed(faculty.uid, value)
 
 
 func _ready():
+    if faculty.leader_uid != null:
+        leader = simulation.get_character_data(faculty.leader_uid)
+
     get_node(enrollee_count_path).value = faculty.enrollee_count
-    
+
     var _rs = get_node(grant_chance_button_path).connect("pressed", self, "_on_GrantButton_pressed")
     _rs = get_node(enrolle_counter_path).connect("value_changed", self, "_on_SpinBox_value_changed")
 
@@ -64,13 +67,11 @@ func _ready():
         get_node("HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees/VBoxContainer").add_child(stTab)
         i += 1
 
-    if faculty.leader_uid != null:
-        leader = simulation.get_character_data(faculty.leader_uid)
-        print_debug("faculty.leader_uid != null")
-    print_debug("faculty.leader_uid is null")
     var leader_tab = get_node(leader_panel_path)
     if leader != null:
+        print_debug("HERe")
         var leader_cost_label = leader_tab.get_node(leader_cost_label_path)
+        print_debug(leader_cost_label)
         leader_cost_label.text = ("   " +
             str(leader.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
             + "   "

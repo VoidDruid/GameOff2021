@@ -55,6 +55,7 @@ ACTION(remove_character_from_work, character)
 
 ACTION(assign_leader, faculty_uid, character_uid)
     var character = Storage.get_character(character_uid)
+    character.is_hired = true
     remove_character_from_work(character, false)
 
     var faculty = Storage.get_faculty(faculty_uid)
@@ -83,6 +84,7 @@ ACTION(assign_grant, faculty_uid, grant_uid)
 
 ACTION(add_staff, faculty_uid, character_uid)
     var character = Storage.get_character(character_uid)
+    character.is_hired = true
     remove_character_from_work(character, update, ulist([T.UpdateType.FACULTY]))
 
     var faculty = Storage.get_faculty(faculty_uid)

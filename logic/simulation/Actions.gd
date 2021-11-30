@@ -61,6 +61,7 @@ func remove_character_from_work(character, update=true, allowed_updates=null):
 
 func assign_leader(faculty_uid,character_uid, update=true, allowed_updates=null):
     var character = Storage.get_character(character_uid)
+    character.is_hired = true
     remove_character_from_work(character, false)
 
     var faculty = Storage.get_faculty(faculty_uid)
@@ -97,6 +98,7 @@ func assign_grant(faculty_uid,grant_uid, update=true, allowed_updates=null):
 
 func add_staff(faculty_uid,character_uid, update=true, allowed_updates=null):
     var character = Storage.get_character(character_uid)
+    character.is_hired = true
     remove_character_from_work(character, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
 
     var faculty = Storage.get_faculty(faculty_uid)
