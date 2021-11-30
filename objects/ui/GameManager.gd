@@ -351,3 +351,4 @@ func buildFacultyTab(leader):
             
             yield(get_tree(), "idle_frame")
             panel.rect_min_size.x = mod_label.rect_size.x
+            panel.rect_min_size.y = mod_label.rect_size.y
