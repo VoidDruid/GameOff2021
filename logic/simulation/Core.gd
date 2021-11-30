@@ -63,7 +63,7 @@ func _ready():
         Storage.GRANT_LIST[0].is_taken = true
         Storage.GRANT_LIST[1].is_completed = true
         Storage.FACULTY_LIST[0].is_opened = true
-        Storage.FACULTY_LIST[0].staff_uid_list.append(Storage.CHARACTER_LIST[2].uid)
+        Actions.add_staff(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[2].uid)
 
     Engine.update_all()
 
@@ -143,6 +143,7 @@ func get_grants_data():
 
 func get_faculty_data(faculty_uid):
     return Engine.get_faculty_info(faculty_uid)
+
 
 func get_character_data(char_uid):
     return Storage.get_character(char_uid)

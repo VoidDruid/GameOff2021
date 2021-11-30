@@ -295,7 +295,7 @@ func buildFacultyWindow(faculty_id):
         stTab.get_node("Background").color = get_color_index(i)
         CurrentGameWindow.get_node("HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees/VBoxContainer").add_child(stTab)
         i += 1
-    
+
     #build leader tab
     var facultyTab = FacultyTab_res.instance()
     facultyTab.game_manager = self
@@ -336,18 +336,19 @@ func buildFacultyTab(leader):
             new_style.set_corner_radius_all(5)
             new_style.set_bg_color(good_color if modifier.positive else bad_color)
             panel.set('custom_styles/panel', new_style)
-            
+
             var mod_label: Label = EffectLabel.instance()
             var mod_text = "+" if modifier.value > 0 else ""
             mod_text += str(modifier.value if modifier.absolute else int(modifier.value * 100))
             mod_text += "%" if not modifier.absolute else ""
             mod_text += " " + tr("MOD_" + modifier.property.to_upper())
             mod_label.text = "   " + mod_text + "   "
-            
+
             panel.add_child(mod_label)
             mod_label.align = Label.ALIGN_CENTER
             mod_label.valign = Label.ALIGN_CENTER
             leader_effects.add_child(panel)
-            
+
             yield(get_tree(), "idle_frame")
             panel.rect_min_size.x = mod_label.rect_size.x
+            panel.rect_min_size.y = mod_label.rect_size.y
