@@ -23,7 +23,6 @@ func _on_AddStaff_pressed():
 
 
 func _on_GrantButton_pressed():
-    print_debug("grant")
     #game_manager.on_GrButton_pressed(gr_id)
     pass
 
@@ -35,12 +34,11 @@ func _ready():
     var grant_tab_description
     if faculty.grant_uid != null:
         grant_tab_percent = str(faculty.breakthrough_chance) + "%"
-        grant_tab_description = tr("GRANT_") + "\n" + simulation.get_grant_data(faculty.grant_uid)
+        grant_tab_description = simulation.get_grant_data(faculty.grant_uid).name
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")
 
-    print_debug(get_node(faculty_grant_chance_tab_path))
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Percent").text = grant_tab_percent
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Description").text = grant_tab_description
 
@@ -60,9 +58,8 @@ func _ready():
 
     if faculty.leader_uid != null:
         leader = simulation.get_character_data(faculty.leader_uid)
-    else:
-        leader = simulation.get_characters_data().hired_characters[0]
-
+        print_debug("faculty.leader_uid != null")
+    print_debug("faculty.leader_uid is null")
     var leader_tab = get_node(leader_panel_path)
     if leader != null:
         var leader_cost_label = leader_tab.get_node(leader_cost_label_path)

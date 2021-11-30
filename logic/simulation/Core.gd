@@ -65,6 +65,8 @@ func _ready():
         Storage.GRANT_LIST[1].is_completed = true
         Storage.FACULTY_LIST[0].is_opened = true
         Actions.add_staff(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[2].uid)
+        Actions.assign_leader(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[1].uid)
+        Actions.assign_grant(Storage.FACULTY_LIST[0].uid, Storage.GRANT_LIST[0].uid)
 
     Engine.update_all()
 
