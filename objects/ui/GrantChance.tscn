@@ -47,3 +47,6 @@ margin_bottom = 13.0
 custom_fonts/font = ExtResource( 1 )
 text = "37%"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

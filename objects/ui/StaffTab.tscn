@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/ui/UINamesFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://objects/ui/overrides/minus.svg" type="Texture" id=2]
+[ext_resource path="res://objects/ui/StaffTab.gd" type="Script" id=3]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1569.0
+margin_bottom = -1007.0
+rect_min_size = Vector2( 0, 73 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 21.0
+margin_right = -20.0
+margin_bottom = -21.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -15.5
+margin_right = 40.0
+margin_bottom = 15.5
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "Heh Noce Try"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -40.3684
+margin_top = -25.5
+margin_right = -0.368408
+margin_bottom = 25.5
+texture_normal = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

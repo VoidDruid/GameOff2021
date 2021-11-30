@@ -1,20 +1,22 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://objects/ui/overrides/GrantChanceTab.png" type="Texture" id=1]
-[ext_resource path="res://common/fonts/Open_Sans/OpenSanst.ttf" type="DynamicFontData" id=2]
-
-[sub_resource type="DynamicFont" id=1]
-size = 60
-font_data = ExtResource( 2 )
+[ext_resource path="res://objects/ui/GrantChancePanel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/ui/PlusTButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/ui/overrides/empl_list.png" type="Texture" id=3]
+[ext_resource path="res://objects/ui/Faculty.gd" type="Script" id=4]
+[ext_resource path="res://objects/ui/EffectLabel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/ui/FacultyTab.tscn" type="PackedScene" id=6]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -0.336884
 margin_right = -0.336914
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -31,16 +33,39 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Left" type="VBoxContainer" parent="HBoxContainer/LeftTextureRect"]
-anchor_left = -0.00129143
-anchor_top = 0.00161178
-anchor_right = 0.998709
-anchor_bottom = 1.00161
+anchor_left = -0.00242447
+anchor_top = 0.000197686
+anchor_right = 0.997576
+anchor_bottom = 1.0002
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 32
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FacultyTab" parent="HBoxContainer/LeftTextureRect/Left" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1348.0
+margin_bottom = 377.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.18
+
+[node name="Control4" type="Control" parent="HBoxContainer/LeftTextureRect/Left"]
+margin_top = 409.0
+margin_right = 1348.0
+margin_bottom = 728.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control3" type="Control" parent="HBoxContainer/LeftTextureRect/Left"]
+margin_top = 760.0
+margin_right = 1348.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="TextureRectRight" type="TextureRect" parent="HBoxContainer"]
 margin_left = 1380.0
@@ -63,34 +88,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GrantChancePanel" type="Control" parent="HBoxContainer/TextureRectRight/Right"]
+[node name="GrantChance" parent="HBoxContainer/TextureRectRight/Right" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_right = 540.0
 margin_bottom = 376.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.56
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TextureRectRight/Right/GrantChancePanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 1 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="HBoxContainer/TextureRectRight/Right/GrantChancePanel/TextureRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -41.5
-margin_bottom = 41.5
-custom_fonts/font = SubResource( 1 )
-text = "37%"
-align = 1
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/TextureRectRight/Right"]
 margin_top = 408.0
@@ -98,3 +103,71 @@ margin_right = 540.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+
+[node name="VBoxHired" type="VBoxContainer" parent="HBoxContainer/TextureRectRight/Right/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -23.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tab" type="Control" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired"]
+margin_right = 540.0
+margin_bottom = 137.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.27
+
+[node name="Label" type="Label" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Tab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = 21.0
+margin_bottom = -21.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+text = "EMPLOYEES_"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Tab" instance=ExtResource( 2 )]
+
+[node name="Employees" type="ScrollContainer" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired"]
+margin_top = 141.0
+margin_right = 540.0
+margin_bottom = 589.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.88
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees"]
+margin_right = 540.0
+margin_bottom = 448.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SummEffect" type="Control" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired"]
+margin_top = 593.0
+margin_right = 540.0
+margin_bottom = 649.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.11
+
+[node name="EffectLabel" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect" instance=ExtResource( 5 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -66.5
+margin_top = -13.0
+margin_right = 66.5
+margin_bottom = 13.0

@@ -121,6 +121,9 @@ func get_characters_data():
         Engine.get_characters_list(true)
     )
 
+func get_grant_data(grant_uid):
+    return Storage.get_grant(grant_uid)
+
 
 func get_grants_data():
     return T.GrantsData.new(
@@ -140,3 +143,6 @@ func get_grants_data():
 
 func get_faculty_data(faculty_uid):
     return Engine.get_faculty_info(faculty_uid)
+
+func get_character_data(char_uid):
+    return Storage.get_character(char_uid)

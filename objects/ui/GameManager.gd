@@ -4,6 +4,9 @@ class_name GameManager
 export(Color) var light_color
 export(Color) var dark_light_color
 export(Color) var default_log_color
+export(Color) var good_color
+export(Color) var bad_color
+export(Color) var hired_panel_color
 
 export(NodePath) var simulation_node_path
 var simulation: SimulationCore
@@ -30,8 +33,11 @@ var FeedTabY_res = load(ui_res_folder + "FeedTabY.tscn")
 var FeedTabB_res = load(ui_res_folder + "FeedTabB.tscn")
 var GrantTab_res = load(ui_res_folder + "GrantTab.tscn")
 var Grants_res = load(ui_res_folder + "Grants.tscn")
+var Faculty_res = load(ui_res_folder + "Faculty.tscn")
 var Characters_res = load(ui_res_folder + "Characters.tscn")
 var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
+var StaffTab_res = load(ui_res_folder + "StaffTab.tscn")
+var FacultyTab_res = load(ui_res_folder + "FacultyTab.tscn")
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
 var GrantChance = load(ui_res_folder + "GrantChance.tscn")
@@ -107,8 +113,9 @@ func _on_Faculties_pressed():
         CurrentGameWindow.queue_free()
         CurrentGameWindow = null
     CurrentScreen = FACULTY_SCREEN
-  #  CurrentGameWindow = load(ui_res_folder + "Faculty.tscn").instance()
-  #  MainWindow.add_child(CurrentGameWindow)
+    var faculty_id = simulation.Storage.FACULTY_LIST[0].uid
+    buildFacultyWindow(faculty_id)
+    MainWindow.add_child(CurrentGameWindow)
 
 
 var log_count = 0
@@ -139,29 +146,6 @@ func _on_Update_log(log_list):
         tab.get_node("Panel/RichTextLabel").text = log_text
         FeedTable.add_child(tab)
         log_count += 1
-
-
-func _on_Faculty_pressed(_num):
-    pass
-
-func _on_First_pressed():
-    _on_Faculty_pressed(1)
-
-
-func _on_Second_pressed():
-    _on_Faculty_pressed(2)
-
-
-func _on_Third_pressed():
-    _on_Faculty_pressed(3)
-
-
-func _on_Fourth_pressed():
-    _on_Faculty_pressed(4)
-
-
-func _on_Fifth_pressed():
-    _on_Faculty_pressed(5)
 
 
 func on_ChButton_pressed(ch_id, is_hired):
@@ -201,13 +185,13 @@ func _on_Money_error():
 
 func _on_Money_updated(amount, has_increased):
     print_debug(str(amount) + str(has_increased))
-    MoneyCounter.get_node("TextureRect/Name").text = "Money"
+    MoneyCounter.get_node("TextureRect/Name").text = "MONEY_"
     MoneyCounter.get_node("TextureRect/Value").text = str(amount)
 
 
 func _on_Reputation_updated(amount, has_increased):
     print_debug(str(amount) + str(has_increased))
-    ReputationCounter.get_node("TextureRect/Name").text = "Reputation"
+    ReputationCounter.get_node("TextureRect/Name").text = "REPUTATION_"
     ReputationCounter.get_node("TextureRect/Value").text = str(amount)
 
 
@@ -279,3 +263,97 @@ func buildCharactersWindow():
         chTab.get_node("Background").color = get_color_index(i)
         CurrentGameWindow.get_node("Characters/Hired/VBoxHired/Hired/VBoxContainer").add_child(chTab)
         i += 1
+
+func buildFacultyWindow(faculty_id):
+    CurrentGameWindow = Faculty_res.instance()
+    var faculty = simulation.get_faculty_data(faculty_id)
+    # build grant panel
+    var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantChance"
+    var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
+
+    var grant_tab_percent
+    var grant_tab_description
+    if faculty.grant_uid != null:
+        grant_tab_percent = str(faculty.breakthrough_chance) + "%"
+        grant_tab_description = tr("GRANT_") + "\n" + simulation.get_grant_data(faculty.grant_uid)
+    else:
+        grant_tab_percent = ""
+        grant_tab_description = tr("GRANT_UNKNOWN")
+    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("TextureRectRight/GrantChancePanel/Percent").text = grant_tab_percent
+    CurrentGameWindow.get_node(faculty_grant_chance_tab_path).get_node("TextureRectRight/GrantChancePanel/Description").text = grant_tab_description
+
+    # build empoyees list
+    CurrentGameWindow.get_node(faculty_employees_sum_effect_label_path).text = "25 " + tr("MOD_BREAKTHROUGH_CHANCE") #str(faculty.staff_effect) + " " + tr("MOD_BREAKTHROUGH_CHANCE")
+    CurrentGameWindow.get_node(faculty_employees_sum_effect_label_path).add_color_override("font_color", good_color)
+
+    var i = 0
+    for ch_uid in faculty.staff_uid_list:
+        var ch = simulation.get_character_data(ch_uid)
+        var stTab = StaffTab_res.instance()
+        stTab.game_manager = self
+        stTab.character = ch
+        stTab.get_node("Background").color = get_color_index(i)
+        CurrentGameWindow.get_node("HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees/VBoxContainer").add_child(stTab)
+        i += 1
+    
+    #build leader tab
+    var facultyTab = FacultyTab_res.instance()
+    facultyTab.game_manager = self
+    facultyTab.EffectLabel = EffectLabel
+    if faculty.leader_uid != null:
+        facultyTab.leader = simulation.get_character_data(faculty.leader_uid)
+    else:
+        var leader = simulation.get_characters_data().hired_characters[0]
+        facultyTab.leader = leader
+    buildFacultyTab(facultyTab.leader)
+
+func buildFacultyTab(leader):
+    var curTab = CurrentGameWindow.get_node("HBoxContainer/LeftTextureRect/Left/FacultyTab")
+    var leader_cost_panel_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control/Panel"
+    var leader_cost_label_path = leader_cost_panel_path + "/Label"
+    var leader_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/LeaderName/Label"
+    var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects/HBoxContainer"
+    if leader != null:
+        var leader_cost_label = curTab.get_node(leader_cost_label_path)
+        leader_cost_label.text = ("   " +
+            str(leader.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
+            + "   "
+        )
+        var cost_panel = curTab.get_node(leader_cost_panel_path)
+        var panel_style = StyleBoxFlat.new()
+        panel_style.set_corner_radius_all(5)
+        panel_style.set_bg_color(hired_panel_color)
+        cost_panel.set('custom_styles/panel', panel_style)
+        yield(get_tree(), "idle_frame")
+        cost_panel.rect_min_size.x = leader_cost_label.rect_size.x
+
+        curTab.get_node(leader_name_path).text = leader.name
+
+        var leader_effects = curTab.get_node(leader_effects_path)
+        for modifier in leader.modifiers:
+            #var mod_label = EffectLabel.instance()
+            #var mod_text = "+" if modifier.value > 0 else ""
+           # mod_text += str(modifier.value if modifier.absolute else int(modifier.value * 100))
+           # mod_text += "%" if not modifier.absolute else ""
+           # mod_text += " " + tr("MOD_" + modifier.property.to_upper())
+           # mod_label.text = mod_text
+           # mod_label.add_color_override("font_color", good_color if modifier.positive else bad_color)
+            var mod_label = EffectLabel.instance()
+            var mod_text = "+" if modifier.value > 0 else ""
+            mod_text += str(modifier.value if modifier.absolute else int(modifier.value * 100))
+            mod_text += "%" if not modifier.absolute else ""
+            mod_text += " " + tr("MOD_" + modifier.property.to_upper())
+            mod_label.text = mod_text
+
+            var panel = Panel.new()
+            var new_style = StyleBoxFlat.new()
+            new_style.set_corner_radius_all(5)
+            new_style.set_bg_color(hired_panel_color)
+            panel.set('custom_styles/panel', new_style)
+            yield(get_tree(), "idle_frame")
+            panel.rect_min_size.x = mod_label.rect_size.x
+
+            panel.add_child(mod_label)
+            panel.add_color_override("font_color", good_color if modifier.positive else bad_color)
+
+            leader_effects.add_child(panel)
