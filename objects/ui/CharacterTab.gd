@@ -25,12 +25,12 @@ var char_top_path = char_info_panel + "/TopRow"
 var char_bottom_path = char_info_panel + "/BottomRow"
 var char_name_label_path = char_top_path + "/CharNameLabel"
 var char_cost_panel = char_top_path + "/Panel"
-var char_cost_label_path = char_cost_panel + "/CharInfoLabel"
+var char_cost_label_path = char_cost_panel + "/InfoLabel"
 
 
 func _ready():
     is_hired = character.is_hired
-    
+
     get_node(char_name_label_path).text = character.name
     var char_cost_label = get_node(char_cost_label_path)
     char_cost_label.text = ("   " +
@@ -53,7 +53,7 @@ func _ready():
         button_n.anchor_top -= 0.1
         button_n.anchor_left += 0.01
         button_n.anchor_right -= 0.01
-    
+
 
     var panel = get_node(char_cost_panel)
     var new_style = StyleBoxFlat.new()
