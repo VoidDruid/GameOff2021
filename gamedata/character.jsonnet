@@ -18,6 +18,12 @@ local characters = [
         overrides: {
             is_available: true
         },
+        modifiers: [
+            {
+                property: "breakthrough_chance",
+                value: 0.05,
+            },
+        ],
     },
     {
         name: "G_NAME3",

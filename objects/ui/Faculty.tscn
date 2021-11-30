@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objects/ui/GrantChancePanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/ui/PlusTButton.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://objects/ui/overrides/slider.svg" type="Texture" id=8]
 [ext_resource path="res://objects/ui/UIInfoFont.tres" type="DynamicFont" id=9]
 [ext_resource path="res://objects/ui/UINamesFont.tres" type="DynamicFont" id=10]
-[ext_resource path="res://objects/ui/EquipmentTab.tscn" type="PackedScene" id=11]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -155,24 +154,23 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = 32.0
-margin_right = -32.0
-margin_bottom = -32.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer"]
-margin_right = 1284.0
-margin_bottom = 74.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1348.0
+margin_bottom = 86.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.23
 
 [node name="Header" type="Control" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/HBoxContainer"]
-margin_right = 1284.0
-margin_bottom = 74.0
+margin_left = 32.0
+margin_right = 1316.0
+margin_bottom = 54.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.23
@@ -191,9 +189,9 @@ __meta__ = {
 }
 
 [node name="List" type="Control" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer"]
-margin_top = 78.0
-margin_right = 1284.0
-margin_bottom = 404.0
+margin_top = 90.0
+margin_right = 1348.0
+margin_bottom = 436.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -205,44 +203,10 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer"]
-margin_right = 1272.0
-margin_bottom = 496.0
+margin_right = 1348.0
+margin_bottom = 346.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="EquipmentTab" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer" instance=ExtResource( 11 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1272.0
-margin_bottom = 96.0
-
-[node name="EquipmentTab2" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer" instance=ExtResource( 11 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 100.0
-margin_right = 1272.0
-margin_bottom = 196.0
-
-[node name="EquipmentTab3" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer" instance=ExtResource( 11 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 200.0
-margin_right = 1272.0
-margin_bottom = 296.0
-
-[node name="EquipmentTab4" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer" instance=ExtResource( 11 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 300.0
-margin_right = 1272.0
-margin_bottom = 396.0
-
-[node name="EquipmentTab5" parent="HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer" instance=ExtResource( 11 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 400.0
-margin_right = 1272.0
-margin_bottom = 496.0
 
 [node name="TextureRectRight" type="Control" parent="HBoxContainer"]
 margin_left = 1380.0

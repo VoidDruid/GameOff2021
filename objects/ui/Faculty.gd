@@ -19,23 +19,27 @@ var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantC
 var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
 var enrolle_counter_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 
+var equipment_list_path = "HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer"
+
 
 func _on_AddStaff_pressed():
     pass
 
 
 func _on_GrantButton_pressed():
-    print_debug("grant")
     #game_manager.on_GrButton_pressed(gr_id)
     pass
-    
+
 func _on_SpinBox_value_changed(value):
     game_manager.on_EnrolleeCount_changed(faculty.uid, value)
 
 
 func _ready():
+    if faculty.leader_uid != null:
+        leader = simulation.get_character_data(faculty.leader_uid)
+
     get_node(enrollee_count_path).value = faculty.enrollee_count
-    
+
     var _rs = get_node(grant_chance_button_path).connect("pressed", self, "_on_GrantButton_pressed")
     _rs = get_node(enrolle_counter_path).connect("value_changed", self, "_on_SpinBox_value_changed")
 
@@ -43,12 +47,11 @@ func _ready():
     var grant_tab_description
     if faculty.grant_uid != null:
         grant_tab_percent = str(faculty.breakthrough_chance) + "%"
-        grant_tab_description = tr("GRANT_") + "\n" + simulation.get_grant_data(faculty.grant_uid)
+        grant_tab_description = simulation.get_grant_data(faculty.grant_uid).name
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")
 
-    print_debug(get_node(faculty_grant_chance_tab_path))
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Percent").text = grant_tab_percent
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Description").text = grant_tab_description
 
@@ -66,14 +69,11 @@ func _ready():
         get_node("HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Employees/VBoxContainer").add_child(stTab)
         i += 1
 
-    if faculty.leader_uid != null:
-        leader = simulation.get_character_data(faculty.leader_uid)
-    else:
-        leader = simulation.get_characters_data().hired_characters[0]
-
     var leader_tab = get_node(leader_panel_path)
     if leader != null:
+        print_debug("HERe")
         var leader_cost_label = leader_tab.get_node(leader_cost_label_path)
+        print_debug(leader_cost_label)
         leader_cost_label.text = ("   " +
             str(leader.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
             + "   "
@@ -113,3 +113,16 @@ func _ready():
             panel.rect_min_size.y = mod_label.rect_size.y
     else:
         pass
+
+    #build equipment list
+    # equipment_list_path
+    i = 0
+    for eq_uid in faculty.equipment_uid_list:
+        var eq = simulation.get_equipment_data(eq_uid)
+        print(eq)
+        var eq_tab = game_manager.EquipmentTab_res.instance()
+        eq_tab.game_manager = self
+        eq_tab.EffectLabel = game_manager.EffectLabel
+        eq_tab.get_node("Background").color = game_manager.get_color_index(i)
+        get_node("HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer").add_child(eq_tab)
+        i += 1

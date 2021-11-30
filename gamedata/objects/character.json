@@ -1,5 +1,11 @@
 {
    "190a5dca91f04e424e8332a9c3eb52a6": {
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.050000000000000003
+         }
+      ],
       "name": "G_NAME2",
       "overrides": {
          "is_available": true

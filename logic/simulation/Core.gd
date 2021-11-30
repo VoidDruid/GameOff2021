@@ -65,6 +65,8 @@ func _ready():
         Storage.GRANT_LIST[1].is_completed = true
         Storage.FACULTY_LIST[0].is_opened = true
         Actions.add_staff(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[2].uid)
+        Actions.assign_leader(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[1].uid)
+        Actions.assign_grant(Storage.FACULTY_LIST[0].uid, Storage.GRANT_LIST[0].uid)
 
     Engine.update_all()
 
@@ -155,3 +157,6 @@ func get_character_data(character_uid):
     if not Storage.get_sim_state_of(T.Character):
         Engine.update_character(character)
     return character
+
+func get_equipment_data(equipment_uid):
+    return Storage.get_equipment(equipment_uid)
