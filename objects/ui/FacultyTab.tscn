@@ -97,8 +97,8 @@ anchor_bottom = 0.5
 margin_top = -15.5
 margin_right = 108.0
 margin_bottom = 15.5
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "FACULTY_"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -109,9 +109,9 @@ anchor_left = 0.499022
 anchor_top = 0.5
 anchor_right = 0.499022
 anchor_bottom = 0.5
-margin_left = -20.0
+margin_left = -80.0042
 margin_top = -20.0
-margin_right = 20.0
+margin_right = 19.9958
 margin_bottom = 20.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
@@ -142,8 +142,8 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -21.0
 margin_bottom = 21.0
-custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Faculty name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -162,8 +162,8 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -7.0
 margin_bottom = 7.0
-custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 5 )
 text = "Leader name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -179,6 +179,7 @@ size_flags_vertical = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -21.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

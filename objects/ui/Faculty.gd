@@ -105,6 +105,7 @@ func _ready():
             leader_effects.add_child(panel)
 
             yield(get_tree(), "idle_frame")
+            panel.size_flags_vertical = SIZE_SHRINK_END
             panel.rect_min_size.x = mod_label.rect_size.x
             panel.rect_min_size.y = mod_label.rect_size.y
     else:
