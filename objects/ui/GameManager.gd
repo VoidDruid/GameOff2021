@@ -40,11 +40,13 @@ var Characters_res = load(ui_res_folder + "Characters.tscn")
 var ACharacterTab_res = load(ui_res_folder + "ACharacterTab.tscn")
 var StaffTab_res = load(ui_res_folder + "StaffTab.tscn")
 var FacultyTab_res = load(ui_res_folder + "FacultyTab.tscn")
+var ObjectDetail_res = load(ui_res_folder + "ObjectDetail.tscn")
+var ObjectChoice_res = load(ui_res_folder + "ObjectChoice.tscn")
+var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
+
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
 var GrantChance = load(ui_res_folder + "GrantChance.tscn")
-var ObjectDetail_res = load(ui_res_folder + "ObjectDetail.tscn")
-var ObjectChoice_res = load(ui_res_folder + "ObjectChoice.tscn")
 
 
 func get_color_index(index) -> Color:

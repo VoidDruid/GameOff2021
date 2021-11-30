@@ -157,3 +157,6 @@ func get_character_data(character_uid):
     if not Storage.get_sim_state_of(T.Character):
         Engine.update_character(character)
     return character
+
+func get_equipment_data(equipment_uid):
+    return Storage.get_equipment(equipment_uid)

@@ -19,6 +19,8 @@ var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantC
 var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
 var enrolle_counter_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 
+var equipment_list_path = "HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer"
+
 
 func _on_AddStaff_pressed():
     pass
@@ -110,3 +112,16 @@ func _ready():
             panel.rect_min_size.y = mod_label.rect_size.y
     else:
         pass
+
+    #build equipment list
+    # equipment_list_path
+    i = 0
+    for eq_uid in faculty.equipment_uid_list:
+        var eq = simulation.get_equipment_data(eq_uid)
+        print(eq)
+        var eq_tab = game_manager.EquipmentTab_res.instance()
+        eq_tab.game_manager = self
+        eq_tab.EffectLabel = game_manager.EffectLabel
+        eq_tab.get_node("Background").color = game_manager.get_color_index(i)
+        get_node("HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer").add_child(eq_tab)
+        i += 1
