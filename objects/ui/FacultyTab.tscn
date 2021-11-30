@@ -49,8 +49,8 @@ __meta__ = {
 }
 
 [node name="Leader" type="Control" parent="TextureRect/HBoxContainer"]
-margin_right = 243.0
-margin_bottom = 224.0
+margin_right = 242.0
+margin_bottom = 223.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.48
@@ -72,9 +72,9 @@ __meta__ = {
 }
 
 [node name="LeaderInfo" type="Control" parent="TextureRect/HBoxContainer"]
-margin_left = 275.0
-margin_right = 782.0
-margin_bottom = 224.0
+margin_left = 274.0
+margin_right = 781.0
+margin_bottom = 223.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -87,7 +87,7 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
 margin_right = 507.0
-margin_bottom = 53.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -130,9 +130,9 @@ __meta__ = {
 }
 
 [node name="FacultyName" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
-margin_top = 57.0
+margin_top = 56.0
 margin_right = 507.0
-margin_bottom = 110.0
+margin_bottom = 109.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -150,9 +150,9 @@ __meta__ = {
 }
 
 [node name="LeaderName" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
-margin_top = 114.0
+margin_top = 113.0
 margin_right = 507.0
-margin_bottom = 167.0
+margin_bottom = 166.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -170,9 +170,9 @@ __meta__ = {
 }
 
 [node name="Effects" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
-margin_top = 171.0
+margin_top = 170.0
 margin_right = 507.0
-margin_bottom = 224.0
+margin_bottom = 223.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

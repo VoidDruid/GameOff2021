@@ -4,7 +4,7 @@
 
 [node name="EffectLabel" type="Label"]
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0.929412, 0.109804, 0.141176, 1 )
+custom_colors/font_color = Color( 0.956863, 0.92549, 0.898039, 1 )
 text = "+5% sample text"
 __meta__ = {
 "_edit_use_anchors_": false

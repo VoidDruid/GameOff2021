@@ -331,29 +331,23 @@ func buildFacultyTab(leader):
 
         var leader_effects = curTab.get_node(leader_effects_path)
         for modifier in leader.modifiers:
-            #var mod_label = EffectLabel.instance()
-            #var mod_text = "+" if modifier.value > 0 else ""
-           # mod_text += str(modifier.value if modifier.absolute else int(modifier.value * 100))
-           # mod_text += "%" if not modifier.absolute else ""
-           # mod_text += " " + tr("MOD_" + modifier.property.to_upper())
-           # mod_label.text = mod_text
-           # mod_label.add_color_override("font_color", good_color if modifier.positive else bad_color)
-            var mod_label = EffectLabel.instance()
+            var panel = Panel.new()
+            var new_style = StyleBoxFlat.new()
+            new_style.set_corner_radius_all(5)
+            new_style.set_bg_color(good_color if modifier.positive else bad_color)
+            panel.set('custom_styles/panel', new_style)
+            
+            var mod_label: Label = EffectLabel.instance()
             var mod_text = "+" if modifier.value > 0 else ""
             mod_text += str(modifier.value if modifier.absolute else int(modifier.value * 100))
             mod_text += "%" if not modifier.absolute else ""
             mod_text += " " + tr("MOD_" + modifier.property.to_upper())
-            mod_label.text = mod_text
-
-            var panel = Panel.new()
-            var new_style = StyleBoxFlat.new()
-            new_style.set_corner_radius_all(5)
-            new_style.set_bg_color(hired_panel_color)
-            panel.set('custom_styles/panel', new_style)
+            mod_label.text = "   " + mod_text + "   "
+            
+            panel.add_child(mod_label)
+            mod_label.align = Label.ALIGN_CENTER
+            mod_label.valign = Label.ALIGN_CENTER
+            leader_effects.add_child(panel)
+            
             yield(get_tree(), "idle_frame")
             panel.rect_min_size.x = mod_label.rect_size.x
-
-            panel.add_child(mod_label)
-            panel.add_color_override("font_color", good_color if modifier.positive else bad_color)
-
-            leader_effects.add_child(panel)
