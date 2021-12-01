@@ -12,6 +12,7 @@ var Actions = ActionsT.new()
 signal update_log(logs)
 signal characters_updated
 signal grants_updated
+signal faculties_updated
 signal faculty_updated(faculty_uid)
 signal money_error
 signal money_updated(amount, has_increased)
@@ -110,6 +111,7 @@ var actions = Actions
 
 
 func start():
+    emit_signal("faculties_updated")
     emit_signal("money_updated", Storage.money, true)
     emit_signal("reputation_updated", Storage.reputation, true)
     emit_signal("date_updated", "December 3, 2021")  # TODO: actual date
