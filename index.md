@@ -1,5 +1,7 @@
 # **Xeno University**
 
+![title](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/banner.jpeg)
+
 ## Менеджмент-сим про университет
 
 
