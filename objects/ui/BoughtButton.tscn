@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/ui/overrides/button_bought.svg" type="Texture" id=1]
+[ext_resource path="res://objects/ui/UIInfoFont.tres" type="DynamicFont" id=2]
+
+[node name="BoughtButton" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.231808
+margin_bottom = -0.231812
+rect_pivot_offset = Vector2( -213.618, -34.3757 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1810.0
+margin_bottom = -1042.0
+rect_min_size = Vector2( 110, 38 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.56
+texture_normal = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GrantChancePanel" type="Control" parent="Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 22.0
+margin_top = 13.0
+margin_right = -22.0
+margin_bottom = -13.0
+mouse_filter = 1
+input_pass_on_modal_close_click = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.56
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button/GrantChancePanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.0
+margin_top = -13.0
+margin_right = 43.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "BOUGHT_"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

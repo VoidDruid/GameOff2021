@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bought_button.svg-fd08aab130831201c1e0400b932c1371.stex"
+path="res://.import/button_bought.svg-97443b1228d51febdc7af1b9aa88d147.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/ui/overrides/bought_button.svg"
-dest_files=[ "res://.import/bought_button.svg-fd08aab130831201c1e0400b932c1371.stex" ]
+source_file="res://objects/ui/overrides/button_bought.svg"
+dest_files=[ "res://.import/button_bought.svg-97443b1228d51febdc7af1b9aa88d147.stex" ]
 
 [params]
 
