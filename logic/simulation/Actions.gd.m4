@@ -189,3 +189,4 @@ ACTION(open_faculty, faculty_uid)
 
     if update:
         conditional_update(faculty)
+            emitter.call_func("faculties_updated")
