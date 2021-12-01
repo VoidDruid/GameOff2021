@@ -3,8 +3,7 @@ extends Control
 export(Color) var good_color
 export(Color) var bad_color
 export(Color) var cost_panel_color
-export(Texture) var buy_texture
-export(Texture) var bought_texture
+export(Color) var buy_button_color
 
 var equipment
 var EffectLabel
@@ -33,6 +32,7 @@ func _ready():
     var equip_cost_label = get_node(equip_cost_label_path)
     equip_cost_label.text = ("   " +
         ( str(equipment.price) + " " + tr("CHARACTER_PRICE") if is_available_to_buy else "")
+        + "   "
     )
     var button_n = get_node("Background/TextureButton")
     if !equipment.is_active and !is_available_to_buy:
