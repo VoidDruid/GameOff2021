@@ -12,204 +12,67 @@ var OBJECT_DATA_DIR = "res://gamedata/objects/"
 
 var T = load("res://logic/simulation/Classes.gd")
 var emitter = null
-
-#NOTE: PREDEFINED
-var SPECIALTY_LIST = []
-var SPECIALTY_MAP = {}
-var _is_specialty_updated = T.SimState.OUT_OF_SYNC
-
-
-func get_specialty(specialty_uid):
-    return SPECIALTY_MAP[specialty_uid]
+define(`object_store', `#NOTE: upcase($2)
+var upcase($1)_LIST = []
+var upcase($1)_MAP = {}
+var _is_$1_updated = T.SimState.OUT_OF_SYNC
 
 
-func _find_in_specialty_list(specialty):
+func get_$1($1_uid):
+    return upcase($1)_MAP[$1_uid]
+
+
+func _find_in_$1_list($1):
     var i = 0
-    for obj in SPECIALTY_LIST:
-        if obj.uid == specialty.uid:
+    for obj in upcase($1)_LIST:
+        if obj.uid == $1.uid:
             return i
         i += 1
     return null
 
 
-func add_specialty(specialty, skip_check=false):
+func add_$1($1, skip_check=false):
     if not skip_check:
-        var index = _find_in_specialty_list(specialty)
+        var index = _find_in_$1_list($1)
         if index != null:
-            SPECIALTY_LIST.remove(index)
-    SPECIALTY_LIST.append(specialty)
-    SPECIALTY_MAP[specialty.uid] = specialty
+            upcase($1)_LIST.remove(index)
+    upcase($1)_LIST.append($1)
+    upcase($1)_MAP[$1.uid] = $1
+')dnl
+define(`simple_sync_get', `typename(capitalize($1)):
+            return _is_$1_updated ')dnl
+define(`simple_sync_set', `typename(capitalize($1)):
+            _is_$1_updated = state')dnl
 
-#NOTE: PREDEFINED
-var EQUIPMENT_LIST = []
-var EQUIPMENT_MAP = {}
-var _is_equipment_updated = T.SimState.OUT_OF_SYNC
-
-
-func get_equipment(equipment_uid):
-    return EQUIPMENT_MAP[equipment_uid]
-
-
-func _find_in_equipment_list(equipment):
-    var i = 0
-    for obj in EQUIPMENT_LIST:
-        if obj.uid == equipment.uid:
-            return i
-        i += 1
-    return null
-
-
-func add_equipment(equipment, skip_check=false):
-    if not skip_check:
-        var index = _find_in_equipment_list(equipment)
-        if index != null:
-            EQUIPMENT_LIST.remove(index)
-    EQUIPMENT_LIST.append(equipment)
-    EQUIPMENT_MAP[equipment.uid] = equipment
-
-#NOTE: PREDEFINED
-var FACULTY_LIST = []
-var FACULTY_MAP = {}
-var _is_faculty_updated = T.SimState.OUT_OF_SYNC
-
-
-func get_faculty(faculty_uid):
-    return FACULTY_MAP[faculty_uid]
-
-
-func _find_in_faculty_list(faculty):
-    var i = 0
-    for obj in FACULTY_LIST:
-        if obj.uid == faculty.uid:
-            return i
-        i += 1
-    return null
-
-
-func add_faculty(faculty, skip_check=false):
-    if not skip_check:
-        var index = _find_in_faculty_list(faculty)
-        if index != null:
-            FACULTY_LIST.remove(index)
-    FACULTY_LIST.append(faculty)
-    FACULTY_MAP[faculty.uid] = faculty
-
-#NOTE: PREDEFINED
-var CHARACTER_LIST = []
-var CHARACTER_MAP = {}
-var _is_character_updated = T.SimState.OUT_OF_SYNC
-
-
-func get_character(character_uid):
-    return CHARACTER_MAP[character_uid]
-
-
-func _find_in_character_list(character):
-    var i = 0
-    for obj in CHARACTER_LIST:
-        if obj.uid == character.uid:
-            return i
-        i += 1
-    return null
-
-
-func add_character(character, skip_check=false):
-    if not skip_check:
-        var index = _find_in_character_list(character)
-        if index != null:
-            CHARACTER_LIST.remove(index)
-    CHARACTER_LIST.append(character)
-    CHARACTER_MAP[character.uid] = character
-
-#NOTE: PREDEFINED
-var GRANT_LIST = []
-var GRANT_MAP = {}
-var _is_grant_updated = T.SimState.OUT_OF_SYNC
-
-
-func get_grant(grant_uid):
-    return GRANT_MAP[grant_uid]
-
-
-func _find_in_grant_list(grant):
-    var i = 0
-    for obj in GRANT_LIST:
-        if obj.uid == grant.uid:
-            return i
-        i += 1
-    return null
-
-
-func add_grant(grant, skip_check=false):
-    if not skip_check:
-        var index = _find_in_grant_list(grant)
-        if index != null:
-            GRANT_LIST.remove(index)
-    GRANT_LIST.append(grant)
-    GRANT_MAP[grant.uid] = grant
-
-#NOTE: PREDEFINED
-var GOAL_LIST = []
-var GOAL_MAP = {}
-var _is_goal_updated = T.SimState.OUT_OF_SYNC
-
-
-func get_goal(goal_uid):
-    return GOAL_MAP[goal_uid]
-
-
-func _find_in_goal_list(goal):
-    var i = 0
-    for obj in GOAL_LIST:
-        if obj.uid == goal.uid:
-            return i
-        i += 1
-    return null
-
-
-func add_goal(goal, skip_check=false):
-    if not skip_check:
-        var index = _find_in_goal_list(goal)
-        if index != null:
-            GOAL_LIST.remove(index)
-    GOAL_LIST.append(goal)
-    GOAL_MAP[goal.uid] = goal
-
+object_store(specialty, PREDEFINED)
+object_store(equipment, PREDEFINED)
+object_store(faculty, PREDEFINED)
+object_store(character, PREDEFINED)
+object_store(grant, PREDEFINED)
+object_store(goal, PREDEFINED)
 
 var grant_to_faculty = {}
 
 func get_sim_state_of(class_):
     match class_.get_name():
-        "class_Character":
-            return _is_character_updated 
-        "class_Faculty":
-            return _is_faculty_updated 
-        "class_Specialty":
-            return _is_specialty_updated 
-        "class_Equipment":
-            return _is_equipment_updated 
-        "class_Grant":
-            return _is_grant_updated 
-        "class_Goal":
-            return _is_goal_updated 
+        simple_sync_get(character)
+        simple_sync_get(faculty)
+        simple_sync_get(specialty)
+        simple_sync_get(equipment)
+        simple_sync_get(grant)
+        simple_sync_get(goal)
         _:
             return null
 
 
 func set_sim_state_of(class_, state=T.SimState.OUT_OF_SYNC):
     match class_.get_name():
-        "class_Character":
-            _is_character_updated = state
-        "class_Faculty":
-            _is_faculty_updated = state
-        "class_Specialty":
-            _is_specialty_updated = state
-        "class_Equipment":
-            _is_equipment_updated = state
-        "class_Grant":
-            _is_grant_updated = state
-        "class_Goal":
-            _is_goal_updated = state
+        simple_sync_set(character)
+        simple_sync_set(faculty)
+        simple_sync_set(specialty)
+        simple_sync_set(equipment)
+        simple_sync_set(grant)
+        simple_sync_set(goal)
 
 
 func build_map(from_list, to_dict, _resource_name):
@@ -331,20 +194,17 @@ func load_facultys():
         load_uid(faculty, data)
         FACULTY_LIST.append(faculty)
 
+define(`_load_resource', `load_`'$1`'s()
+    build_map(upcase($1)_LIST, upcase($1)_MAP, "$1")dnl
+')dnl
 func load_resources():
     # TODO: checks for uniquness of all uids
-    load_specialtys()
-    build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
-    load_equipments()
-    build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
-    load_grants()
-    build_map(GRANT_LIST, GRANT_MAP, "grant")
-    load_goals()
-    build_map(GOAL_LIST, GOAL_MAP, "goal")
-    load_facultys()
-    build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
-    load_characters()
-    build_map(CHARACTER_LIST, CHARACTER_MAP, "character")
+    _load_resource(specialty)
+    _load_resource(equipment)
+    _load_resource(grant)
+    _load_resource(goal)
+    _load_resource(faculty)
+    _load_resource(character)
     for grant in GRANT_LIST:
         grant_to_faculty[grant.uid] = null
 

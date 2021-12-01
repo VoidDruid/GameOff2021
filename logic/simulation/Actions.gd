@@ -220,3 +220,7 @@ func open_faculty(faculty_uid, update=true, allowed_updates=null):
             Engine.update_faculty(faculty)
             emitter.call_func("faculty_updated", faculty.uid)
             emitter.call_func("faculties_updated")
+
+
+func step_month():
+    Storage.next_date()

@@ -110,13 +110,12 @@ func _process(_delta):
 
 var actions = Actions
 
-
 func start():
     emit_signal("faculties_updated")
     emit_signal("money_updated", Storage.money, true)
     emit_signal("reputation_updated", Storage.reputation, true)
-    emit_signal("date_updated", "December 3, 2021")  # TODO: actual date
-    emit_signal("update_log", "START_LOG_")  # TODO: translate
+    emit_signal("date_updated", Storage.format_date(Storage.datetime))
+    emit_signal("update_log", tr("START_LOG_"))  # TODO: translate
 
 
 func get_specialty_color(specialty_uid) -> Color:
@@ -182,4 +181,10 @@ func get_faculties():
 
 
 func start_year():
-    pass
+    while true:
+        Actions.step_month()
+
+        if Storage.datetime["month"] == 8:
+            break
+        yield(get_tree().create_timer(1.5), "timeout")
+    emit_signal("year_end")
