@@ -6,25 +6,46 @@ var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()
 var EngineT = load("res://logic/simulation/Engine.gd")
 var Engine = EngineT.new()
+var ActionsT = load("res://logic/simulation/Actions.gd")
+var Actions = ActionsT.new()
 
 signal update_log(logs)
 signal characters_updated
 signal grants_updated
+signal faculties_updated
 signal faculty_updated(faculty_uid)
 signal money_error
 signal money_updated(amount, has_increased)
 signal reputation_updated(amount, has_increased)
 signal date_updated(date_string)
+signal year_end
+
+signal game_over
+signal victory(goal_uid)
 
 
 # NOTE: I know this is ugly, but is seems like the only way to do it
 # There is no vararg in gdscript
 func emitter(signal_name, arg1=null, arg2=null, arg3=null):
+    if signal_name.begins_with("grant") and signal_name.ends_with("updated"):
+        Engine.update_goals()
+
+    # single update is not implemented for grant, character
+    match signal_name:
+        "grant_updated":
+            signal_name = "grants_updated"
+            arg1 = null
+        "character_updated":
+            signal_name = "characters_updated"
+            arg1 = null
+
+    # TODO: update signals bufferring
+    # (add to buffer and emit only unique at start of new frame?)
     if arg1 == null:
         emit_signal(signal_name)
     elif arg2 == null:
         emit_signal(signal_name, arg1)
-    elif arg3 ==  null:
+    elif arg3 == null:
         emit_signal(signal_name, arg1, arg2)
     else:
         emit_signal(signal_name, arg1, arg2, arg3)
@@ -36,24 +57,14 @@ func _ready():
     Engine.Storage = Storage
     Engine.T = T
     Engine.emitter = emitter_ref
+    Actions.Engine = Engine
+    Actions.Storage = Storage
+    Actions.T = T
+    Actions.emitter = emitter_ref
+
     Storage.load_resources()
 
-    print_debug(bool(T.SimState.IN_SYNC))
-
-    if utils.is_debug:
-        var dt = get_grants_data()
-        for obj in dt.available_grants:
-            print_debug("Available: ", obj.name, " ", obj.level, " ", obj.is_available)
-        for obj in dt.current_grants:
-            print_debug("Current: ", obj.name)
-        for obj in dt.completed_grants:
-            print_debug("Completed: ", obj.name)
-
-        for obj in Storage.EQUIPMENT_LIST:
-            print_debug("EQ: ", obj.name, " ", obj.uid, " ", obj.price)
-
-        for obj in Storage.FACULTY_LIST:
-            print_debug("FACULTY: ", obj.specialty_uid, " ", obj.equipment_uid_list, " ", obj.icon_uid, " ", obj.default_cost)
+    Engine.update_all()
 
 
 func _process(_delta):
@@ -61,46 +72,21 @@ func _process(_delta):
 
 
 #####################################################################################
-######################################## API ########################################
+##################################### Public API ####################################
 #####################################################################################
 
+var actions = Actions
 
 func start():
+    emit_signal("faculties_updated")
     emit_signal("money_updated", Storage.money, true)
     emit_signal("reputation_updated", Storage.reputation, true)
-    emit_signal("date_updated", "December 3, 2021")  # TODO: actual date
-    emit_signal("update_log", "START_LOG_")  # TODO: translate
+    emit_signal("date_updated", Storage.format_date(Storage.datetime))
+    emit_signal("update_log", tr("START_LOG_"))  # TODO: translate
 
 
-func hire_character(character_uid):
-    var character = Storage.get_character(character_uid)
-    if character.is_hired or not character.is_available:
-        return
-    if not Storage.spend_money(character.price):
-        return
-    character.is_hired = true
-    emit_signal("characters_updated")
-
-
-func fire_character(character_uid):
-    var character = Storage.get_character(character_uid)
-    if not character.is_hired:
-        return
-    character.is_hired = false
-    Engine.update_character(character)
-    Storage.set_sim_state_of(T.Faculty, T.SimState.OUT_OF_SYNC)
-    emit_signal("characters_updated")
-
-
-func take_grant(grant_uid):
-    var grant = Storage.get_grant(grant_uid)
-    if not grant.is_available or grant.is_taken:
-        return
-    Storage.gain_money(grant.amount)
-    grant.is_taken = true
-    Engine.update_grant(grant)
-    Engine.update_goals()
-    emit_signal("grants_updated")
+func get_specialty_color(specialty_uid) -> Color:
+    return Storage.get_specialty(specialty_uid).color
 
 
 func get_characters_data():
@@ -108,6 +94,13 @@ func get_characters_data():
         Engine.get_characters_list(false),
         Engine.get_characters_list(true)
     )
+
+
+func get_grant_data(grant_uid):
+    var grant = Storage.get_grant(grant_uid)
+    if not Storage.get_sim_state_of(T.Grant):
+        Engine.update_grant(grant)
+    return grant
 
 
 func get_grants_data():
@@ -128,3 +121,41 @@ func get_grants_data():
 
 func get_faculty_data(faculty_uid):
     return Engine.get_faculty_info(faculty_uid)
+
+
+func get_goal_data(goal_uid):
+    var goal = Storage.get_goal(goal_uid)
+    if not Storage.get_sim_state_of(T.Goal):
+        Engine.update_goal(goal)
+    return goal
+
+
+func get_character_data(character_uid):
+    var character = Storage.get_character(character_uid)
+    if not Storage.get_sim_state_of(T.Character):
+        Engine.update_character(character)
+    return character
+
+
+func get_equipment_data(equipment_uid):
+    return Storage.get_equipment(equipment_uid)
+
+
+func get_faculties():
+    if not Storage.get_sim_state_of(T.Faculty):
+        Engine.update_faculties()
+    return Storage.FACULTY_LIST
+
+
+func start_year():
+    var month_delay = 1.0 if not utils.is_debug else 0.1
+    while true:
+        Actions.step_month()
+
+        if Storage.datetime["month"] == 8:
+            break
+        yield(get_tree().create_timer(month_delay), "timeout")
+
+    Actions.decrement_years_on_grants()
+
+    emit_signal("year_end")

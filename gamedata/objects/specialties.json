@@ -1,8 +1,22 @@
 [
    {
+      "color": "#06BCC1",
       "name": "PHYSICS_"
    },
    {
+      "color": "#FFD23F",
       "name": "BIOLOGY_"
+   },
+   {
+      "color": "#8AC926",
+      "name": "MATH_"
+   },
+   {
+      "color": "#F55536",
+      "name": "LING_SOC_"
+   },
+   {
+      "color": "#276FBF",
+      "name": "PHILOSOPHY_"
    }
 ]

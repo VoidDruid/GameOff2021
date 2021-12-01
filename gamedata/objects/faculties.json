@@ -1,12 +1,32 @@
 {
    "biology": {
-      "default_breakthrougn_chance": 20,
-      "default_cost": 80,
+      "default_breakthrough_chance": 15,
+      "default_cost": 70,
+      "default_enrollee_count": 30,
+      "equipment": [
+         "69d0f53c697aac681cf9088f1fe90337"
+      ],
+      "name": "BIOLOGY_FACULTY_",
+      "specialty_uid": "BIOLOGY_"
+   },
+   "philosophy": {
+      "default_breakthrough_chance": 35,
+      "default_cost": 50,
+      "default_enrollee_count": 7,
+      "equipment": [
+         "69d0f53c697aac681cf9088f1fe90337"
+      ],
+      "name": "PHILOSOPHY_FACULTY_",
+      "specialty_uid": "PHILOSOPHY_"
+   },
+   "physics": {
+      "default_breakthrough_chance": 25,
+      "default_cost": 100,
       "default_enrollee_count": 20,
       "equipment": [
-         "a1cc39e1cf4742b378be8dd4fce838d7"
+         "69d0f53c697aac681cf9088f1fe90337"
       ],
-      "name": "BIOLOGY_FACULTY_NAME_",
-      "specialty_uid": "BIOLOGY_"
+      "name": "PHYSICS_FACULTY_",
+      "specialty_uid": "PHYSICS_"
    }
 }

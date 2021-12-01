@@ -69,3 +69,27 @@ func json_readf(path: String):
 func get_uid() -> String:
     last_uid += 1
     return str(last_uid)
+
+
+func intersection(first, second):
+    var result = []
+    for item in first:
+        if item in second:
+            result.append(item)
+    return result
+
+
+func build_text(text_src) -> String:
+    var text
+    match typeof(text_src):
+        TYPE_ARRAY:
+            text = ""
+            for text_src_item in text_src:
+                text += build_text(text_src_item)
+        TYPE_STRING:
+            text = tr(text_src)
+    return text
+
+
+func load_icon(name):
+    return load("res://gamedata/icons/" + name + ".png")

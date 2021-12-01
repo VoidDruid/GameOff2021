@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/ui/overrides/map.svg" type="Texture" id=1]
-[ext_resource path="res://objects/ui/overrides/pc_map2.png" type="Texture" id=2]
 [ext_resource path="res://objects/ui/overrides/plus.svg" type="Texture" id=3]
 [ext_resource path="res://objects/ui/GameUIMainFont.tres" type="DynamicFont" id=4]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1408.0
@@ -62,17 +61,21 @@ margin_right = 218.0
 margin_bottom = 23.832
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-text = "University Map"
+text = "UNIVERSITY_MAP_"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="Scroll" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 63.0
 margin_right = 512.0
 margin_bottom = 320.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.31
-texture = ExtResource( 2 )
-expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Scroll"]
+margin_right = 512.0
+margin_bottom = 257.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

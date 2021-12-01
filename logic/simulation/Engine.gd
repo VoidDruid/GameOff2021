@@ -25,18 +25,88 @@ func update_grant(grant):
         grant.is_available = true
 
 
+func process_object_modifiers(object, faculty, abs_container, rel_container, scale=1.0):
+    for modifier in object.modifiers:
+        var mods_d = abs_container if modifier.absolute else rel_container
+        if "specialty_uid" in object:
+            scale = (1.0 if object.specialty_uid == faculty.specialty_uid else 0.5) * scale
+        else:
+            scale = 1.0
+        var mod = modifier.value * scale
+        if modifier.property in mods_d:
+            if modifier.absolute:
+                mods_d[modifier.property] += mod
+            else:
+                mods_d[modifier.property] *= 1 + mod
+        else:
+            mods_d[modifier.property] = mod if modifier.absolute else (1 + mod)
+        modifier.apply(faculty, scale)
 
 
 func update_faculty(faculty):
-    # TODO: check characters (fired, specialty, etc.) and apply effects and cost
-    # TODO: check leader (fired, specialty, etc.) and apply effects and cost
+    if  not faculty.is_opened:
+        return
     # TODO: check enrollees and apply effect and cost
-    # TODO: check equipment and apply effects
-    # TODO: calculate faculty level
     faculty.breakthrough_chance = faculty.default_breakthrough_chance
-    faculty.enrollee_count = faculty.default_enrollee_count
     faculty.enrollee_cost = faculty.default_enrollee_cost
     faculty.yearly_cost = faculty.default_cost
+
+    var character_mods_abs = {}
+    var character_mods_rel = {}
+    var to_remove = []
+    var i = 0
+    var characters_count = 0
+    var average_characters_level = 1
+    for character_uid in faculty.staff_uid_list:
+        var character = Storage.get_character(character_uid)
+        if not character.is_hired:
+            to_remove.append(i)
+        else:
+            characters_count += 1
+            average_characters_level += character.level
+            process_object_modifiers(character, faculty, character_mods_abs, character_mods_rel)
+        i += 1
+    if characters_count == 0:
+        average_characters_level = 1
+    else:
+        average_characters_level /= characters_count
+    faculty.character_mods_abs = character_mods_abs
+    faculty.character_mods_rel = character_mods_rel
+
+    for i_remove in to_remove:
+        faculty.staff_uid_list.remove(i_remove)
+
+    var active_equipment_count = 0
+    var equipment_mods_abs = {}
+    var equipment_mods_rel = {}
+    for equipment_uid in faculty.equipment_uid_list:
+        var equipment = Storage.get_equipment(equipment_uid)
+        if not equipment.is_active:
+            continue
+        active_equipment_count += 1
+        process_object_modifiers(equipment, faculty, equipment_mods_abs, equipment_mods_rel)
+    faculty.equipment_mods_abs = equipment_mods_abs
+    faculty.equipment_mods_rel = equipment_mods_rel
+
+    var leader_mods_abs = {}
+    var leader_mods_rel = {}
+    var leader_level = 1
+    if faculty.leader_uid != null:
+        var leader = Storage.get_character(faculty.leader_uid)
+        if not leader.is_hired:
+            faculty.leader_uid = null
+        else:
+            leader_level = leader.level
+            process_object_modifiers(leader, faculty, leader_mods_abs, leader_mods_rel, 2.0)
+    faculty.leader_mods_abs = leader_mods_abs
+    faculty.leader_mods_rel = leader_mods_rel
+
+    # TODO: smarter level calculation
+    faculty.level = (leader_level + int(active_equipment_count / 5) + average_characters_level) / 3
+
+    if faculty.grant_uid != null:
+        var grant = Storage.get_grant(faculty.grant_uid)
+        grant.chance = faculty.breakthrough_chance
 
 
 func update_faculties():
@@ -48,11 +118,52 @@ func update_faculties():
     Storage.set_sim_state_of(T.Faculty, T.SimState.IN_SYNC)
 
 
-func update_goal(_goal):
+func update_characters():
+    var is_synced = Storage.get_sim_state_of(T.Character)
+    if is_synced:
+        return
+    for character in Storage.CHARACTER_LIST:
+        update_character(character)
+    Storage.set_sim_state_of(T.Character, T.SimState.IN_SYNC)
+
+
+func update_grants():
+    var is_synced = Storage.get_sim_state_of(T.Grant)
+    if is_synced:
+        return
+    for grant in Storage.GRANT_LIST:
+        update_grant(grant)
+    Storage.set_sim_state_of(T.Grant, T.SimState.IN_SYNC)
+
+
+func update_goal(goal):
     # TODO: check how many specific grants completed
     # TODO: check how many grants in each required field completed
     # TODO: calc progress
-    pass
+    var done_m = {}
+    var total_req = len(goal.requirements.get('_GRANTS_', []))
+    var done_req = 0
+    for specialty_uid in goal.requirements:
+        if specialty_uid == "_GRANTS_":
+            continue
+        done_m[specialty_uid] = 0
+        total_req += goal.requirements[specialty_uid]
+    print_debug(goal.requirements["_GRANTS_"])
+    for grant in Storage.GRANT_LIST:
+        if not grant.is_completed:
+            continue
+        if grant.is_failed and grant.uid in goal.requirements["_GRANTS_"]:
+            Storage.remove_goal(goal.uid)
+            return
+        if (not grant.is_failed and
+            grant.specialty_uid in goal.requirements and
+            done_m[grant.specialty_uid] < goal.requirements[grant.specialty_uid]):
+            done_m[grant.specialty_uid] += 1
+            done_req += 1
+
+    goal.progress = (done_req / total_req * 100)
+    if goal.progress >= 100:
+        emitter.call_func("victory", goal.uid)
 
 
 func update_goals():
@@ -62,6 +173,13 @@ func update_goals():
     for goal in Storage.GOAL_LIST:
         update_goal(goal)
     Storage.set_sim_state_of(T.Goal, T.SimState.IN_SYNC)
+
+
+func update_all():
+    update_characters()
+    update_faculties()
+    update_grants()
+    update_goals()
 
 
 func get_characters_list(is_hired=false, for_faculty=null):

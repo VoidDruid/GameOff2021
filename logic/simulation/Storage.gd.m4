@@ -2,10 +2,11 @@ var campus_level = 1
 var money = 1000
 var reputation = 80
 var datetime = {
-    "month": 1,
-    "day": 1,
+    "month": 8,
     "year": 2021,
 }
+var grant_limit = 1
+var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 var OBJECT_DATA_DIR = "res://gamedata/objects/"
 
@@ -23,8 +24,13 @@ func get_$1($1_uid):
 
 func _find_in_$1_list($1):
     var i = 0
+    var uid
+    if typeof($1) == TYPE_STRING:
+        uid = $1
+    else:
+        uid = $1.uid
     for obj in upcase($1)_LIST:
-        if obj.uid == $1.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -46,9 +52,11 @@ define(`simple_sync_set', `typename(capitalize($1)):
 object_store(specialty, PREDEFINED)
 object_store(equipment, PREDEFINED)
 object_store(faculty, PREDEFINED)
-object_store(character, IN-GAME)
+object_store(character, PREDEFINED)
 object_store(grant, PREDEFINED)
 object_store(goal, PREDEFINED)
+
+var grant_to_faculty = {}
 
 func get_sim_state_of(class_):
     match class_.get_name():
@@ -77,35 +85,55 @@ func build_map(from_list, to_dict, _resource_name):
         to_dict[elem.uid] = elem
 
 
-# TODO: actual generation
-func generate_starting_characters():
-    add_character(T.Character.new("NAME1", "0", SPECIALTY_LIST[0].uid))
-
-    var c = T.Character.new("NAME2", "0", SPECIALTY_LIST[1].uid, 70, 400)
-    c.is_available = true
-    add_character(c)
-
-    c = T.Character.new("NAME3", "0", SPECIALTY_LIST[0].uid)
-    c.is_hired = true
-    c.cost_per_year = 20
-    add_character(c)
+func load_characters():
+    var character_data = utils.json_readf(OBJECT_DATA_DIR + "character.json")
+    for data in character_data.values():
+        var modifiers_data = data.get("modifiers", [])
+        var modifiers = []
+        for mod_data in modifiers_data:
+            modifiers.append(parse_modifier(mod_data))
+        var specialty_uid = data["specialty_uid"]
+        if specialty_uid == consts.RANDOM:
+            specialty_uid = SPECIALTY_LIST[randi() % SPECIALTY_LIST.size()].uid
+        var character = T.Character.new(
+            data["name"],
+            data.get("icon_uid", null),
+            specialty_uid,
+            data.get("cost_per_year", 50),
+            data.get("price", 300),
+            data.get("level", null),
+            data.get("description", null),
+            data.get("title", null),
+            modifiers
+        )
+        var overrides = data.get("overrides", null)
+        if overrides != null:
+            character.is_available = overrides.get("is_available", false)
+            character.is_hired = overrides.get("is_hired", false)
+        load_uid(character, data)
+        CHARACTER_LIST.append(character)
 
 
 func load_uid(obj, data):
     obj.uid = data.get("uid", obj.uid)
 
 
-func load_specialties():
+func load_specialtys():
     var specialties_data = utils.json_readf(OBJECT_DATA_DIR + "specialties.json")
     for data in specialties_data:
-        SPECIALTY_LIST.append(T.Specialty.new(data["name"]))
+        SPECIALTY_LIST.append(T.Specialty.new(data["name"], data.get("color", null)))
 
 
 func parse_modifier(data):
-    return T.FacultyModifier.new(data["value"], data["property"], data.get("absolute", false))
+    return T.FacultyModifier.new(
+        data["value"],
+        data["property"],
+        data.get("absolute", false),
+        data.get("positive", true)
+    )
 
 
-func load_equipment():
+func load_equipments():
     var equipment_data = utils.json_readf(OBJECT_DATA_DIR + "equipment.json")
     for data in equipment_data.values():
         var modifiers_data = data.get("modifiers", [])
@@ -129,6 +157,7 @@ func load_grants():
         var grant = T.Grant.new(
             data["name"],
             data.get("amount", 100),
+            data.get("years_left", 5),
             data["specialty_uid"],
             data["difficulty"],
             data.get("level", 1),
@@ -153,7 +182,7 @@ func load_goals():
         GOAL_LIST.append(goal)
 
 
-func load_faculties():
+func load_facultys():
     var faculties_data = utils.json_readf(OBJECT_DATA_DIR + "faculties.json")
     for data in faculties_data.values():
         # TODO: freeze defaults in _init and here
@@ -161,6 +190,7 @@ func load_faculties():
             data["name"],
             data["specialty_uid"],
             data.get("icon_uid", null),
+            data.get("open_cost", 1000),
             data.get("default_cost", 100),
             data.get("default_enrollee_count", 15),
             data.get("default_enrolee_cost", 5),
@@ -170,23 +200,23 @@ func load_faculties():
         load_uid(faculty, data)
         FACULTY_LIST.append(faculty)
 
-
+define(`_load_resource', `load_`'$1`'s()
+    build_map(upcase($1)_LIST, upcase($1)_MAP, "$1")dnl
+')dnl
 func load_resources():
-    load_specialties()
-    load_equipment()
-    load_grants()
-    load_goals()
-    load_faculties()
-    build_map(SPECIALTY_LIST, SPECIALTY_MAP, "specialty")
-    build_map(EQUIPMENT_LIST, EQUIPMENT_MAP, "equipment")
-    build_map(GRANT_LIST, GRANT_MAP, "grant")
-    build_map(GOAL_LIST, GOAL_MAP, "goal")
-    build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
-    generate_starting_characters()
+    # TODO: checks for uniquness of all uids
+    _load_resource(specialty)
+    _load_resource(equipment)
+    _load_resource(grant)
+    _load_resource(goal)
+    _load_resource(faculty)
+    _load_resource(character)
+    for grant in GRANT_LIST:
+        grant_to_faculty[grant.uid] = null
 
 
 func spend_money(amount: int) -> bool:
-    if money <= amount:
+    if money < amount:
         emitter.call_func("money_error")
         return false
     money -= amount
@@ -198,3 +228,30 @@ func gain_money(amount: int) -> bool:
     money += amount
     emitter.call_func("money_updated", money, true)
     return true
+
+
+func format_date(datetime_):
+    return tr(MONTH_NAMES[datetime_["month"]]) + ", " + str(datetime_["year"])
+
+
+func next_date():
+    var month = datetime["month"]
+    month += 1
+    if month > 11:
+        month -= 12
+        datetime["year"] += 1
+    datetime["month"] = month
+    emitter.call_func("date_updated", format_date(datetime))
+    return datetime
+
+
+func remove_goal(goal_uid):
+    GOAL_LIST.remove(_find_in_goal_list(goal_uid))
+    GOAL_MAP.erase(goal_uid)
+
+
+func change_reputation(amount):
+    reputation += amount
+    if reputation < 0:
+        reputation = 0
+    emitter.call_func("reputation_updated", reputation, amount > 0)

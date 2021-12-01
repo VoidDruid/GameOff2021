@@ -1,1 +1,24 @@
 keys,en,ru
+BIOLOGY_PHD,PhD in biology,канд. биол. наук
+PHYSICS_PHD,PhD in physics,канд. физ.-мат. наук
+MATH_PHD,PhD in math,канд. физ.-мат. наук
+LING_SOC_PHD,PhD in linguistics,канд. филол. наук
+PHILOSOPHY_PHD,PhD in phiposophy,канд. филос. наук
+BIOLOGY_DR,Dr. of biology,д-р биол. наук
+PHYSICS_DR,Dr. of  physics,д-р физ.-мат. наук
+MATH_DR,Dr. of  math,д-р физ.-мат. наук
+LING_SOC_DR,Dr. of  linguistics,д-р филол. наук
+PHILOSOPHY_DR,Dr. of  phiposophy,д-р филос. наук
+BIOLOGY_ASP,postgrad biology,аспирант-биолог
+PHYSICS_ASP,postgrad physics,аспирант-физик
+MATH_ASP,postgrad math,аспирант-математик
+LING_SOC_ASP,postgrad linguistics,аспирант-филолог
+PHILOSOPHY_ASP,postgrad phiposophy,аспирант-философ
+BIOLOGY_FACULTY_,Biology,Биологии
+PHYSICS_FACULTY_,Physics,Физики
+MATH_FACULTY_,Math,Математики
+LING_SOC_FACULTY_,Linguistics,Лингвистики
+PHILOSOPHY_FACULTY_,Phiposophy,Философии
+G_NAME1,Lamar Guzman,Антон Савельев
+G_NAME2,Jordan Pope,Захар Гребнев
+G_NAME3,Kate Dodd,Лиза Субботина

@@ -1,0 +1,210 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://objects/ui/overrides/faculty_tab.svg" type="Texture" id=1]
+[ext_resource path="res://objects/ui/overrides/leader_back.png" type="Texture" id=2]
+[ext_resource path="res://objects/ui/UINamesFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://objects/ui/GameUIMainFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://objects/ui/UIInfoFontCursive.tres" type="DynamicFont" id=5]
+[ext_resource path="res://objects/ui/FacultyTab.gd" type="Script" id=6]
+[ext_resource path="res://common/fonts/Nunito/Nunito-ExtraLightItalic.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://objects/ui/button/focused.tres" type="StyleBox" id=8]
+[ext_resource path="res://objects/ui/button/hover.tres" type="StyleBox" id=9]
+[ext_resource path="res://objects/ui/button/normal.tres" type="StyleBox" id=10]
+[ext_resource path="res://objects/ui/button/pressed.tres" type="StyleBox" id=11]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.956863, 0.92549, 0.898039, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.0784314 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+
+[node name="FacultyTab" type="Control"]
+anchor_right = 0.45
+anchor_bottom = 0.267
+margin_right = -6.10352e-05
+margin_bottom = -0.360016
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
+bad_color = Color( 0.929412, 0.109804, 0.141176, 1 )
+hired_panel_color = Color( 0.152941, 0.435294, 0.74902, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -50.0
+margin_bottom = -32.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Leader" type="Control" parent="TextureRect/HBoxContainer"]
+margin_right = 242.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.48
+
+[node name="Background" type="TextureRect" parent="TextureRect/HBoxContainer/Leader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Button" parent="TextureRect/HBoxContainer/Leader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 8 )
+custom_styles/normal = ExtResource( 10 )
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/HBoxContainer/Leader/Icon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeaderInfo" type="Control" parent="TextureRect/HBoxContainer"]
+margin_left = 274.0
+margin_right = 781.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer/LeaderInfo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
+margin_right = 507.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FacultyName" type="Label" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -15.5
+margin_right = 108.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "FACULTY_"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control"]
+anchor_left = 0.499022
+anchor_top = 0.5
+anchor_right = 0.499022
+anchor_bottom = 0.5
+margin_left = -80.0042
+margin_top = -20.0
+margin_right = 19.9958
+margin_bottom = 20.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control/Panel"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -13.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FacultyName" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
+margin_top = 56.0
+margin_right = 507.0
+margin_bottom = 109.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/FacultyName"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -21.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Faculty name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeaderName" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
+margin_top = 113.0
+margin_right = 507.0
+margin_bottom = 166.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/LeaderName"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -7.0
+margin_bottom = 7.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Leader name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Effects" type="Control" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer"]
+margin_top = 170.0
+margin_right = 507.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -21.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

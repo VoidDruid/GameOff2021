@@ -1,0 +1,48 @@
+{
+   "190a5dca91f04e424e8332a9c3eb52a6": {
+      "icon_uid": "2",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.050000000000000003
+         }
+      ],
+      "name": "G_NAME2",
+      "overrides": {
+         "is_available": true
+      },
+      "specialty_uid": "BIOLOGY_",
+      "uid": "190a5dca91f04e424e8332a9c3eb52a6"
+   },
+   "50a1ba3b7b3ad2e0dd77f5de179febc9": {
+      "icon_uid": "1",
+      "name": "G_NAME1",
+      "specialty_uid": "PHYSICS_",
+      "uid": "50a1ba3b7b3ad2e0dd77f5de179febc9"
+   },
+   "acd8c13423ef687e3cb6336469601a78": {
+      "cost_per_year": 70,
+      "icon_uid": "3",
+      "level": 2,
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.10000000000000001
+         },
+         {
+            "positive": false,
+            "property": "yearly_cost",
+            "value": 0.050000000000000003
+         }
+      ],
+      "name": "G_NAME3",
+      "overrides": {
+         "is_available": true,
+         "is_hired": true
+      },
+      "price": 400,
+      "specialty_uid": "random",
+      "title": "phd",
+      "uid": "acd8c13423ef687e3cb6336469601a78"
+   }
+}

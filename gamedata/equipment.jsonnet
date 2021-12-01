@@ -9,7 +9,7 @@ local build_uid(obj) = std.md5(obj.name + obj.icon_id + obj.price + obj.modifier
     "price": 1000,
     "modifiers": [
       {
-        "value": 5,
+        "value": 0.05,
         "property": "breakthrough_chance"
       }
     ]

@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/ui/GameUITheme.tres" type="Theme" id=1]
 [ext_resource path="res://objects/ui/GameManager.gd" type="Script" id=2]
 [ext_resource path="res://objects/ui/overrides/FullScreenUITexture.tres" type="StyleBox" id=3]
+[ext_resource path="res://objects/ui/button/hover.tres" type="StyleBox" id=4]
+[ext_resource path="res://objects/ui/button/pressed.tres" type="StyleBox" id=5]
 [ext_resource path="res://objects/ui/overrides/TobBar.svg" type="Texture" id=6]
 [ext_resource path="res://objects/ui/overrides/date.svg" type="Texture" id=7]
 [ext_resource path="res://objects/ui/overrides/reputation.svg" type="Texture" id=8]
@@ -10,6 +12,9 @@
 [ext_resource path="res://objects/ui/Map.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/ui/overrides/map.svg" type="Texture" id=11]
 [ext_resource path="res://common/fonts/Open_Sans/OpenSanst.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://objects/ui/button/normal.tres" type="StyleBox" id=13]
+[ext_resource path="res://objects/ui/button/focused.tres" type="StyleBox" id=14]
+[ext_resource path="res://objects/ui/UIAccent.tres" type="DynamicFont" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -17,6 +22,10 @@ font_data = ExtResource( 12 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 14
+font_data = ExtResource( 12 )
 
 [node name="GameUI" type="Control" groups=["game_ui"]]
 anchor_right = 1.0
@@ -26,6 +35,12 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_use_anchors_": false
 }
+light_color = Color( 0.956863, 0.92549, 0.898039, 1 )
+dark_light_color = Color( 0.941176, 0.901961, 0.866667, 1 )
+default_log_color = Color( 1, 0.823529, 0.247059, 1 )
+good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
+bad_color = Color( 0.929412, 0.109804, 0.141176, 1 )
+hired_panel_color = Color( 0.152941, 0.435294, 0.74902, 1 )
 
 [node name="__FullWindowBox__" type="VBoxContainer" parent="." groups=["game_ui"]]
 anchor_right = 1.0
@@ -73,7 +88,7 @@ custom_constants/separation = 32
 
 [node name="StatusBar" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
 margin_right = 502.0
-margin_bottom = 96.0
+margin_bottom = 88.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.12
@@ -81,7 +96,7 @@ custom_constants/separation = 32
 
 [node name="Money" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
 margin_right = 235.0
-margin_bottom = 96.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -101,7 +116,7 @@ anchor_bottom = 0.00362539
 margin_bottom = 28.0
 custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "Money"
+text = "MONEY_"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -126,7 +141,7 @@ __meta__ = {
 [node name="Reputation" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
 margin_left = 267.0
 margin_right = 502.0
-margin_bottom = 96.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -143,7 +158,7 @@ __meta__ = {
 anchor_right = 1.0
 margin_bottom = 28.0
 custom_fonts/font = SubResource( 1 )
-text = "Reputation"
+text = "REPUTATION_"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -165,12 +180,12 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 128.0
+margin_top = 120.0
 margin_right = 502.0
-margin_bottom = 225.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.12
+size_flags_stretch_ratio = 0.06
 
 [node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control"]
 anchor_right = 1.0
@@ -193,18 +208,104 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_top = 196.0
+margin_right = 502.0
+margin_bottom = 284.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer"]
+margin_right = 235.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = 0.0241831
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 15 )
+text = "START_YEAR_"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelpButton" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer"]
+margin_left = 267.0
+margin_right = 502.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = 0.00827875
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = -0.000145408
+custom_fonts/font = ExtResource( 15 )
+text = "GAME_HELP_"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Map" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 257.0
+margin_top = 316.0
 margin_right = 502.0
-margin_bottom = 556.0
+margin_bottom = 587.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.37
 
 [node name="ScrollFeed" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 588.0
+margin_top = 619.0
 margin_right = 502.0
 margin_bottom = 920.0
 size_flags_horizontal = 3
@@ -231,7 +332,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
-margin_bottom = -13.0
+margin_bottom = -30.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
@@ -241,27 +342,28 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
 margin_right = 502.0
-margin_bottom = 61.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/Control"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_left = 0.00264615
+anchor_top = 0.465858
+anchor_right = 1.00265
+anchor_bottom = 0.465858
 margin_left = 45.0
 margin_top = -21.0
 margin_bottom = 21.0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-text = "Feed"
+text = "FEED_"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
-margin_top = 65.0
+margin_top = 56.0
 margin_right = 502.0
-margin_bottom = 315.0
+margin_bottom = 267.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.05
@@ -272,7 +374,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/ScrollContainer"]
 margin_right = 502.0
-margin_bottom = 250.0
+margin_bottom = 211.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -288,13 +390,13 @@ custom_constants/separation = 32
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
 margin_right = 1258.0
 margin_bottom = 97.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.11
 
 [node name="Background" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
-anchor_left = -0.000583861
-anchor_right = 0.999416
+anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -305,10 +407,10 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
-anchor_right = 1.0
+anchor_right = 0.98
 anchor_bottom = 1.0
 margin_left = 20.0
-margin_right = -20.0
+margin_right = 0.160034
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -317,7 +419,7 @@ __meta__ = {
 }
 
 [node name="Faculties" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_right = 399.0
+margin_right = 397.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -333,15 +435,15 @@ margin_top = -21.0
 margin_right = 61.0
 margin_bottom = 21.0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-text = "Faculties"
+text = "FACULTIES_"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Characters" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_left = 409.0
-margin_right = 808.0
+margin_left = 407.0
+margin_right = 805.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -357,15 +459,15 @@ margin_top = -21.0
 margin_right = 61.0
 margin_bottom = 21.0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-text = "Characters"
+text = "CHARACTERS_"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Grants" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_left = 818.0
-margin_right = 1218.0
+margin_left = 815.0
+margin_right = 1213.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -381,7 +483,7 @@ margin_top = -21.0
 margin_right = 47.0
 margin_bottom = 21.0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-text = "Grants"
+text = "GRANTS_"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -413,11 +515,12 @@ __meta__ = {
 }
 
 [node name="StatusLabel" type="Label" parent="__FullWindowBox__/StatusLabelPanel/StatusLabelContainer" groups=["debug_ui", "dynamic_ui", "game_ui"]]
-margin_bottom = 42.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
 valign = 1
 
 [connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties" to="." method="_on_Faculties_pressed"]
