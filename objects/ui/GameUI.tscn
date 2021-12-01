@@ -27,7 +27,9 @@ bg_color = Color( 1, 1, 1, 1 )
 size = 14
 font_data = ExtResource( 12 )
 
-[node name="GameUI" type="Control" groups=["game_ui"]]
+[node name="GameUI" type="Control" groups=[
+"game_ui",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -42,7 +44,9 @@ good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
 bad_color = Color( 0.929412, 0.109804, 0.141176, 1 )
 hired_panel_color = Color( 0.152941, 0.435294, 0.74902, 1 )
 
-[node name="__FullWindowBox__" type="VBoxContainer" parent="." groups=["game_ui"]]
+[node name="__FullWindowBox__" type="VBoxContainer" parent="." groups=[
+"game_ui",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -88,7 +92,7 @@ custom_constants/separation = 32
 
 [node name="StatusBar" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
 margin_right = 502.0
-margin_bottom = 96.0
+margin_bottom = 88.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.12
@@ -96,7 +100,7 @@ custom_constants/separation = 32
 
 [node name="Money" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
 margin_right = 235.0
-margin_bottom = 96.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -114,8 +118,8 @@ anchor_top = 0.00362539
 anchor_right = 1.0
 anchor_bottom = 0.00362539
 margin_bottom = 28.0
-custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
 text = "MONEY_"
 align = 1
 __meta__ = {
@@ -141,7 +145,7 @@ __meta__ = {
 [node name="Reputation" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
 margin_left = 267.0
 margin_right = 502.0
-margin_bottom = 96.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -180,12 +184,12 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 128.0
+margin_top = 120.0
 margin_right = 502.0
-margin_bottom = 225.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.12
+size_flags_stretch_ratio = 0.06
 
 [node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control"]
 anchor_right = 1.0
@@ -208,18 +212,104 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_top = 196.0
+margin_right = 502.0
+margin_bottom = 284.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer"]
+margin_right = 235.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = 0.0241831
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 15 )
+text = "START_YEAR_"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelpButton" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer"]
+margin_left = 267.0
+margin_right = 502.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = 0.00827875
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = -0.000145408
+custom_fonts/font = ExtResource( 15 )
+text = "GAME_HELP_"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Map" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 257.0
+margin_top = 316.0
 margin_right = 502.0
-margin_bottom = 556.0
+margin_bottom = 587.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.37
 
 [node name="ScrollFeed" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 588.0
+margin_top = 619.0
 margin_right = 502.0
 margin_bottom = 920.0
 size_flags_horizontal = 3
@@ -256,7 +346,7 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
 margin_right = 502.0
-margin_bottom = 58.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -275,9 +365,9 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
-margin_top = 62.0
+margin_top = 56.0
 margin_right = 502.0
-margin_bottom = 298.0
+margin_bottom = 267.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.05
@@ -288,7 +378,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/ScrollContainer"]
 margin_right = 502.0
-margin_bottom = 236.0
+margin_bottom = 211.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -407,40 +497,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
-margin_left = 1016.0
-margin_right = 1258.0
-margin_bottom = 96.0
-custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 5 )
-custom_styles/focus = ExtResource( 14 )
-custom_styles/normal = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button"]
-show_behind_parent = true
-anchor_bottom = 1.0
-margin_right = 242.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 15 )
-text = "START_YEAR_"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="GameWindow" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
 margin_top = 129.0
 margin_right = 1258.0
@@ -449,7 +505,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.89
 
-[node name="StatusLabelPanel" type="Panel" parent="__FullWindowBox__" groups=["game_ui"]]
+[node name="StatusLabelPanel" type="Panel" parent="__FullWindowBox__" groups=[
+"game_ui",
+]]
 margin_top = 1048.0
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -457,7 +515,9 @@ rect_min_size = Vector2( 0, 32 )
 theme = ExtResource( 1 )
 custom_styles/panel = SubResource( 2 )
 
-[node name="StatusLabelContainer" type="MarginContainer" parent="__FullWindowBox__/StatusLabelPanel" groups=["game_ui"]]
+[node name="StatusLabelContainer" type="MarginContainer" parent="__FullWindowBox__/StatusLabelPanel" groups=[
+"game_ui",
+]]
 margin_left = 5.0
 margin_top = 5.0
 size_flags_horizontal = 0
@@ -466,13 +526,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatusLabel" type="Label" parent="__FullWindowBox__/StatusLabelPanel/StatusLabelContainer" groups=["debug_ui", "dynamic_ui", "game_ui"]]
+[node name="StatusLabel" type="Label" parent="__FullWindowBox__/StatusLabelPanel/StatusLabelContainer" groups=[
+"debug_ui",
+"dynamic_ui",
+"game_ui",
+]]
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 
 [connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties" to="." method="_on_Faculties_pressed"]

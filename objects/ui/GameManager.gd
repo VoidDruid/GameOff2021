@@ -54,6 +54,7 @@ var BuyButton_res = load(ui_res_folder + "BuyButton.tscn")
 var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
 var FacultyMapTab_res = load(ui_res_folder + "FacultyMapTab.tscn")
 var UIBlocker_res = load(ui_res_folder + "UIBlocker.tscn")
+var HelpHolder_res = load(ui_res_folder + "HelpHolder.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -66,7 +67,8 @@ var GoalRed_res = load(ui_res_folder + "GoalRed.tscn")
 var GoalTeal_res = load(ui_res_folder + "GoalTeal.tscn")
 var GOAL_RES = [GoalBlue_res, GoalRed_res, GoalTeal_res, GoalYellow_res]
 
-onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button
+onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton
+onready var game_help_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton
 
 func get_color_index(index) -> Color:
     return dark_light_color if index % 2 == 0 else light_color
@@ -97,6 +99,7 @@ func _ready():
     _rs = simulation.connect("faculties_updated",self, "_on_Faculties_update")
 
     _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
+    _rs = game_help_button.connect("pressed", self, "_on_ShowHelp_pressed")
 
     _rs = FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
 
@@ -408,3 +411,9 @@ func choice_dialog(object_type, darkinator, action_type=null):
     choice_dialog_window.parent_uid = 0
     choice_dialog_window.action_type = action_type
     get_node("/root/Main/UI").add_child(choice_dialog_window)
+
+
+func _on_ShowHelp_pressed():
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    choice_dialog(3, darkinator)
