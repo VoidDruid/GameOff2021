@@ -28,10 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
-<<<<<<< HEAD
-=======
 process/normal_map_invert_y=false
->>>>>>> a6b5c37338c8723fdf71d58bd9380efbc43ff4ca
 stream=false
 size_limit=0
 detect_3d=true
