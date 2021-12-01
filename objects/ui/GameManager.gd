@@ -46,7 +46,6 @@ var ObjectDetail_res = load(ui_res_folder + "ObjectDetail.tscn")
 var ObjectChoice_res = load(ui_res_folder + "ObjectChoice.tscn")
 var Darkinator_res = load(ui_res_folder + "Darkinator3000.tscn")
 var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
-var GoalC_res = load(ui_res_folder + "GoalC.tscn")
 var BuyButton_res = load(ui_res_folder + "BuyButton.tscn")
 var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
 
@@ -55,6 +54,11 @@ var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
 var TickButton = load(ui_res_folder + "TickButton.tscn")
 var GrantChance = load(ui_res_folder + "GrantChance.tscn")
 
+var GoalBlue_res = load(ui_res_folder + "GoalBlue.tscn")
+var GoalYellow_res = load(ui_res_folder + "GoalYellow.tscn")
+var GoalRed_res = load(ui_res_folder + "GoalRed.tscn")
+var GoalTeal_res = load(ui_res_folder + "GoalTeal.tscn")
+var GOAL_RES = [GoalBlue_res, GoalRed_res, GoalTeal_res, GoalYellow_res]
 
 func get_color_index(index) -> Color:
     return dark_light_color if index % 2 == 0 else light_color
@@ -278,10 +282,23 @@ func buildGrantsWindow():
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
     
+    var goal_row = CurrentGameWindow.get_node("VBoxContainer/Goals")
+    var ind = 0
     for goal in dt.goals:
-        pass
-        #var goal_c = GoalC_res.instance()
-        
+        var goal_c = GOAL_RES[ind].instance()
+        var name_b = goal_c.get_node("Name")
+        goal_row.add_child(goal_c)
+        name_b.text = goal.name
+        var short_d = tr("SHORT_" + goal.description)
+        if short_d != "SHORT_" + goal.description:
+            name_b.hint_tooltip = short_d
+        goal_c.value = goal.progress
+        name_b.connect("pressed", self, "_on_Goal_pressed")
+        ind += 1
+
+
+func _on_Goal_pressed():
+    pass
 
 
 func buildCharactersWindow():

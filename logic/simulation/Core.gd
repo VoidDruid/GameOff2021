@@ -95,6 +95,8 @@ func _ready():
                 "EQ effects: ", obj.equipment_mods_abs, " ", obj.equipment_mods_rel, " "
             )
 
+        print_debug(get_faculties())
+
 
 func _process(_delta):
     pass
