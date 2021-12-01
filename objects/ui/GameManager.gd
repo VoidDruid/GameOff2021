@@ -29,6 +29,7 @@ enum {TAKE_GRANT, ASSIGN_GRANT, WATCH_GRANT}
 
 var CurrentScreen
 var is_year_running = false
+var current_faculty_uid = null
 
 var ui_res_folder = "res://objects/ui/"
 var game_manager_path = @"/root/Main/UI/GameUI"
@@ -143,15 +144,19 @@ func _on_Grants_pressed():
     buildGrantsWindow()
     MainWindow.add_child(CurrentGameWindow)
 
+func on_Faculty_pressed(uid):
+    current_faculty_uid = uid
+    _on_Faculties_pressed()
 
 func _on_Faculties_pressed():
+    if current_faculty_uid == null:
+        return
     on_Menu_button_pressed(false, false, true)
     if CurrentGameWindow != null:
         CurrentGameWindow.queue_free()
         CurrentGameWindow = null
     CurrentScreen = FACULTY_SCREEN
-    var faculty_id = simulation.Storage.FACULTY_LIST[0].uid
-    buildFacultyWindow(faculty_id)
+    buildFacultyWindow(current_faculty_uid)
     MainWindow.add_child(CurrentGameWindow)
 
 
