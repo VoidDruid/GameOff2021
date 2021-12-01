@@ -2,6 +2,8 @@
 
 > Управленческий sim для геймджема GameOff, *made with Godot*
 
+Проект на itch.io -  [вот]().
+
 Команда:
 
 - [VoidDruid](https://github.com/VoidDruid) - идея, программирование

@@ -4,11 +4,17 @@
 
 ## Менеджмент-сим про университет
 
-
-
 **Интерпретация темы**: *B. University of G.* - нам хотелось сделать игру про университет с инопланетянами, так что пусть он будет "университеты-слов-начинающихся-на-b", расположенном в "местах-начинающихся-на-g".
 
-Скриншоты.
+![faculty](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/faculty.png)
+
+![detail](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/detail.png)
+
+![characters](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/characters.png)
+
+![choice](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/choice.png)
+
+![grants](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/grants.png)
 
 <details>
   <summary><b>> Attributions</b></summary>
