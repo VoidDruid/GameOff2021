@@ -25,8 +25,13 @@ func get_specialty(specialty_uid):
 
 func _find_in_specialty_list(specialty):
     var i = 0
+    var uid
+    if typeof(specialty) == TYPE_STRING:
+        uid = specialty
+    else:
+        uid = specialty.uid
     for obj in SPECIALTY_LIST:
-        if obj.uid == specialty.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -52,8 +57,13 @@ func get_equipment(equipment_uid):
 
 func _find_in_equipment_list(equipment):
     var i = 0
+    var uid
+    if typeof(equipment) == TYPE_STRING:
+        uid = equipment
+    else:
+        uid = equipment.uid
     for obj in EQUIPMENT_LIST:
-        if obj.uid == equipment.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -79,8 +89,13 @@ func get_faculty(faculty_uid):
 
 func _find_in_faculty_list(faculty):
     var i = 0
+    var uid
+    if typeof(faculty) == TYPE_STRING:
+        uid = faculty
+    else:
+        uid = faculty.uid
     for obj in FACULTY_LIST:
-        if obj.uid == faculty.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -106,8 +121,13 @@ func get_character(character_uid):
 
 func _find_in_character_list(character):
     var i = 0
+    var uid
+    if typeof(character) == TYPE_STRING:
+        uid = character
+    else:
+        uid = character.uid
     for obj in CHARACTER_LIST:
-        if obj.uid == character.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -133,8 +153,13 @@ func get_grant(grant_uid):
 
 func _find_in_grant_list(grant):
     var i = 0
+    var uid
+    if typeof(grant) == TYPE_STRING:
+        uid = grant
+    else:
+        uid = grant.uid
     for obj in GRANT_LIST:
-        if obj.uid == grant.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -160,8 +185,13 @@ func get_goal(goal_uid):
 
 func _find_in_goal_list(goal):
     var i = 0
+    var uid
+    if typeof(goal) == TYPE_STRING:
+        uid = goal
+    else:
+        uid = goal.uid
     for obj in GOAL_LIST:
-        if obj.uid == goal.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -378,3 +408,8 @@ func next_date():
     datetime["month"] = month
     emitter.call_func("date_updated", format_date(datetime))
     return datetime
+
+
+func remove_goal(goal_uid):
+    GOAL_LIST.remove(_find_in_goal_list(goal_uid))
+    GOAL_MAP.erase(goal_uid)

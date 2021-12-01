@@ -20,6 +20,9 @@ signal reputation_updated(amount, has_increased)
 signal date_updated(date_string)
 signal year_end
 
+signal game_over
+signal victory(goal_uid)
+
 
 # NOTE: I know this is ugly, but is seems like the only way to do it
 # There is no vararg in gdscript
@@ -145,7 +148,7 @@ func get_faculties():
 
 
 func start_year():
-    var month_delay = 1 if not utils.is_debug else 0.1
+    var month_delay = 1.0 if not utils.is_debug else 0.1
     while true:
         Actions.step_month()
 

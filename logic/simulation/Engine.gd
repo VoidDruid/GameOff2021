@@ -148,6 +148,7 @@ func update_goal(goal):
             continue
         done_m[specialty_uid] = 0
         total_req += goal.requirements[specialty_uid]
+    print_debug(goal.requirements["_GRANTS_"])
     for grant in Storage.GRANT_LIST:
         if not grant.is_completed:
             continue
@@ -159,7 +160,10 @@ func update_goal(goal):
             done_m[grant.specialty_uid] < goal.requirements[grant.specialty_uid]):
             done_m[grant.specialty_uid] += 1
             done_req += 1
+
     goal.progress = (done_req / total_req * 100)
+    if goal.progress >= 100:
+        emitter.call_func("victory", goal.uid)
 
 
 func update_goals():

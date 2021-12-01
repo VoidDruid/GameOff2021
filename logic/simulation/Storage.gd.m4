@@ -24,8 +24,13 @@ func get_$1($1_uid):
 
 func _find_in_$1_list($1):
     var i = 0
+    var uid
+    if typeof($1) == TYPE_STRING:
+        uid = $1
+    else:
+        uid = $1.uid
     for obj in upcase($1)_LIST:
-        if obj.uid == $1.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
