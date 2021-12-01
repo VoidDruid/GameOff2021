@@ -77,3 +77,15 @@ func intersection(first, second):
         if item in second:
             result.append(item)
     return result
+
+
+func build_text(text_src) -> String:
+    var text
+    match typeof(text_src):
+        TYPE_ARRAY:
+            text = ""
+            for text_src_item in text_src:
+                text += build_text(text_src_item)
+        TYPE_STRING:
+            text = tr(text_src)
+    return text

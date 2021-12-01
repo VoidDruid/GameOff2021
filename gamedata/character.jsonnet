@@ -31,6 +31,7 @@ local characters = [
         cost_per_year: 70,
         price: 400,
         level: 2,
+        title: "phd",
         overrides: {
             is_available: true,
             is_hired: true

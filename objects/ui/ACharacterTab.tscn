@@ -1,12 +1,19 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objects/ui/CharacterTab.gd" type="Script" id=1]
 [ext_resource path="res://objects/ui/overrides/minus.svg" type="Texture" id=2]
 [ext_resource path="res://objects/ui/overrides/plus.svg" type="Texture" id=3]
 [ext_resource path="res://objects/ui/GameUITheme.tres" type="Theme" id=4]
 [ext_resource path="res://objects/ui/InfoPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/ui/UINamesFont.tres" type="DynamicFont" id=6]
+[ext_resource path="res://common/fonts/Nunito/Nunito-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://objects/ui/PlusTButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://shared/vfx/ui/icons/black/2x/checkmark.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 6 )
 
 [node name="CharacterTab" type="Control"]
 anchor_right = 1.0
@@ -26,6 +33,7 @@ hired_panel_color = Color( 0.152941, 0.435294, 0.74902, 1 )
 available_panel_color = Color( 0.0235294, 0.737255, 0.756863, 1 )
 plus_texture = ExtResource( 3 )
 cross_texture = ExtResource( 2 )
+tick_texture = ExtResource( 8 )
 
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -37,7 +45,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 48.0
+margin_left = 16.0
 margin_top = 21.0
 margin_right = -32.0
 margin_bottom = -21.0
@@ -46,7 +54,7 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
-margin_right = 520.0
+margin_right = 552.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -56,23 +64,30 @@ __meta__ = {
 }
 
 [node name="TopRow" type="HBoxContainer" parent="Background/HBoxContainer/VBoxContainer"]
-margin_right = 520.0
-margin_bottom = 31.0
+margin_right = 552.0
+margin_bottom = 26.0
 custom_constants/separation = 15
 
 [node name="CharNameLabel" type="Label" parent="Background/HBoxContainer/VBoxContainer/TopRow"]
-margin_right = 84.0
-margin_bottom = 31.0
+margin_right = 70.0
+margin_bottom = 26.0
+mouse_filter = 0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = SubResource( 1 )
 text = "asdasda"
 
 [node name="Panel" parent="Background/HBoxContainer/VBoxContainer/TopRow" instance=ExtResource( 5 )]
+margin_left = 85.0
+margin_right = 105.0
+margin_bottom = 26.0
 
 [node name="BottomRow" type="HBoxContainer" parent="Background/HBoxContainer/VBoxContainer"]
-margin_top = 38.0
-margin_right = 520.0
-margin_bottom = 38.0
+margin_top = 33.0
+margin_right = 552.0
+margin_bottom = 33.0
 custom_constants/separation = 10
 
 [node name="TextureButton" parent="Background" instance=ExtResource( 7 )]
+margin_left = 18.1998
+margin_right = 17.9996
+margin_bottom = 3.05176e-05

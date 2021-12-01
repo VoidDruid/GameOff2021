@@ -9,7 +9,7 @@
         name: "MATH_"
     },
     lingsoc: {
-        name: "LING_SOC"
+        name: "LING_SOC_"
     },
     philosophy: {
         name: "PHILOSOPHY_"

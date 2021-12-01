@@ -12,6 +12,7 @@ var grant_chance_button_path = "HBoxContainer/TextureRectRight/Right/GrantChance
 var enrollee_count_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 var leader_panel_path = "HBoxContainer/LeftTextureRect/Left/FacultyTab"
 var faculty_cost_panel_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Control/Panel"
+var faculty_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/FacultyName/Label"
 var faculty_cost_label_path = faculty_cost_panel_path + "/Label"
 var leader_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/LeaderName/Label"
 var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects/HBoxContainer"
@@ -31,13 +32,14 @@ func _on_AddStaff_pressed():
 func _on_GrantButton_pressed():
     var darkinator = game_manager.Darkinator_res.instance()
     get_node("/root/Main/UI").add_child(darkinator)
-    
+
     var grant_choice = game_manager.ObjectDetail_res.instance()
     if faculty.grant_uid != null:
         grant_choice.grant = simulation.get_grant_data(faculty.grant_uid)
         grant_choice.darkinator = darkinator
         grant_choice.game_manager = game_manager
         grant_choice.object_type = 0
+        grant_choice.parent_uid = faculty.uid
         get_node("/root/Main/UI").add_child(grant_choice)
     else:
         # TODO: choice menu
@@ -47,13 +49,14 @@ func _on_GrantButton_pressed():
 func _on_LeaderButton_pressed():
     var darkinator = game_manager.Darkinator_res.instance()
     get_node("/root/Main/UI").add_child(darkinator)
-    
+
     var leader_choice = game_manager.ObjectDetail_res.instance()
     if leader != null:
         leader_choice.character = leader
         leader_choice.darkinator = darkinator
         leader_choice.game_manager = game_manager
         leader_choice.object_type = 1
+        leader_choice.parent_uid = faculty.uid
         get_node("/root/Main/UI").add_child(leader_choice)
     else:
         # TODO: choice menu
@@ -104,6 +107,7 @@ func _ready():
 
     var leader_tab = get_node(leader_panel_path)
     var faculty_cost_label = leader_tab.get_node(faculty_cost_label_path)
+    leader_tab.get_node(faculty_name_path).text = faculty.name
     faculty_cost_label.text = ("   " +
         str(faculty.yearly_cost) + " " + tr("FACULTY_COST_PER_YEAR_")
         + "   "
@@ -117,7 +121,9 @@ func _ready():
     cost_panel.rect_min_size.x = faculty_cost_label.rect_size.x
 
     if leader != null:
-        leader_tab.get_node(leader_name_path).text = leader.name
+        var leader_name_l = leader_tab.get_node(leader_name_path)
+        leader_name_l.text = tr(leader.name) + ", " + tr(leader.title)
+        leader_name_l.hint_tooltip = tr(leader.specialty_uid)
 
         var leader_effects = leader_tab.get_node(leader_effects_path)
         for modifier in leader.modifiers:

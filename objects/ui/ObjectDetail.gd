@@ -6,6 +6,7 @@ var character
 var is_changable = true
 var darkinator
 var game_manager
+var parent_uid
 
 onready var icon_rect = $Margins/Control/Layout/TextureRect
 onready var name_label = $Margins/Control/Layout/InfoBox/NameL
@@ -14,16 +15,24 @@ onready var detail_label = $Margins/Control/Layout/InfoBox/BottomRowHB/DetailL
 onready var change_button = $Margins/Control/Layout/InfoBox/BottomRowHB/Control/HBoxContainer/TextureButton
 onready var close_button = $CloseButton
 
+
 func generic_setup(obj):
-    name_label.text = obj.name
-    description_label.text = obj.description
+    var suffix
+    match object_type:
+        0:
+            suffix = tr(obj.specialty_uid)
+        1:
+            suffix = tr(obj.title)
+    name_label.text = tr(obj.name) + ", " + suffix
+    name_label.hint_tooltip = tr(obj.specialty_uid)
+    description_label.text = utils.build_text(obj.description)
     # TODO: icon setup
 
 
 func setup_grant():
     detail_label.text = str(grant.difficulty) + " " + tr("GRANT_DIFFICULTY")
-    
-    
+
+
 func setup_character():
     detail_label.text = str(character.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
 
@@ -33,6 +42,7 @@ func _on_ChangeButtonPressed():
     choice_dialog.darkinator = darkinator
     choice_dialog.game_manager = game_manager
     choice_dialog.object_type = object_type
+    choice_dialog.parent_uid = parent_uid
     get_node("/root/Main/UI").add_child(choice_dialog)
     self.queue_free()
 

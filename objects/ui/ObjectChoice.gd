@@ -6,6 +6,8 @@ onready var container = $Margin/VBoxContainer/ScrollContainer/VBoxContainer
 var darkinator
 var game_manager
 var object_type
+var parent_uid
+var has_actions = true
 
 
 func _on_CloseButtonPressed():
@@ -18,6 +20,7 @@ func _ready():
     close_button.connect("pressed", self, "_on_CloseButtonPressed")
     var dt
     var i
+    var button
     match object_type:
         0:
             # Grant
@@ -27,7 +30,16 @@ func _ready():
                 var grTab = game_manager.GrantTab_res.instance()
                 grTab.game_manager = game_manager
                 grTab.get_node("HBoxContainer/Background").color = game_manager.get_color_index(i)
-                grTab.setup_for_grant(gr, game_manager.simulation.get_specialty_color(gr.specialty_uid), game_manager.EffectLabel, game_manager.PlusButton, game_manager.GrantChance, false, true, false)
+                if has_actions:
+                    grTab.action_type = game_manager.ASSIGN_GRANT
+                    grTab.faculty_uid = parent_uid
+                else:
+                    grTab.action_type = -1
+                grTab.setup_for_grant(gr, game_manager.simulation.get_specialty_color(gr.specialty_uid), game_manager.EffectLabel, game_manager.PlusButton, game_manager.GrantChance, game_manager.TickButton, false, true, false)
+                if has_actions:
+                    button = grTab.get_node("HBoxContainer/Background/TickButton")
+                    button.connect("pressed", self, "queue_free")
+                    button.connect("pressed", darkinator, "queue_free")
                 container.add_child(grTab)
         1:
             # Character
@@ -38,6 +50,14 @@ func _ready():
                 chTab.game_manager = game_manager
                 chTab.EffectLabel = game_manager.EffectLabel
                 chTab.character = ch
+                if has_actions:
+                    chTab.action_type = game_manager.LEADER_ASSIGN
+                    chTab.faculty_uid = parent_uid
+                    button = chTab.get_node("Background/TextureButton")
+                    button.connect("pressed", self, "queue_free")
+                    button.connect("pressed", darkinator, "queue_free")
+                else:
+                    chTab.action_type = -1
                 chTab.get_node("Background").color = game_manager.get_color_index(i)
                 container.add_child(chTab)
                 i += 1

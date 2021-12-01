@@ -6,18 +6,26 @@ export(Color) var hired_panel_color
 export(Color) var available_panel_color
 export(Texture) var plus_texture
 export(Texture) var cross_texture
+export(Texture) var tick_texture
+
+enum ActionType {HIRE, FIRE, ASSIGN, NONE}
 
 var character
 var EffectLabel
 var is_hired
 var game_manager: GameManager
+var action_type = null
+var faculty_uid = ""
+
 
 func _on_Button_pressed():
-    if game_manager != null:
-        if is_hired:
-            game_manager.on_ChButton_pressed(character.uid, "", game_manager.CHARACTER_FIRE)
-        else:
-            game_manager.on_ChButton_pressed(character.uid, "", game_manager.CHARACTER_HIRE)
+    if game_manager == null:
+        return
+    match action_type:
+        -1:
+            return
+        _:
+            game_manager.on_ChButton_pressed(character.uid, faculty_uid, action_type)
 
 
 var char_info_panel = "Background/HBoxContainer/VBoxContainer"
@@ -28,32 +36,63 @@ var char_cost_panel = char_top_path + "/Panel"
 var char_cost_label_path = char_cost_panel + "/InfoLabel"
 
 
+func infer_action():
+    if not is_hired:
+        action_type = game_manager.CHARACTER_HIRE
+    else:
+        action_type = game_manager.CHARACTER_FIRE
+
+
+func setup_hire(button):
+    if !character.is_available and !is_hired:
+        button.disabled = true
+        button.modulate = Color(1, 1, 1, 0.4)
+    else:
+        button.connect("pressed", self, "_on_Button_pressed")
+    button.texture_normal = plus_texture
+
+
+func setup_fire(button):
+    button.connect("pressed", self, "_on_Button_pressed")
+    button.texture_normal = cross_texture
+    button.anchor_top += 0.1
+    button.anchor_top -= 0.1
+    button.anchor_left += 0.01
+    button.anchor_right -= 0.01
+
+
+func setup_assign(button):
+    button.texture_normal = tick_texture
+    button.connect("pressed", self, "_on_Button_pressed")
+
+
+func setup_none(button):
+    button.queue_free()
+
+
 func _ready():
     is_hired = character.is_hired
 
-    get_node(char_name_label_path).text = character.name
+    var name_label = get_node(char_name_label_path)
+    name_label.text = tr(character.name) + ", " + tr(character.title)
+    name_label.hint_tooltip = tr(character.specialty_uid)
     var char_cost_label = get_node(char_cost_label_path)
     char_cost_label.text = ("   " +
         ("" if is_hired else str(character.price) + " " + tr("CHARACTER_PRICE") + ", ") +
         str(character.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
         + "   "
     )
-    var button_n = get_node("Background/TextureButton")
-    if !character.is_available and !is_hired:
-        button_n.disabled = true
-        button_n.modulate = Color(1, 1, 1, 0.4)
-        # TODO: add tooltip - why char is unavailable
-    else:
-        button_n.connect("pressed", self, "_on_Button_pressed")
-    if not is_hired:
-        button_n.texture_normal = plus_texture
-    else:
-        button_n.texture_normal = cross_texture
-        button_n.anchor_top += 0.1
-        button_n.anchor_top -= 0.1
-        button_n.anchor_left += 0.01
-        button_n.anchor_right -= 0.01
 
+    var button_n = get_node("Background/TextureButton")
+    if action_type == null:
+        infer_action()
+    match action_type:
+        game_manager.CHARACTER_FIRE:
+            setup_fire(button_n)
+        game_manager.CHARACTER_HIRE:
+            setup_hire(button_n)
+        game_manager.LEADER_ASSIGN:
+            setup_assign(button_n)
 
     var panel = get_node(char_cost_panel)
     var new_style = StyleBoxFlat.new()
