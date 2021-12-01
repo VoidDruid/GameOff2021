@@ -19,10 +19,11 @@ var DateCounter: Control
 var FacultiesButton: TextureButton
 var CharactersButton: TextureButton
 var GrantsButton: TextureButton
+var FacultyMap: Control
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
-enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
+enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN, FACULTY_ADD}
 
 enum {TAKE_GRANT, ASSIGN_GRANT, WATCH_GRANT}
 
@@ -49,6 +50,7 @@ var Darkinator_res = load(ui_res_folder + "Darkinator3000.tscn")
 var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
 var BuyButton_res = load(ui_res_folder + "BuyButton.tscn")
 var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
+var FacultyMapTab_res = load(ui_res_folder + "FacultyMapTab.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -78,6 +80,7 @@ func _ready():
     FacultiesButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties")
     CharactersButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters")
     GrantsButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants")
+    FacultyMap = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Map")
 
     var _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
     _rs = simulation.connect("money_updated", self, "_on_Money_updated")
@@ -88,9 +91,12 @@ func _ready():
     _rs = simulation.connect("update_log", self, "_on_Update_log")
     _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
     _rs = simulation.connect("year_end", self, "_on_Year_end")
-    
+    _rs = simulation.connect("faculties_updated",self, "_on_Faculties_update")
+
     _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
-    
+
+    _rs = FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
+
     simulation.start()
 
 
@@ -200,6 +206,12 @@ func on_GrButton_pressed(gr_id, faculty_uid, action_type):
         ASSIGN_GRANT:
             simulation.actions.assign_grant(faculty_uid, gr_id)
 
+func on_FcButton_pressed(faculty_uid, action_type):
+    print_debug("CALLED FC: ", faculty_uid, " ", action_type)
+    match action_type:
+        FACULTY_ADD:
+            simulation.actions.open_faculty(faculty_uid)
+
 func on_EqButton_pressed(faculty_uid, equipment_uid):
     simulation.actions.buy_equipment(faculty_uid, equipment_uid)
 
@@ -256,6 +268,9 @@ func _on_Date_updated(date_string):
     print_debug(str(date_string))
     DateCounter.get_node("TextureRect/Label").text = str(date_string)
 
+func _on_Faculties_update():
+    buildFacultiesMap()
+
 func buildGrantsWindow():
     CurrentGameWindow = Grants_res.instance()
     CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/Control/Label").text = tr("GRANTS_AVAILABLE")
@@ -293,7 +308,7 @@ func buildGrantsWindow():
         grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton, false, false, true)
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
-    
+
     var goal_row = CurrentGameWindow.get_node("VBoxContainer/Goals")
     var ind = 0
     for goal in dt.goals:
@@ -354,3 +369,31 @@ func buildFacultyWindow(faculty_id):
     CurrentGameWindow.faculty = faculty
     CurrentGameWindow.game_manager = self
     CurrentGameWindow.simulation = simulation
+
+func buildFacultiesMap():
+    var faculties = simulation.get_faculties()
+    var i = 0
+    for fc in faculties:
+        if fc.is_opened:
+            var fcTab = FacultyMapTab_res.instance()
+            fcTab.game_manager = self
+            fcTab.get_node("HBoxContainer/Background").color = get_color_index(i)
+            fcTab.action_type = -1
+            fcTab.setup_for_faculty_map_tab(fc, simulation.get_specialty_color(fc.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton)
+            FacultyMap.get_node("VBoxContainer/Scroll/VBoxContainer").add_child(fcTab)
+### faculties map
+
+func _on_AddFaculty_pressed():
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    choice_dialog(2, darkinator, FACULTY_ADD)
+
+
+func choice_dialog(object_type, darkinator, action_type=null):
+    var choice_dialog_window = ObjectChoice_res.instance()
+    choice_dialog_window.darkinator = darkinator
+    choice_dialog_window.game_manager = self
+    choice_dialog_window.object_type = object_type
+    choice_dialog_window.parent_uid = 0
+    choice_dialog_window.action_type = action_type
+    get_node("/root/Main/UI").add_child(choice_dialog_window)

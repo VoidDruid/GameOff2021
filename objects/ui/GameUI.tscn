@@ -437,6 +437,9 @@ custom_fonts/font = ExtResource( 15 )
 text = "START_YEAR_"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GameWindow" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
 margin_top = 129.0
