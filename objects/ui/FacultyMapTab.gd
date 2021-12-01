@@ -36,7 +36,7 @@ func setup_assign(faculty, TickButton):
 
 func setup_for_faculty_map_tab(faculty, left_tab_color, EffectLabel, PlusButton, facultyChance, TickButton):
     get_node(faculty_left_tab_color_path).color = left_tab_color
-    get_node(faculty_label).text = faculty.name + ", " + tr(faculty.specialty_uid)
+    get_node(faculty_label).text = tr("FACULTY_") + " " + tr(faculty.name)
     var _rs = get_node(faculty_choice_button).connect("pressed", self, "_on_Faculty_button_pressed")
     faculty_uid = faculty.uid
 
