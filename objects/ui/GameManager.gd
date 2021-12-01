@@ -86,6 +86,7 @@ func _ready():
     _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
 
     simulation.start()
+    simulation.get_faculties()
 
 
 func _process(_delta):
