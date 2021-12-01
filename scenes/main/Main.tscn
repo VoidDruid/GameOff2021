@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/main/Main.gd" type="Script" id=1]
 [ext_resource path="res://objects/ui/GameUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://logic/simulation/Core.gd" type="Script" id=3]
+[ext_resource path="res://shared/sfx/ambient.mp3" type="AudioStream" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,3 +23,9 @@ simulation_node_path = NodePath("../../SimulationHolder")
 
 [node name="SimulationHolder" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="AmbientPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 981, 457 )
+stream = ExtResource( 4 )
+volume_db = -17.0
+autoplay = true

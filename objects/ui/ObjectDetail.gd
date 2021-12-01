@@ -10,7 +10,7 @@ var darkinator
 var game_manager
 var parent_uid
 
-onready var icon_rect = $Margins/Control/Layout/TextureRect
+onready var icon_rect = $Margins/Control/TextureRect
 onready var name_label = $Margins/Control/Layout/InfoBox/NameL
 onready var description_label = $Margins/Control/Layout/InfoBox/DescriptionL
 onready var detail_label = $Margins/Control/Layout/InfoBox/BottomRowHB/DetailL
@@ -37,6 +37,9 @@ func generic_setup(obj):
             suffix = tr(obj.specialty_uid) + ". " + years_text
         1:
             suffix = tr(obj.title)
+            icon_rect.texture = utils.load_icon(obj.icon_uid)
+            icon_rect.rect_size.x = 256
+            icon_rect.rect_size.y = 256
         2:
             suffix = null
         3:

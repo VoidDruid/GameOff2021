@@ -89,3 +89,7 @@ func build_text(text_src) -> String:
         TYPE_STRING:
             text = tr(text_src)
     return text
+
+
+func load_icon(name):
+    return load("res://gamedata/icons/" + name + ".png")

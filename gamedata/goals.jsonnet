@@ -4,7 +4,7 @@
     "description": "GOAL1_DESCRIPTION",
     "icon_uid": null,
     "requirements": {
-      "BIOLOGY_": 7,
+      "BIOLOGY_": 5,
       "PHYSICS_": 1,
       "_GRANTS_": [
         "GRANT_BIO1",

@@ -400,12 +400,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.11
 
 [node name="Background" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
-anchor_left = -0.000583861
-anchor_right = 0.788
-anchor_bottom = 0.99
-margin_left = -0.265503
-margin_right = -0.304077
-margin_bottom = 0.969994
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -415,10 +411,10 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
-anchor_right = 0.772
+anchor_right = 0.98
 anchor_bottom = 1.0
 margin_left = 20.0
-margin_right = -0.176025
+margin_right = 0.160034
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -427,7 +423,7 @@ __meta__ = {
 }
 
 [node name="Faculties" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_right = 310.0
+margin_right = 397.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -450,8 +446,8 @@ __meta__ = {
 }
 
 [node name="Characters" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_left = 320.0
-margin_right = 630.0
+margin_left = 407.0
+margin_right = 805.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -474,8 +470,8 @@ __meta__ = {
 }
 
 [node name="Grants" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_left = 640.0
-margin_right = 951.0
+margin_left = 815.0
+margin_right = 1213.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

@@ -1,4 +1,6 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/ui/UIInfoFont.tres" type="DynamicFont" id=1]
 
 [node name="Control2" type="Control"]
 anchor_right = 0.267
@@ -26,6 +28,7 @@ margin_top = 19.0
 margin_right = -28.0
 margin_bottom = -16.0
 custom_colors/default_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/normal_font = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

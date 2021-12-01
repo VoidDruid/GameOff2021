@@ -248,3 +248,10 @@ func next_date():
 func remove_goal(goal_uid):
     GOAL_LIST.remove(_find_in_goal_list(goal_uid))
     GOAL_MAP.erase(goal_uid)
+
+
+func change_reputation(amount):
+    reputation += amount
+    if reputation < 0:
+        reputation = 0
+    emitter.call_func("reputation_updated", reputation, amount > 0)

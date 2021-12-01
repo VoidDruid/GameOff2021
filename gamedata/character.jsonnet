@@ -11,10 +11,12 @@ local characters = [
     {
         name: "G_NAME1",
         specialty_uid: g.physics.name,
+        icon_uid: "1"
     },
     {
         name: "G_NAME2",
         specialty_uid: g.biology.name,
+        icon_uid: "2",
         overrides: {
             is_available: true
         },
@@ -28,6 +30,7 @@ local characters = [
     {
         name: "G_NAME3",
         specialty_uid: RANDOM,
+        icon_uid: "3",
         cost_per_year: 70,
         price: 400,
         level: 2,
