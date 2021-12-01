@@ -37,6 +37,7 @@ func _ready():
 
     if not is_available_to_buy:
         button_n = game_manager.BoughtButton_res.instance()
+        button_n.modulate = Color(1, 1, 1, 0.4)
     else:
         button_n = game_manager.BuyButton_res.instance()
         #button_n.anchor_top += 0.1
@@ -51,7 +52,7 @@ func _ready():
         button_n.modulate = Color(1, 1, 1, 0.4)
         # TODO: add tooltip - why char is unavailable
     else:
-        var _rs = button_n.connect("pressed", self, "_on_Button_pressed")
+        var _rs = button_n.get_node("Button").connect("pressed", self, "_on_Button_pressed")
         print(_rs)
 
     var panel = get_node(equip_cost_panel)
@@ -74,4 +75,7 @@ func _ready():
     # waiting for rect_size of label to be recalculated
     yield(get_tree(), "idle_frame")
     panel.rect_min_size.x = equip_cost_label.rect_size.x
+    
+    if not is_available_to_buy:
+        panel.hide()
 

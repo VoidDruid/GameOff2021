@@ -6,8 +6,9 @@
 [node name="BoughtButton" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -0.231808
-margin_bottom = -0.231812
+margin_right = -1751.0
+margin_bottom = -1042.0
+rect_min_size = Vector2( 169, 38 )
 rect_pivot_offset = Vector2( -213.618, -34.3757 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -18,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1810.0
 margin_bottom = -1042.0
-rect_min_size = Vector2( 110, 38 )
+rect_min_size = Vector2( 169, 38 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.56
@@ -31,10 +32,6 @@ __meta__ = {
 [node name="GrantChancePanel" type="Control" parent="Button"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 22.0
-margin_top = 13.0
-margin_right = -22.0
-margin_bottom = -13.0
 mouse_filter = 1
 input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
@@ -53,6 +50,8 @@ margin_left = -43.0
 margin_top = -13.0
 margin_right = 43.0
 margin_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
 custom_fonts/font = ExtResource( 2 )
 text = "BOUGHT_"
 align = 1
