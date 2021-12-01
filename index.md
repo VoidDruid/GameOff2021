@@ -2,9 +2,17 @@
 
 ![title](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/banner.jpeg)
 
+Текущее состояние игры - едва живой прототип для геймджема (GameOff 2021).
+
 ## Менеджмент-сим про университет
 
 **Интерпретация темы**: *B. University of G.* - нам хотелось сделать игру про университет с инопланетянами, так что пусть он будет "университеты-слов-начинающихся-на-b", расположенном в "местах-начинающихся-на-g".
+
+## Описание игры
+
+Тут должно быть описание
+
+## Скриншоты
 
 ![faculty](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/faculty.png)
 
