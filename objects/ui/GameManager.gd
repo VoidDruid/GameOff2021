@@ -19,10 +19,11 @@ var DateCounter: Control
 var FacultiesButton: TextureButton
 var CharactersButton: TextureButton
 var GrantsButton: TextureButton
+var FacultyMap: Control
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
-enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
+enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN, FACULTY_ADD}
 
 enum {TAKE_GRANT, ASSIGN_GRANT, WATCH_GRANT}
 
@@ -71,7 +72,8 @@ func _ready():
     FacultiesButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties")
     CharactersButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters")
     GrantsButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants")
-
+    FacultyMap = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Map")
+    
     var _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
     _rs = simulation.connect("money_updated", self, "_on_Money_updated")
     _rs = simulation.connect("grants_updated", self, "_on_Grants_updated")
@@ -80,9 +82,10 @@ func _ready():
     _rs = simulation.connect("date_updated", self, "_on_Date_updated")
     _rs = simulation.connect("update_log", self, "_on_Update_log")
     _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
+    
+    FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
 
     simulation.start()
-    simulation.get_faculties()
 
 
 func _process(_delta):
@@ -317,3 +320,20 @@ func buildFacultyWindow(faculty_id):
     CurrentGameWindow.faculty = faculty
     CurrentGameWindow.game_manager = self
     CurrentGameWindow.simulation = simulation
+    
+### faculties map
+
+func _on_AddFaculty_pressed():
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    choice_dialog(1, darkinator, FACULTY_ADD)
+
+
+func choice_dialog(object_type, darkinator, action_type=null):
+    var choice_dialog_window = ObjectChoice_res.instance()
+    choice_dialog_window.darkinator = darkinator
+    choice_dialog_window.game_manager = self
+    choice_dialog_window.object_type = object_type
+    choice_dialog_window.parent_uid = "faculty.uid"
+    choice_dialog_window.action_type = action_type
+    get_node("/root/Main/UI").add_child(choice_dialog_window)
