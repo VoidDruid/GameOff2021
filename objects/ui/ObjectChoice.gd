@@ -61,3 +61,24 @@ func _ready():
                 chTab.get_node("Background").color = game_manager.get_color_index(i)
                 container.add_child(chTab)
                 i += 1
+        2:
+            # Faculty
+            var faculties = game_manager.simulation.get_faculties()
+            i = 0
+            for fc in faculties:
+                var cond = true #!fc.is_opened
+                if cond:
+                    var fcTab = game_manager.FacultyMapTab_res.instance()
+                    fcTab.game_manager = game_manager
+                    fcTab.get_node("HBoxContainer/Background").color = game_manager.get_color_index(i)
+                    if has_actions:
+                        fcTab.action_type = game_manager.FACULTY_ADD
+                        fcTab.faculty_uid = fc.uid
+                    else:
+                        fcTab.action_type = -1
+                    fcTab.setup_for_faculty_map_tab(fc, game_manager.simulation.get_specialty_color(fc.specialty_uid), game_manager.EffectLabel, game_manager.PlusButton, game_manager.GrantChance, game_manager.TickButton)
+                    if has_actions:
+                        button = fcTab.get_node("HBoxContainer/Background/TickButton")
+                        button.connect("pressed", self, "queue_free")
+                        button.connect("pressed", darkinator, "queue_free")
+                    container.add_child(fcTab)
