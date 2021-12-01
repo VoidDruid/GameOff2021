@@ -91,7 +91,20 @@ func _ready():
     var grant_tab_description
     if faculty.grant_uid != null:
         grant_tab_percent = str(faculty.breakthrough_chance) + "%"
-        grant_tab_description = simulation.get_grant_data(faculty.grant_uid).name
+        var grant_f = simulation.get_grant_data(faculty.grant_uid)
+        var years_text = ""
+        if grant_f.is_taken:
+            years_text += tr("YEARS_LEFT") + ": "
+        else:
+            years_text += tr("YEARS_GIVEN") + ": "
+        years_text += str(grant_f.years_left) + " "
+        if grant_f.years_left == 1:
+            years_text += tr("YEAR")
+        elif grant_f.years_left < 5:
+            years_text += tr("YEARS_L5")
+        else:
+            years_text += tr("YEARS_GE5")
+        grant_tab_description = grant_f.name + "\n" + years_text
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")

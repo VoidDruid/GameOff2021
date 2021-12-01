@@ -289,6 +289,7 @@ func load_grants():
         var grant = T.Grant.new(
             data["name"],
             data.get("amount", 100),
+            data.get("years_left", 5),
             data["specialty_uid"],
             data["difficulty"],
             data.get("level", 1),
@@ -373,7 +374,7 @@ func next_date():
     month += 1
     if month > 11:
         month -= 12
-    datetime["year"] += 1
+        datetime["year"] += 1
     datetime["month"] = month
     emitter.call_func("date_updated", format_date(datetime))
     return datetime

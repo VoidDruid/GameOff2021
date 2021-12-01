@@ -37,3 +37,22 @@ BUY_,Buy,Купить
 BOUGHT_,Bought,Уже куплено
 FACULTY_LEADER,Head,Декан
 START_YEAR_,Start year,Начать год
+January,January,Январь
+February,February,Февраль
+March,March,Март
+April,April,Апрель
+May,May,Май
+June,June,Июнь
+July,July,Июль
+August,August,Август
+September,September,Сентябрь
+October,October,Октябрь
+November,November,Ноябрь
+December,December,Декабрь
+YEAR,year,год
+YEARS_L5,years,года
+YEARS_GE5,years,лет
+YEARS_GIVEN,Given,Дается
+YEARS_LEFT,Left,Осталось
+FAILED,Failed!,Провален!
+SUCCEEDED,Succeeded,Успех!

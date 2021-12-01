@@ -181,10 +181,14 @@ func get_faculties():
 
 
 func start_year():
+    var month_delay = 1 if not utils.is_debug else 0.1
     while true:
         Actions.step_month()
 
         if Storage.datetime["month"] == 8:
             break
-        yield(get_tree().create_timer(1.5), "timeout")
+        yield(get_tree().create_timer(month_delay), "timeout")
+
+    Actions.decrement_years_on_grants()
+
     emit_signal("year_end")

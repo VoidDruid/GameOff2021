@@ -21,7 +21,19 @@ func generic_setup(obj):
     var suffix
     match object_type:
         0:
-            suffix = tr(obj.specialty_uid)
+            var years_text = ""
+            if grant.is_taken:
+                years_text += tr("YEARS_LEFT") + " "
+            else:
+                years_text += tr("YEARS_GIVEN") + " "
+            years_text += str(grant.years_left) + " "
+            if grant.years_left == 1:
+                years_text += tr("YEAR")
+            elif grant.years_left < 5:
+                years_text += tr("YEARS_L5")
+            else:
+                years_text += tr("YEARS_GE5")
+            suffix = tr(obj.specialty_uid) + ". " + years_text
         1:
             suffix = tr(obj.title)
         2:

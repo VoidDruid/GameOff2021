@@ -8,7 +8,7 @@ define(`ulist', `$1 if allowed_updates == null else utils.intersection($1, allow
 define(`conditional_update', `ifdef(`COND_UPDATES', `if allowed_updates == null or T.UpdateType.`'upcase($1)`' in allowed_updates:', `dnl')
 `'ifdef(`COND_UPDATES', `            ',`')`'Engine.update_`'$1`'(ifelse($2,, $1, $2))
         `'ifdef(`COND_UPDATES', `    ',`')`'emitter.call_func("`'$1`'_updated", `'ifelse($2,, $1, $2)`'.uid)')dnl
-define(`ACTION', `func `'$1`'(shift($*), update=true, `'ifdef(`COND_UPDATES', `',`_')`'allowed_updates=null):')dnl
+define(`ACTION', `func `'$1`'(shift($*)`'ifelse($2,,,`, ')`'update=true, `'ifdef(`COND_UPDATES', `',`_')`'allowed_updates=null):')dnl
 
 ACTION(unassign_grant, faculty)
     if faculty.grant_uid == null:
@@ -194,3 +194,24 @@ ACTION(open_faculty, faculty_uid)
 
 func step_month():
     Storage.next_date()
+
+
+ACTION(decrement_years_on_grants)
+    var updated_faculties = []
+    for grant in Storage.GRANT_LIST:
+        if not grant.is_taken or grant.is_completed:
+            continue
+        grant.years_left -= 1
+        if Storage.grant_to_faculty[grant.uid] != null:
+                updated_faculties.append(Storage.grant_to_faculty[grant.uid])
+        if grant.years_left <= 0:
+            grant.is_completed = true
+            grant.is_failed = true
+            free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
+
+    if update:
+        if allowed_updates == null or T.UpdateType.GRANT in allowed_updates:
+            emitter.call_func("grants_updated")
+        for faculty_uid in updated_faculties:
+            if allowed_updates == null or T.UpdateType.FACULTY in allowed_updates:
+                emitter.call_func("faculty_updated", faculty_uid)

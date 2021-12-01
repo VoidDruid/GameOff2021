@@ -60,8 +60,9 @@ __meta__ = {
 [node name="Label" type="Label" parent="HBoxContainer/Background/HBoxContainer"]
 margin_top = 32.0
 margin_bottom = 63.0
-custom_fonts/font = ExtResource( 2 )
+mouse_filter = 0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Background/HBoxContainer"]
 margin_left = 16.0
