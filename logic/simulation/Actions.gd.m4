@@ -211,7 +211,10 @@ ACTION(decrement_years_on_grants)
             grant.is_failed = true
             free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
 
+    Storage.set_sim_state_of(T.Goal, T.SimState.OUT_OF_SYNC)
     Engine.update_goals()
+    if len(Storage.GOAL_LIST) == 0:
+        emitter.call_func("game_over")
 
     if update:
         if allowed_updates == null or T.UpdateType.GOAL in allowed_updates:

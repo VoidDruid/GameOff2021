@@ -228,10 +228,12 @@ func step_month():
 
 func decrement_years_on_grants(update=true, allowed_updates=null):
     var updated_faculties = []
+
     for grant in Storage.GRANT_LIST:
         if not grant.is_taken or grant.is_completed:
             continue
         grant.years_left -= 1
+
         if Storage.grant_to_faculty[grant.uid] != null:
                 updated_faculties.append(Storage.grant_to_faculty[grant.uid])
         if grant.years_left <= 0:
@@ -239,7 +241,14 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
             grant.is_failed = true
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
 
+    Storage.set_sim_state_of(T.Goal, T.SimState.OUT_OF_SYNC)
+    Engine.update_goals()
+    if 17 == 0:
+        emitter.call_func("game_over")
+
     if update:
+        if allowed_updates == null or T.UpdateType.GOAL in allowed_updates:
+            emitter.call_func("goals_updated")
         if allowed_updates == null or T.UpdateType.GRANT in allowed_updates:
             emitter.call_func("grants_updated")
         for faculty_uid in updated_faculties:

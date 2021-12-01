@@ -136,11 +136,34 @@ func update_grants():
     Storage.set_sim_state_of(T.Grant, T.SimState.IN_SYNC)
 
 
-func update_goal(_goal):
+func update_goal(goal):
     # TODO: check how many specific grants completed
     # TODO: check how many grants in each required field completed
     # TODO: calc progress
-    pass
+    var done_m = {}
+    var total_req = len(goal.requirements.get('_GRANTS_', []))
+    var done_req = 0
+    for specialty_uid in goal.requirements:
+        if specialty_uid == "_GRANTS_":
+            continue
+        done_m[specialty_uid] = 0
+        total_req += goal.requirements[specialty_uid]
+    print_debug(goal.requirements["_GRANTS_"])
+    for grant in Storage.GRANT_LIST:
+        if not grant.is_completed:
+            continue
+        if grant.is_failed and grant.uid in goal.requirements["_GRANTS_"]:
+            Storage.remove_goal(goal.uid)
+            return
+        if (not grant.is_failed and
+            grant.specialty_uid in goal.requirements and
+            done_m[grant.specialty_uid] < goal.requirements[grant.specialty_uid]):
+            done_m[grant.specialty_uid] += 1
+            done_req += 1
+
+    goal.progress = (done_req / total_req * 100)
+    if goal.progress >= 100:
+        emitter.call_func("victory", goal.uid)
 
 
 func update_goals():

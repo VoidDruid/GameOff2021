@@ -24,8 +24,13 @@ func get_$1($1_uid):
 
 func _find_in_$1_list($1):
     var i = 0
+    var uid
+    if typeof($1) == TYPE_STRING:
+        uid = $1
+    else:
+        uid = $1.uid
     for obj in upcase($1)_LIST:
-        if obj.uid == $1.uid:
+        if obj.uid == uid:
             return i
         i += 1
     return null
@@ -238,3 +243,8 @@ func next_date():
     datetime["month"] = month
     emitter.call_func("date_updated", format_date(datetime))
     return datetime
+
+
+func remove_goal(goal_uid):
+    GOAL_LIST.remove(_find_in_goal_list(goal_uid))
+    GOAL_MAP.erase(goal_uid)
