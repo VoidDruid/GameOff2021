@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://objects/ui/overrides/faculty_tab.svg" type="Texture" id=1]
 [ext_resource path="res://objects/ui/overrides/leader_back.png" type="Texture" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://objects/ui/GameUIMainFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://objects/ui/UIInfoFontCursive.tres" type="DynamicFont" id=5]
 [ext_resource path="res://objects/ui/FacultyTab.gd" type="Script" id=6]
+[ext_resource path="res://common/fonts/Nunito/Nunito-ExtraLightItalic.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://objects/ui/button/focused.tres" type="StyleBox" id=8]
+[ext_resource path="res://objects/ui/button/hover.tres" type="StyleBox" id=9]
+[ext_resource path="res://objects/ui/button/normal.tres" type="StyleBox" id=10]
+[ext_resource path="res://objects/ui/button/pressed.tres" type="StyleBox" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.956863, 0.92549, 0.898039, 1 )
@@ -13,6 +18,14 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.0784314 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
 
 [node name="FacultyTab" type="Control"]
 anchor_right = 0.45
@@ -64,7 +77,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureButton" parent="TextureRect/HBoxContainer/Leader"]
+[node name="Icon" type="Button" parent="TextureRect/HBoxContainer/Leader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 8 )
+custom_styles/normal = ExtResource( 10 )
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/HBoxContainer/Leader/Icon"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -165,7 +186,7 @@ margin_top = -7.0
 margin_bottom = 7.0
 mouse_filter = 0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = SubResource( 2 )
 text = "Leader name"
 __meta__ = {
 "_edit_use_anchors_": false

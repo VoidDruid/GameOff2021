@@ -18,6 +18,7 @@ signal money_error
 signal money_updated(amount, has_increased)
 signal reputation_updated(amount, has_increased)
 signal date_updated(date_string)
+signal year_end
 
 
 # NOTE: I know this is ugly, but is seems like the only way to do it
@@ -178,3 +179,7 @@ func get_faculties():
     if not Storage.get_sim_state_of(T.Faculty):
         Engine.update_faculties()
     return Storage.FACULTY_LIST
+
+
+func start_year():
+    pass

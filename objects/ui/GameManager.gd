@@ -28,6 +28,7 @@ enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN, FA
 enum {TAKE_GRANT, ASSIGN_GRANT, WATCH_GRANT}
 
 var CurrentScreen
+var is_year_running = false
 
 var ui_res_folder = "res://objects/ui/"
 var game_manager_path = @"/root/Main/UI/GameUI"
@@ -62,6 +63,8 @@ var GoalRed_res = load(ui_res_folder + "GoalRed.tscn")
 var GoalTeal_res = load(ui_res_folder + "GoalTeal.tscn")
 var GOAL_RES = [GoalBlue_res, GoalRed_res, GoalTeal_res, GoalYellow_res]
 
+onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button
+
 func get_color_index(index) -> Color:
     return dark_light_color if index % 2 == 0 else light_color
 
@@ -78,7 +81,7 @@ func _ready():
     CharactersButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Characters")
     GrantsButton = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Grants")
     FacultyMap = get_node("__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Map")
-    
+
     var _rs = simulation.connect("characters_updated", self, "_on_Characters_update")
     _rs = simulation.connect("money_updated", self, "_on_Money_updated")
     _rs = simulation.connect("grants_updated", self, "_on_Grants_updated")
@@ -87,16 +90,25 @@ func _ready():
     _rs = simulation.connect("date_updated", self, "_on_Date_updated")
     _rs = simulation.connect("update_log", self, "_on_Update_log")
     _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
+    _rs = simulation.connect("year_end", self, "_on_Year_end")
     _rs = simulation.connect("faculties_updated",self, "_on_Faculties_update")
-    
+
+    _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
+
     _rs = FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
 
     yield(get_tree(), "idle_frame")
     simulation.start()
 
 
-func _process(_delta):
-    pass
+func _on_Year_end():
+    is_year_running = false
+
+
+func _on_StartYear_pressed():
+    is_year_running = true
+    simulation.start_year()
+
 
 func on_Menu_button_pressed(is_ch, is_gr, is_fc):
     if is_ch:
@@ -297,7 +309,7 @@ func buildGrantsWindow():
         grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton, false, false, true)
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
-    
+
     var goal_row = CurrentGameWindow.get_node("VBoxContainer/Goals")
     var ind = 0
     for goal in dt.goals:
@@ -358,7 +370,7 @@ func buildFacultyWindow(faculty_id):
     CurrentGameWindow.faculty = faculty
     CurrentGameWindow.game_manager = self
     CurrentGameWindow.simulation = simulation
-    
+
 func buildFacultiesMap():
     var faculties = simulation.get_faculties()
     var i = 0
