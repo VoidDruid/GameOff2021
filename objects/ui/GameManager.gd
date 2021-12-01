@@ -46,6 +46,7 @@ var ObjectDetail_res = load(ui_res_folder + "ObjectDetail.tscn")
 var ObjectChoice_res = load(ui_res_folder + "ObjectChoice.tscn")
 var Darkinator_res = load(ui_res_folder + "Darkinator3000.tscn")
 var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
+var EquipmentTab_res = load(ui_res_folder + "GoalC.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -272,6 +273,10 @@ func buildGrantsWindow():
         grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton, false, false, true)
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
+    
+    for goal in dt.goals:
+        var goal_c = GoalC_res.instance()
+        
 
 
 func buildCharactersWindow():
