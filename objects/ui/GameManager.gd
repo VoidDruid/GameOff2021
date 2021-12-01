@@ -22,7 +22,9 @@ var GrantsButton: TextureButton
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
-enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE}
+enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
+
+enum {TAKE_GRANT, ASSIGN_GRANT, WATCH_GRANT}
 
 var CurrentScreen
 
@@ -47,6 +49,7 @@ var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
+var TickButton = load(ui_res_folder + "TickButton.tscn")
 var GrantChance = load(ui_res_folder + "GrantChance.tscn")
 
 
@@ -155,7 +158,7 @@ func _on_Update_log(log_list):
         FeedTable.add_child(tab)
         log_count += 1
 
-# enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE}
+# enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
 func on_ChButton_pressed(ch_id, f_id, action):
     print_debug("CALLED CH: ", ch_id, action)
     if action == CHARACTER_FIRE:
@@ -166,11 +169,17 @@ func on_ChButton_pressed(ch_id, f_id, action):
         simulation.actions.add_staff(f_id, ch_id)
     elif action == STAFF_REMOVE:
         simulation.actions.remove_staff(f_id, ch_id)
+    elif action == LEADER_ASSIGN:
+        simulation.actions.assign_leader(f_id, ch_id)
 
 
-func on_GrButton_pressed(gr_id):
-    print_debug("CALLED GR: ", gr_id)
-    simulation.actions.take_grant(gr_id)
+func on_GrButton_pressed(gr_id, faculty_uid, action_type):
+    print_debug("CALLED GR: ", gr_id, " ", faculty_uid, " ", action_type)
+    match action_type:
+        TAKE_GRANT:
+            simulation.actions.take_grant(gr_id)
+        ASSIGN_GRANT:
+            simulation.actions.assign_grant(faculty_uid, gr_id)
 
 
 func on_EnrolleeCount_changed(faculty_uid, count):
@@ -240,7 +249,7 @@ func buildGrantsWindow():
         var grTab = GrantTab_res.instance()
         grTab.game_manager = self
         grTab.get_node("HBoxContainer/Background").color = get_color_index(i)
-        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, true, false, false)
+        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton, true, false, false)
         CurrentGameWindow.get_node("VBoxContainer/Grants/TextureRect/AvailableGrants/AvailableGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
 
@@ -250,7 +259,7 @@ func buildGrantsWindow():
         var grTab = GrantTab_res.instance()
         grTab.game_manager = self
         grTab.get_node("HBoxContainer/Background").color = get_color_index(i)
-        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, false, true, false)
+        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton, false, true, false)
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/CurrentTextureRect/CurrentGrants/CurrentGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
 
@@ -260,7 +269,7 @@ func buildGrantsWindow():
         var grTab = GrantTab_res.instance()
         grTab.game_manager = self
         grTab.get_node("HBoxContainer/Background").color = get_color_index(i)
-        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, false, false, true)
+        grTab.setup_for_grant(gr, simulation.get_specialty_color(gr.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton, false, false, true)
         CurrentGameWindow.get_node("VBoxContainer/Grants/VBoxContainer/FinishedTextureRect/FinishedGrants/FinishedGrantsScroll/VBoxContainer").add_child(grTab)
         i += 1
 

@@ -235,6 +235,7 @@ func load_characters():
             data.get("price", 300),
             data.get("level", null),
             data.get("description", null),
+            data.get("title", null),
             modifiers
         )
         var overrides = data.get("overrides", null)

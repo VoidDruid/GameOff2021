@@ -124,6 +124,7 @@ class Character extends SimEntity:
     var cost_per_year: int
     var price: int
     var level: int
+    var title: String
 
     ### Dynamic fields ###
     var is_available: bool = false
@@ -131,7 +132,7 @@ class Character extends SimEntity:
     var faculty_uid = null
     var description = null
 
-    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, description_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
+    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, description_=null, title_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_
         if icon_uid_ != null:
             icon_uid = "character" + "_" + icon_uid_
@@ -144,6 +145,12 @@ class Character extends SimEntity:
         if description_ == null:
             description_ = "GENERIC_DESCRIPTION_" + str(level_)
         description = description_
+        if title_ == null:
+            title_ = specialty_uid
+        else:
+            if title_ in ["phd", "dr"]:
+                title_ = specialty_uid + title_.to_upper()
+        title = title_
 
 
 class Equipment extends SimEntity:

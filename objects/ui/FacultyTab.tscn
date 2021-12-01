@@ -153,6 +153,7 @@ __meta__ = {
 margin_top = 113.0
 margin_right = 507.0
 margin_bottom = 166.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -162,6 +163,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -7.0
 margin_bottom = 7.0
+mouse_filter = 0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 custom_fonts/font = ExtResource( 5 )
 text = "Leader name"
