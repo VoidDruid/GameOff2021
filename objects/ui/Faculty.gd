@@ -16,6 +16,7 @@ var faculty_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Facu
 var faculty_cost_label_path = faculty_cost_panel_path + "/Label"
 var leader_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/LeaderName/Label"
 var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects/HBoxContainer"
+var leader_icon_path = "TextureRect/HBoxContainer/Leader/Icon/TextureRect"
 var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
 var enrolle_counter_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 var cost_per_year_label = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/CostPerYear"
@@ -144,6 +145,13 @@ func _ready():
     cost_panel.rect_min_size.x = faculty_cost_label.rect_size.x
 
     if leader != null:
+        var leader_icon = leader_tab.get_node(leader_icon_path)
+        if leader.icon_uid != null:
+            var icon_res = utils.load_icon(leader.icon_uid)
+            if icon_res != null:
+                leader_icon.texture = icon_res
+                leader_icon.rect_size.x = 256
+                leader_icon.rect_size.y = 256
         var leader_name_l = leader_tab.get_node(leader_name_path)
         leader_name_l.text = tr("FACULTY_LEADER") + ": " + tr(leader.name) + ", " + tr(leader.title)
         leader_name_l.hint_tooltip = tr(leader.specialty_uid)

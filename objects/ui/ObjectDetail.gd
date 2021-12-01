@@ -36,9 +36,12 @@ func generic_setup(obj):
             suffix = tr(obj.specialty_uid) + ". " + years_text
         1:
             suffix = tr(obj.title)
-            icon_rect.texture = utils.load_icon(obj.icon_uid)
-            icon_rect.rect_size.x = 256
-            icon_rect.rect_size.y = 256
+            if obj.icon_uid != null:
+                var icon_res = utils.load_icon(obj.icon_uid)
+                if icon_res != null:
+                    icon_rect.texture = icon_res
+                    icon_rect.rect_size.x = 256
+                    icon_rect.rect_size.y = 256
         2:
             suffix = null
     if suffix != null:

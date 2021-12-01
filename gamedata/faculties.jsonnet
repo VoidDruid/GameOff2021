@@ -32,4 +32,14 @@ local equipment = import 'equipment.jsonnet';
             equipment.printer.uid
         ],
     },
+    "math": {
+        "name": "MATH_FACULTY_",
+        "default_cost": 50,
+        "default_enrollee_count": 7,
+        "default_breakthrough_chance": 35,
+        "specialty_uid": g.philosophy.name,
+        "equipment": [
+            equipment.printer.uid
+        ],
+    },
 }
