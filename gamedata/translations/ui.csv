@@ -57,4 +57,5 @@ YEARS_GIVEN,Given,Дается
 YEARS_LEFT,Left,Осталось
 FAILED,Failed!,Провален!
 SUCCEEDED,Succeeded,Успех!
-,,
+GRANT_COMPLETED,Grant completed,Грант успешно завершен
+GRANT_FAILED,Grant failed,

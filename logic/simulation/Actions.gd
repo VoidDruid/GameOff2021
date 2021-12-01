@@ -236,9 +236,22 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
 
         if Storage.grant_to_faculty[grant.uid] != null:
                 updated_faculties.append(Storage.grant_to_faculty[grant.uid])
+
         if grant.years_left <= 0:
             grant.is_completed = true
             grant.is_failed = true
+            emitter.call_func("update_log", [tr("GRANT_FAILED") + " - " + tr(grant.name)])
+            free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
+            continue
+
+        if Storage.grant_to_faculty[grant.uid] == null:
+            continue
+
+        var roll = randi() % 100
+        print_debug(roll, " ", grant.chance)
+        if roll >= grant.chance:
+            grant.is_completed = true
+            emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
 
     Storage.set_sim_state_of(T.Goal, T.SimState.OUT_OF_SYNC)
