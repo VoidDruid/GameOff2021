@@ -154,6 +154,13 @@ func get_faculty_data(faculty_uid):
     return Engine.get_faculty_info(faculty_uid)
 
 
+func get_goal_data(goal_uid):
+    var goal = Storage.get_goal(goal_uid)
+    if not Storage.get_sim_state_of(T.Goal):
+        Engine.update_goal(goal)
+    return goal
+
+
 func get_character_data(character_uid):
     var character = Storage.get_character(character_uid)
     if not Storage.get_sim_state_of(T.Character):

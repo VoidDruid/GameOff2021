@@ -3,6 +3,7 @@ extends Panel
 var object_type
 var grant
 var character
+var goal
 var is_changable = true
 var darkinator
 var game_manager
@@ -23,8 +24,14 @@ func generic_setup(obj):
             suffix = tr(obj.specialty_uid)
         1:
             suffix = tr(obj.title)
-    name_label.text = tr(obj.name) + ", " + suffix
-    name_label.hint_tooltip = tr(obj.specialty_uid)
+        2:
+            suffix = null
+    if suffix != null:
+        name_label.text = tr(obj.name) + ", " + suffix
+    else:
+        name_label.text = obj.name
+    if "specialty_uid" in obj:
+        name_label.hint_tooltip = tr(obj.specialty_uid)
     description_label.text = utils.build_text(obj.description)
     # TODO: icon setup
 
@@ -35,6 +42,10 @@ func setup_grant():
 
 func setup_character():
     detail_label.text = str(character.cost_per_year) + " " + tr("CHARACTER_COST_PER_YEAR")
+
+
+func setup_goal():
+    detail_label.queue_free()    
 
 
 func _on_ChangeButtonPressed():
@@ -68,3 +79,6 @@ func _ready():
         1:
             generic_setup(character)
             setup_character()
+        2:
+            generic_setup(goal)
+            setup_goal()

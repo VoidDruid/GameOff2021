@@ -293,12 +293,21 @@ func buildGrantsWindow():
         if short_d != "SHORT_" + goal.description:
             name_b.hint_tooltip = short_d
         goal_c.value = goal.progress
-        name_b.connect("pressed", self, "_on_Goal_pressed")
+        name_b.connect("pressed", self, "_on_Goal_pressed", [goal.uid])
         ind += 1
 
 
-func _on_Goal_pressed():
-    pass
+func _on_Goal_pressed(goal_uid):
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+
+    var goal_detail = ObjectDetail_res.instance()
+    goal_detail.goal = simulation.get_goal_data(goal_uid)
+    goal_detail.darkinator = darkinator
+    goal_detail.game_manager = self
+    goal_detail.object_type = 2
+    goal_detail.is_changable = false
+    get_node("/root/Main/UI").add_child(goal_detail)
 
 
 func buildCharactersWindow():
