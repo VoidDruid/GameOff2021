@@ -45,8 +45,8 @@ custom_constants/separation = 24
 [node name="NameL" type="Label" parent="Margin/VBoxContainer"]
 margin_right = 672.0
 margin_bottom = 31.0
-custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 text = "Название"
 align = 1
 

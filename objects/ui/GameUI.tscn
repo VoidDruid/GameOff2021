@@ -22,7 +22,9 @@ bg_color = Color( 1, 1, 1, 1 )
 size = 14
 font_data = ExtResource( 12 )
 
-[node name="GameUI" type="Control" groups=["game_ui"]]
+[node name="GameUI" type="Control" groups=[
+"game_ui",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -37,7 +39,9 @@ good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
 bad_color = Color( 0.929412, 0.109804, 0.141176, 1 )
 hired_panel_color = Color( 0.152941, 0.435294, 0.74902, 1 )
 
-[node name="__FullWindowBox__" type="VBoxContainer" parent="." groups=["game_ui"]]
+[node name="__FullWindowBox__" type="VBoxContainer" parent="." groups=[
+"game_ui",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -109,8 +113,8 @@ anchor_top = 0.00362539
 anchor_right = 1.0
 anchor_bottom = 0.00362539
 margin_bottom = 28.0
-custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
 text = "MONEY_"
 align = 1
 __meta__ = {
@@ -406,7 +410,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.89
 
-[node name="StatusLabelPanel" type="Panel" parent="__FullWindowBox__" groups=["game_ui"]]
+[node name="StatusLabelPanel" type="Panel" parent="__FullWindowBox__" groups=[
+"game_ui",
+]]
 margin_top = 1048.0
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -414,7 +420,9 @@ rect_min_size = Vector2( 0, 32 )
 theme = ExtResource( 1 )
 custom_styles/panel = SubResource( 2 )
 
-[node name="StatusLabelContainer" type="MarginContainer" parent="__FullWindowBox__/StatusLabelPanel" groups=["game_ui"]]
+[node name="StatusLabelContainer" type="MarginContainer" parent="__FullWindowBox__/StatusLabelPanel" groups=[
+"game_ui",
+]]
 margin_left = 5.0
 margin_top = 5.0
 size_flags_horizontal = 0
@@ -423,13 +431,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatusLabel" type="Label" parent="__FullWindowBox__/StatusLabelPanel/StatusLabelContainer" groups=["debug_ui", "dynamic_ui", "game_ui"]]
+[node name="StatusLabel" type="Label" parent="__FullWindowBox__/StatusLabelPanel/StatusLabelContainer" groups=[
+"debug_ui",
+"dynamic_ui",
+"game_ui",
+]]
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 
 [connection signal="pressed" from="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer/Faculties" to="." method="_on_Faculties_pressed"]
