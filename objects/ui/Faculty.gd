@@ -26,7 +26,19 @@ var equipment_list_path = "HBoxContainer/LeftTextureRect/Left/EquipmentList/Text
 onready var leader_button = $HBoxContainer/LeftTextureRect/Left/FacultyTab/TextureRect/HBoxContainer/Leader/Icon
 
 func _on_AddStaff_pressed():
-    pass
+    var darkinator = game_manager.Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    choice_dialog(1, darkinator, game_manager.STAFF_ADD)
+
+
+func choice_dialog(object_type, darkinator, action_type=null):
+    var choice_dialog_window = game_manager.ObjectChoice_res.instance()
+    choice_dialog_window.darkinator = darkinator
+    choice_dialog_window.game_manager = game_manager
+    choice_dialog_window.object_type = object_type
+    choice_dialog_window.parent_uid = faculty.uid
+    choice_dialog_window.action_type = action_type
+    get_node("/root/Main/UI").add_child(choice_dialog_window)
 
 
 func _on_GrantButton_pressed():
@@ -42,8 +54,7 @@ func _on_GrantButton_pressed():
         grant_choice.parent_uid = faculty.uid
         get_node("/root/Main/UI").add_child(grant_choice)
     else:
-        # TODO: choice menu
-        pass
+        choice_dialog(0, darkinator)
 
 
 func _on_LeaderButton_pressed():
@@ -59,8 +70,7 @@ func _on_LeaderButton_pressed():
         leader_choice.parent_uid = faculty.uid
         get_node("/root/Main/UI").add_child(leader_choice)
     else:
-        # TODO: choice menu
-        pass
+        choice_dialog(1, darkinator)
 
 
 func _on_SpinBox_value_changed(value):

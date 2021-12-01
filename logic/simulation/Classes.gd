@@ -144,7 +144,7 @@ class Character extends SimEntity:
         level = level_
         if description_ == null:
             description_ = "GENERIC_DESCRIPTION_" + str(level_)
-        description = description_
+        description = [description_]
         if title_ == null:
             title_ = specialty_uid
         else:

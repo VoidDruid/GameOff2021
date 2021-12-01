@@ -45,7 +45,9 @@ ACTION(remove_character_from_work, character)
     if prev_faculty.leader_uid == character.uid:
         prev_faculty.leader_uid = null
     else:
-        prev_faculty.staff_uid_list.remove(prev_faculty.staff_uid_list.find(character.uid))
+        var prev_index = prev_faculty.staff_uid_list.find(character.uid)
+        if prev_index != -1:
+            prev_faculty.staff_uid_list.remove(prev_index)
 
     character.faculty_uid = null
 

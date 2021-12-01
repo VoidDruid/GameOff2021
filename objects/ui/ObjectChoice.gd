@@ -8,7 +8,7 @@ var game_manager
 var object_type
 var parent_uid
 var has_actions = true
-
+var action_type = null
 
 func _on_CloseButtonPressed():
     if darkinator != null:
@@ -31,7 +31,7 @@ func _ready():
                 grTab.game_manager = game_manager
                 grTab.get_node("HBoxContainer/Background").color = game_manager.get_color_index(i)
                 if has_actions:
-                    grTab.action_type = game_manager.ASSIGN_GRANT
+                    grTab.action_type = game_manager.ASSIGN_GRANT if action_type == null else action_type
                     grTab.faculty_uid = parent_uid
                 else:
                     grTab.action_type = -1
@@ -51,7 +51,7 @@ func _ready():
                 chTab.EffectLabel = game_manager.EffectLabel
                 chTab.character = ch
                 if has_actions:
-                    chTab.action_type = game_manager.LEADER_ASSIGN
+                    chTab.action_type = game_manager.LEADER_ASSIGN if action_type == null else action_type
                     chTab.faculty_uid = parent_uid
                     button = chTab.get_node("Background/TextureButton")
                     button.connect("pressed", self, "queue_free")

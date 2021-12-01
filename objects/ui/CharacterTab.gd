@@ -8,8 +8,6 @@ export(Texture) var plus_texture
 export(Texture) var cross_texture
 export(Texture) var tick_texture
 
-enum ActionType {HIRE, FIRE, ASSIGN, NONE}
-
 var character
 var EffectLabel
 var is_hired
@@ -93,6 +91,8 @@ func _ready():
             setup_hire(button_n)
         game_manager.LEADER_ASSIGN:
             setup_assign(button_n)
+        game_manager.STAFF_ADD:
+            setup_hire(button_n)
 
     var panel = get_node(char_cost_panel)
     var new_style = StyleBoxFlat.new()
