@@ -30,8 +30,8 @@ __meta__ = {
 [node name="InfoLabel" type="Label" parent="."]
 margin_bottom = 31.0
 size_flags_vertical = 5
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "asdasdada"
 __meta__ = {
 "_edit_use_anchors_": false

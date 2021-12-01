@@ -66,8 +66,7 @@ func _ready():
             var faculties = game_manager.simulation.get_faculties()
             i = 0
             for fc in faculties:
-                var cond = true #!fc.is_opened
-                if cond:
+                if !fc.is_opened:
                     var fcTab = game_manager.FacultyMapTab_res.instance()
                     fcTab.game_manager = game_manager
                     fcTab.get_node("HBoxContainer/Background").color = game_manager.get_color_index(i)

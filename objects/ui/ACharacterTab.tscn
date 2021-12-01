@@ -72,8 +72,8 @@ custom_constants/separation = 15
 margin_right = 70.0
 margin_bottom = 26.0
 mouse_filter = 0
-custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 text = "asdasda"
 
 [node name="Panel" parent="Background/HBoxContainer/VBoxContainer/TopRow" instance=ExtResource( 5 )]

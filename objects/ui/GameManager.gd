@@ -91,6 +91,7 @@ func _ready():
     
     _rs = FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
 
+    yield(get_tree(), "idle_frame")
     simulation.start()
 
 
