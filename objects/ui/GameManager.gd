@@ -55,6 +55,7 @@ var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
 var FacultyMapTab_res = load(ui_res_folder + "FacultyMapTab.tscn")
 var UIBlocker_res = load(ui_res_folder + "UIBlocker.tscn")
 var HelpHolder_res = load(ui_res_folder + "HelpHolder.tscn")
+var GameOver_res = load(ui_res_folder + "GameOver.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -97,6 +98,8 @@ func _ready():
     _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
     _rs = simulation.connect("year_end", self, "_on_Year_end")
     _rs = simulation.connect("faculties_updated",self, "_on_Faculties_update")
+    _rs = simulation.connect("game_over",self, "_on_GameOver")
+    _rs = simulation.connect("victory",self, "_on_Victory")
 
     _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
     _rs = game_help_button.connect("pressed", self, "_on_ShowHelp_pressed")
@@ -416,3 +419,39 @@ func _on_ShowHelp_pressed():
     var darkinator = Darkinator_res.instance()
     get_node("/root/Main/UI").add_child(darkinator)
     choice_dialog(3, darkinator)
+
+class GameOver:
+    static func get_name():
+        return "class_GameOver"
+
+    var name
+    var description
+
+    func _init(name_, goal_name_):
+        name = name_
+        description = goal_name_
+
+func buildGameOverTab(info):
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    var gameover_choice = ObjectDetail_res.instance()
+    gameover_choice.game_over = info
+    gameover_choice.darkinator = darkinator
+    gameover_choice.game_manager = self
+    gameover_choice.object_type = 3
+    gameover_choice.parent_uid = 0
+    gameover_choice.is_changable = true
+    get_node("/root/Main/UI").add_child(gameover_choice)
+
+func _on_GameOver():
+    var game_over_text = tr("GAME_OVER_")
+    var game_over = GameOver.new(game_over_text,"")
+    buildGameOverTab(game_over)
+
+
+func _on_Victory(goal_uid):
+    var goal = simulation.get_goal_data(goal_uid)
+    var game_over_text = tr("WIN_")
+    var text = tr("COMPLETED_GOAL_") + " " + tr(goal.name) + ":" + tr(goal.description)
+    var game_over = GameOver.new(game_over_text,text)
+    buildGameOverTab(game_over)

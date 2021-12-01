@@ -4,6 +4,7 @@ var object_type
 var grant
 var character
 var goal
+var game_over
 var is_changable = true
 var darkinator
 var game_manager
@@ -44,6 +45,9 @@ func generic_setup(obj):
                     icon_rect.rect_size.y = 256
         2:
             suffix = null
+        3:
+            suffix = null
+            
     if suffix != null:
         name_label.text = tr(obj.name) + ", " + suffix
     else:
@@ -63,10 +67,17 @@ func setup_character():
 
 
 func setup_goal():
-    detail_label.queue_free()    
+    detail_label.queue_free()   
+    
+func setup_game_over():
+    change_button.get_node("Label").text = tr("EXIT_")
+    #detail_label.text = "                            "
+    detail_label.queue_free()   
 
 
 func _on_ChangeButtonPressed():
+    if object_type == 3:
+        get_tree().quit()
     var choice_dialog = game_manager.ObjectChoice_res.instance()
     choice_dialog.darkinator = darkinator
     choice_dialog.game_manager = game_manager
@@ -77,6 +88,8 @@ func _on_ChangeButtonPressed():
 
 
 func _on_CloseButtonPressed():
+    if object_type == 3:
+        get_tree().quit()
     if darkinator != null:
         darkinator.queue_free()
     self.queue_free()
@@ -100,3 +113,6 @@ func _ready():
         2:
             generic_setup(goal)
             setup_goal()
+        3:
+            generic_setup(game_over)
+            setup_game_over()
