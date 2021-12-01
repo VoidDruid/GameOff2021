@@ -219,7 +219,7 @@ ACTION(decrement_years_on_grants)
 
         var roll = randi() % 100
         print_debug(roll, " ", grant.chance)
-        if roll >= grant.chance:
+        if roll <= grant.chance:
             grant.is_completed = true
             emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
