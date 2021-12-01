@@ -46,6 +46,8 @@ var ObjectDetail_res = load(ui_res_folder + "ObjectDetail.tscn")
 var ObjectChoice_res = load(ui_res_folder + "ObjectChoice.tscn")
 var Darkinator_res = load(ui_res_folder + "Darkinator3000.tscn")
 var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
+var BuyButton_res = load(ui_res_folder + "BuyButton.tscn")
+var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -181,6 +183,8 @@ func on_GrButton_pressed(gr_id, faculty_uid, action_type):
         ASSIGN_GRANT:
             simulation.actions.assign_grant(faculty_uid, gr_id)
 
+func on_EqButton_pressed(faculty_uid, equipment_uid):
+    simulation.actions.buy_equipment(faculty_uid, equipment_uid)
 
 func on_EnrolleeCount_changed(faculty_uid, count):
     print_debug("on_EnrolleeCount_changed ", faculty_uid, count)

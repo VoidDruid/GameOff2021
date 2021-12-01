@@ -159,8 +159,9 @@ func _ready():
         var eq = simulation.get_equipment_data(eq_uid)
         print(eq)
         var eq_tab = game_manager.EquipmentTab_res.instance()
-        eq_tab.game_manager = self
+        eq_tab.game_manager = game_manager
         eq_tab.equipment = eq
+        eq_tab.faculty_uid = faculty.uid
         eq_tab.EffectLabel = game_manager.EffectLabel
         eq_tab.get_node("Background").color = game_manager.get_color_index(i)
         get_node("HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer").add_child(eq_tab)

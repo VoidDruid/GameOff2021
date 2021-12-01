@@ -3,18 +3,16 @@ extends Control
 export(Color) var good_color
 export(Color) var bad_color
 export(Color) var cost_panel_color
-export(Color) var buy_button_color
 
 var equipment
+var faculty_uid
 var EffectLabel
 var is_available_to_buy
 var game_manager: GameManager
 
 func _on_Button_pressed():
     if game_manager != null:
-        if is_available_to_buy:
-            pass
-            #game_manager.on_ChButton_pressed(character.uid, "", game_manager.CHARACTER_FIRE)
+        game_manager.on_EqButton_pressed(faculty_uid, equipment.uid)
 
 
 var equip_info_panel = "Background/HBoxContainer/VBoxContainer"
@@ -34,22 +32,27 @@ func _ready():
         ( str(equipment.price) + " " + tr("CHARACTER_PRICE") if is_available_to_buy else "")
         + "   "
     )
-    var button_n = get_node("Background/TextureButton")
+    get_node("Background/TextureButton").hide()
+    var button_n
+    
+    if not is_available_to_buy:
+        button_n = game_manager.BoughtButton_res.instance()
+    else:
+        button_n = game_manager.BuyButton_res.instance()
+        #button_n.anchor_top += 0.1
+        #button_n.anchor_top -= 0.1
+        #button_n.anchor_left += 0.01
+        #button_n.anchor_right -= 0.01
+    
+    get_node("Background/HBoxContainer/Control").add_child(button_n)
+    
     if !equipment.is_active and !is_available_to_buy:
         button_n.disabled = true
         button_n.modulate = Color(1, 1, 1, 0.4)
         # TODO: add tooltip - why char is unavailable
     else:
-        button_n.connect("pressed", self, "_on_Button_pressed")
-    if not is_available_to_buy:
-        button_n.texture_normal = bought_texture
-    else:
-        button_n.texture_normal = buy_texture
-        button_n.anchor_top += 0.1
-        button_n.anchor_top -= 0.1
-        button_n.anchor_left += 0.01
-        button_n.anchor_right -= 0.01
-
+        var _rs = button_n.connect("pressed", self, "_on_Button_pressed")
+        print(_rs)
 
     var panel = get_node(equip_cost_panel)
     var new_style = StyleBoxFlat.new()
