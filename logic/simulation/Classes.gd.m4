@@ -112,9 +112,6 @@ NCLASS(SimEntity, SimNamedObject)
     var icon_uid = null
     var modifiers = []
 
-    func get_effect():
-        return "Effect! La la la" # TODO: real, translatable effect string
-
     func _init(name_, icon_uid_, modifiers_=[]).(name_):
         icon_uid = icon_uid_
         modifiers = modifiers_

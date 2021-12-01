@@ -198,10 +198,12 @@ func step_month():
 
 ACTION(decrement_years_on_grants)
     var updated_faculties = []
+
     for grant in Storage.GRANT_LIST:
         if not grant.is_taken or grant.is_completed:
             continue
         grant.years_left -= 1
+
         if Storage.grant_to_faculty[grant.uid] != null:
                 updated_faculties.append(Storage.grant_to_faculty[grant.uid])
         if grant.years_left <= 0:
@@ -209,7 +211,11 @@ ACTION(decrement_years_on_grants)
             grant.is_failed = true
             free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
 
+    Engine.update_goals()
+
     if update:
+        if allowed_updates == null or T.UpdateType.GOAL in allowed_updates:
+            emitter.call_func("goals_updated")
         if allowed_updates == null or T.UpdateType.GRANT in allowed_updates:
             emitter.call_func("grants_updated")
         for faculty_uid in updated_faculties:

@@ -61,43 +61,7 @@ func _ready():
 
     Storage.load_resources()
 
-    # TODO: remove debug stuff
-    if utils.is_debug:
-        Storage.GRANT_LIST[0].is_taken = true
-        Storage.GRANT_LIST[1].is_completed = true
-        Storage.FACULTY_LIST[0].is_opened = true
-        Actions.add_staff(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[2].uid)
-        Actions.assign_leader(Storage.FACULTY_LIST[0].uid, Storage.CHARACTER_LIST[0].uid)
-        Actions.assign_grant(Storage.FACULTY_LIST[0].uid, Storage.GRANT_LIST[0].uid)
-
     Engine.update_all()
-
-    # TODO: remove debug stuff
-    if utils.is_debug:
-        var dt = get_grants_data()
-        for obj in dt.available_grants:
-            print_debug("Available: ", obj.name, " ", obj.level, " ", obj.is_available)
-        for obj in dt.current_grants:
-            print_debug("Current: ", obj.name)
-        for obj in dt.completed_grants:
-            print_debug("Completed: ", obj.name)
-
-        for obj in Storage.EQUIPMENT_LIST:
-            print_debug("EQ: ", obj.name, " ", obj.uid, " ", obj.price)
-
-        for obj in Storage.FACULTY_LIST:
-            print_debug(
-                "FACULTY: ", obj.specialty_uid, " ", obj.icon_uid, " ", obj.default_cost, " ", obj.default_breakthrough_chance, " ",
-                "breakthrough_chance: ", obj.breakthrough_chance, " ",
-                "yearly_cost: ", obj.yearly_cost, " ",
-                "level: ", obj.level, " ",
-                "chars: ", obj.staff_uid_list, " ",
-                "CHARS effects: ", obj.character_mods_abs, " ", obj.character_mods_rel, " ",
-                "LEADER effects: ", obj.leader_mods_abs, " ", obj.leader_mods_rel, " ",
-                "EQ effects: ", obj.equipment_mods_abs, " ", obj.equipment_mods_rel, " "
-            )
-
-        print_debug(get_faculties())
 
 
 func _process(_delta):
