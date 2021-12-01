@@ -25,9 +25,10 @@ var faculty_labels_placeholder = faculty_background + "/HBoxContainer/VBoxContai
 var faculty_choice_button = "TextureButton"
 
 func infer_action(faculty):
-    pass
+    var _rs = get_node(faculty_choice_button).connect("pressed", self, "_on_Faculty_button_pressed")
 
 func setup_assign(faculty, TickButton):
+    get_node(faculty_choice_button).hide()
     var tick = TickButton.instance()
     tick.name = "TickButton"
     var _rs = tick.connect("pressed", self, "_on_Button_pressed")
@@ -37,7 +38,6 @@ func setup_assign(faculty, TickButton):
 func setup_for_faculty_map_tab(faculty, left_tab_color, EffectLabel, PlusButton, facultyChance, TickButton):
     get_node(faculty_left_tab_color_path).color = left_tab_color
     get_node(faculty_label).text = tr("FACULTY_") + " " + tr(faculty.name)
-    var _rs = get_node(faculty_choice_button).connect("pressed", self, "_on_Faculty_button_pressed")
     faculty_uid = faculty.uid
 
     if action_type == null:

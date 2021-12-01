@@ -224,3 +224,24 @@ func open_faculty(faculty_uid, update=true, allowed_updates=null):
 
 func step_month():
     Storage.next_date()
+
+
+func decrement_years_on_grants(update=true, allowed_updates=null):
+    var updated_faculties = []
+    for grant in Storage.GRANT_LIST:
+        if not grant.is_taken or grant.is_completed:
+            continue
+        grant.years_left -= 1
+        if Storage.grant_to_faculty[grant.uid] != null:
+                updated_faculties.append(Storage.grant_to_faculty[grant.uid])
+        if grant.years_left <= 0:
+            grant.is_completed = true
+            grant.is_failed = true
+            free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
+
+    if update:
+        if allowed_updates == null or T.UpdateType.GRANT in allowed_updates:
+            emitter.call_func("grants_updated")
+        for faculty_uid in updated_faculties:
+            if allowed_updates == null or T.UpdateType.FACULTY in allowed_updates:
+                emitter.call_func("faculty_updated", faculty_uid)

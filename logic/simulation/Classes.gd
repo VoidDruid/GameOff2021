@@ -138,7 +138,9 @@ class Character extends SimEntity:
         specialty_uid = specialty_uid_
         if icon_uid_ != null:
             icon_uid = "character" + "_" + icon_uid_
-        short_name = "SHORT_" + name  # TODO: or generate if no translation found
+        short_name = tr("SHORT_" + name)
+        if short_name == "SHORT_" + name:
+            short_name = name
         cost_per_year = cost_per_year_
         price = price_
         if level_ == null:
@@ -187,15 +189,18 @@ class Grant extends SimNamedObject:
     var difficulty = 1
 
     ### Dynamic fields ###
+    var years_left: int = 5
     var is_available: bool = false
     var is_taken: bool = false
     var is_in_progress = false
     var is_completed = false
+    var is_failed = false
     var chance: int = 0
 
-    func _init(name_, amount_, specialty_uid_, difficulty_, level_, description_=null, icon_uid_=null,  background_uid_=null).(name_):
+    func _init(name_, amount_, years_left_, specialty_uid_, difficulty_, level_, description_=null, icon_uid_=null,  background_uid_=null).(name_):
         uid = name_
         amount = amount_
+        years_left = years_left_
         specialty_uid = specialty_uid_
         difficulty = difficulty_
         level = level_
@@ -234,21 +239,21 @@ class Goal extends SimNamedObject:
 class CharactersData:
     var available_characters = []
     var hired_characters = []
-    
+
     func _init(_available_characters = [],_hired_characters = []):
         available_characters = _available_characters
         hired_characters = _hired_characters
-        
+
 
 class GrantsData:
     var current_grants = []
     var available_grants = []
     var completed_grants = []
     var goals = []
-    
+
     func _init(_current_grants = [],_available_grants = [],_completed_grants = [],_goals = []):
         current_grants = _current_grants
         available_grants = _available_grants
         completed_grants = _completed_grants
         goals = _goals
-        
+

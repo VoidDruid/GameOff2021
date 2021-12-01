@@ -239,8 +239,7 @@ func _on_Faculty_update(_faculty_uid):
     if CurrentGameWindow != null:
         CurrentGameWindow.queue_free()
         CurrentGameWindow = null
-    var faculty_id = simulation.Storage.FACULTY_LIST[0].uid
-    buildFacultyWindow(faculty_id)
+    buildFacultyWindow(_faculty_uid)
     MainWindow.add_child(CurrentGameWindow)
 
 func _on_Grants_updated():
@@ -392,7 +391,7 @@ func buildFacultiesMap():
             var fcTab = FacultyMapTab_res.instance()
             fcTab.game_manager = self
             fcTab.get_node("HBoxContainer/Background").color = get_color_index(i)
-            fcTab.action_type = -1
+            fcTab.action_type = null
             fcTab.setup_for_faculty_map_tab(fc, simulation.get_specialty_color(fc.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton)
             FacultyMap.get_node("VBoxContainer/Scroll/VBoxContainer").add_child(fcTab)
 ### faculties map

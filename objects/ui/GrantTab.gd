@@ -62,10 +62,7 @@ func setup_watch(grant, GrantChance, EffectLabel):
     chance.get_node("ColorRect/Label").text = str(grant.chance) + "%"
     get_node(grant_add_info_path).add_child(chance)
 
-    var diff_label = EffectLabel.instance()
-    diff_label.text =  str(grant.difficulty) + " " + tr("GRANT_DIFFICULTY")
-    diff_label.add_color_override("font_color", bad_color)
-    get_node(grant_labels_placeholder).add_child(diff_label)
+    add_diff_label(grant, EffectLabel)
 
 
 func setup_assign(grant, TickButton, EffectLabel):
@@ -77,13 +74,37 @@ func setup_assign(grant, TickButton, EffectLabel):
 
 
 func setup_none(grant, EffectLabel):
-    add_amount_label(grant, EffectLabel)
-    add_diff_label(grant, EffectLabel)
+    if grant.is_failed:
+        var diff_label = EffectLabel.instance()
+        diff_label.text =  tr("FAILED")
+        diff_label.add_color_override("font_color", bad_color)
+        get_node(grant_labels_placeholder).add_child(diff_label)
+    else:
+        var amount_label = EffectLabel.instance()
+        amount_label.text =  tr("SUCCEEDED")
+        amount_label.add_color_override("font_color", good_color)
+        get_node(grant_labels_placeholder).add_child(amount_label)
 
 
 func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance, TickButton, is_available, is_current, is_completed):
     get_node(grant_left_tab_color_path).color = left_tab_color
-    get_node(grant_label).text = grant.name + ", " + tr(grant.specialty_uid)
+    var name_label = get_node(grant_label)
+    name_label.text = grant.name + ", " + tr(grant.specialty_uid)
+    
+    var years_text = ""
+    if grant.is_taken:
+        years_text += tr("YEARS_LEFT") + ": "
+    else:
+        years_text += tr("YEARS_GIVEN") + ": "
+    years_text += str(grant.years_left) + " "
+    if grant.years_left == 1:
+        years_text += tr("YEAR")
+    elif grant.years_left < 5:
+        years_text += tr("YEARS_L5")
+    else:
+        years_text += tr("YEARS_GE5")
+    name_label.hint_tooltip = years_text
+    
     grant_uid = grant.uid
 
     if action_type == null:
