@@ -210,6 +210,7 @@ ACTION(decrement_years_on_grants)
         if grant.years_left <= 0:
             grant.is_completed = true
             grant.is_failed = true
+            Storage.change_reputation(-grant.difficulty)
             emitter.call_func("update_log", [tr("GRANT_FAILED") + " - " + tr(grant.name)])
             free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
             continue
@@ -221,6 +222,7 @@ ACTION(decrement_years_on_grants)
         print_debug(roll, " ", grant.chance)
         if roll <= grant.chance:
             grant.is_completed = true
+            Storage.change_reputation(grant.difficulty)
             emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
 

@@ -240,6 +240,7 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
         if grant.years_left <= 0:
             grant.is_completed = true
             grant.is_failed = true
+            Storage.change_reputation(-grant.difficulty)
             emitter.call_func("update_log", [tr("GRANT_FAILED") + " - " + tr(grant.name)])
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
             continue
@@ -251,6 +252,7 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
         print_debug(roll, " ", grant.chance)
         if roll <= grant.chance:
             grant.is_completed = true
+            Storage.change_reputation(grant.difficulty)
             emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
 
