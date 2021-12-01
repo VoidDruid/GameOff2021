@@ -238,3 +238,8 @@ func next_date():
     datetime["month"] = month
     emitter.call_func("date_updated", format_date(datetime))
     return datetime
+
+
+func remove_goal(goal_uid):
+    GOAL_LIST.remove(_find_in_goal_list(goal_uid))
+    GOAL_MAP.erase(goal_uid)
