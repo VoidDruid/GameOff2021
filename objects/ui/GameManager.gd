@@ -27,6 +27,7 @@ enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
 enum {TAKE_GRANT, ASSIGN_GRANT, WATCH_GRANT}
 
 var CurrentScreen
+var is_year_running = false
 
 var ui_res_folder = "res://objects/ui/"
 var game_manager_path = @"/root/Main/UI/GameUI"
@@ -60,6 +61,8 @@ var GoalRed_res = load(ui_res_folder + "GoalRed.tscn")
 var GoalTeal_res = load(ui_res_folder + "GoalTeal.tscn")
 var GOAL_RES = [GoalBlue_res, GoalRed_res, GoalTeal_res, GoalYellow_res]
 
+onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button
+
 func get_color_index(index) -> Color:
     return dark_light_color if index % 2 == 0 else light_color
 
@@ -84,12 +87,21 @@ func _ready():
     _rs = simulation.connect("date_updated", self, "_on_Date_updated")
     _rs = simulation.connect("update_log", self, "_on_Update_log")
     _rs = simulation.connect("faculty_updated", self, "_on_Faculty_update")
-
+    _rs = simulation.connect("year_end", self, "_on_Year_end")
+    
+    _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
+    
     simulation.start()
 
 
-func _process(_delta):
-    pass
+func _on_Year_end():
+    is_year_running = false
+
+
+func _on_StartYear_pressed():
+    is_year_running = true
+    simulation.start_year()
+
 
 func on_Menu_button_pressed(is_ch, is_gr, is_fc):
     if is_ch:

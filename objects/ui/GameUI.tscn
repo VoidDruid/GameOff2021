@@ -1,8 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/ui/GameUITheme.tres" type="Theme" id=1]
 [ext_resource path="res://objects/ui/GameManager.gd" type="Script" id=2]
 [ext_resource path="res://objects/ui/overrides/FullScreenUITexture.tres" type="StyleBox" id=3]
+[ext_resource path="res://objects/ui/button/hover.tres" type="StyleBox" id=4]
+[ext_resource path="res://objects/ui/button/pressed.tres" type="StyleBox" id=5]
 [ext_resource path="res://objects/ui/overrides/TobBar.svg" type="Texture" id=6]
 [ext_resource path="res://objects/ui/overrides/date.svg" type="Texture" id=7]
 [ext_resource path="res://objects/ui/overrides/reputation.svg" type="Texture" id=8]
@@ -10,6 +12,9 @@
 [ext_resource path="res://objects/ui/Map.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/ui/overrides/map.svg" type="Texture" id=11]
 [ext_resource path="res://common/fonts/Open_Sans/OpenSanst.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://objects/ui/button/normal.tres" type="StyleBox" id=13]
+[ext_resource path="res://objects/ui/button/focused.tres" type="StyleBox" id=14]
+[ext_resource path="res://objects/ui/UIAccent.tres" type="DynamicFont" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -299,14 +304,18 @@ custom_constants/separation = 32
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
 margin_right = 1258.0
 margin_bottom = 97.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.11
 
 [node name="Background" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
 anchor_left = -0.000583861
-anchor_right = 0.999416
-anchor_bottom = 1.0
+anchor_right = 0.788
+anchor_bottom = 0.99
+margin_left = -0.265503
+margin_right = -0.304077
+margin_bottom = 0.969994
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -316,10 +325,10 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
-anchor_right = 1.0
+anchor_right = 0.772
 anchor_bottom = 1.0
 margin_left = 20.0
-margin_right = -20.0
+margin_right = -0.176025
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -328,7 +337,7 @@ __meta__ = {
 }
 
 [node name="Faculties" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_right = 399.0
+margin_right = 310.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -351,8 +360,8 @@ __meta__ = {
 }
 
 [node name="Characters" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_left = 409.0
-margin_right = 808.0
+margin_left = 320.0
+margin_right = 630.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -375,8 +384,8 @@ __meta__ = {
 }
 
 [node name="Grants" type="TextureButton" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/HBoxContainer"]
-margin_left = 818.0
-margin_right = 1218.0
+margin_left = 640.0
+margin_right = 951.0
 margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -397,6 +406,37 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Button" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control"]
+margin_left = 1016.0
+margin_right = 1258.0
+margin_bottom = 96.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button"]
+show_behind_parent = true
+anchor_bottom = 1.0
+margin_right = 242.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 15 )
+text = "START_YEAR_"
+align = 1
+valign = 1
 
 [node name="GameWindow" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight"]
 margin_top = 129.0

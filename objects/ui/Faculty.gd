@@ -132,7 +132,7 @@ func _ready():
 
     if leader != null:
         var leader_name_l = leader_tab.get_node(leader_name_path)
-        leader_name_l.text = tr(leader.name) + ", " + tr(leader.title)
+        leader_name_l.text = tr("FACULTY_LEADER") + ": " + tr(leader.name) + ", " + tr(leader.title)
         leader_name_l.hint_tooltip = tr(leader.specialty_uid)
 
         var leader_effects = leader_tab.get_node(leader_effects_path)

@@ -3,7 +3,6 @@ var money = 1000
 var reputation = 80
 var datetime = {
     "month": 1,
-    "day": 1,
     "year": 2021,
 }
 var grant_limit = 1
@@ -222,3 +221,7 @@ func gain_money(amount: int) -> bool:
     money += amount
     emitter.call_func("money_updated", money, true)
     return true
+
+
+func next_date():
+    pass
