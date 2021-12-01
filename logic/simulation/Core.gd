@@ -148,7 +148,7 @@ func get_faculties():
 
 
 func start_year():
-    var month_delay = 1.0 if not utils.is_debug else 0.1
+    var month_delay = 0.3 if not utils.is_debug else 0.1
     while true:
         Actions.step_month()
 
