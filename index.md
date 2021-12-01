@@ -1,6 +1,6 @@
 # **Xeno University**
 
-![title](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/banner.jpeg)
+![title](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/banner.jpeg)
 
 Текущее состояние игры - едва живой прототип для геймджема (GameOff 2021).
 
@@ -16,15 +16,15 @@
 
 ## Скриншоты
 
-![faculty](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/faculty.png)
+![faculty](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/faculty.png)
 
-![detail](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/detail.png)
+![detail](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/detail.png)
 
-![characters](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/characters.png)
+![characters](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/characters.png)
 
-![choice](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/choice.png)
+![choice](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/choice.png)
 
-![grants](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/_brand/screenshots/GameOff2021/grants.png)
+![grants](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/grants.png)
 
 <details>
   <summary><b>> Attributions</b></summary>
