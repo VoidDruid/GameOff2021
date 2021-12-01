@@ -81,3 +81,21 @@ func _ready():
                         button.connect("pressed", self, "queue_free")
                         button.connect("pressed", darkinator, "queue_free")
                     container.add_child(fcTab)
+        3:
+            # Help window
+            var fcTab = game_manager.FacultyMapTab_res.instance()
+            var cntr = game_manager.HelpHolder_res.instance()
+            container.add_child(cntr)
+
+            var faculties_help = Label.new()
+            faculties_help.text = "HELP_FACULTIES_"
+            cntr.add_child(faculties_help)
+            var characters_help = Label.new()
+            characters_help.text = "HELP_CHARACTERS_"
+            cntr.add_child(characters_help)
+            var grants_help = Label.new()
+            grants_help.text = "HELP_GRANTS_"
+            cntr.add_child(grants_help)
+            var start_help = Label.new()
+            start_help.text = "HELP_START_"
+            cntr.add_child(fcTab)

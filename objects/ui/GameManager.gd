@@ -54,6 +54,7 @@ var BuyButton_res = load(ui_res_folder + "BuyButton.tscn")
 var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
 var FacultyMapTab_res = load(ui_res_folder + "FacultyMapTab.tscn")
 var UIBlocker_res = load(ui_res_folder + "UIBlocker.tscn")
+var HelpHolder_res = load(ui_res_folder + "HelpHolder.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -66,7 +67,8 @@ var GoalRed_res = load(ui_res_folder + "GoalRed.tscn")
 var GoalTeal_res = load(ui_res_folder + "GoalTeal.tscn")
 var GOAL_RES = [GoalBlue_res, GoalRed_res, GoalTeal_res, GoalYellow_res]
 
-onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerRight/Control/Button
+onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton
+onready var game_help_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton
 
 func get_color_index(index) -> Color:
     return dark_light_color if index % 2 == 0 else light_color
@@ -97,6 +99,7 @@ func _ready():
     _rs = simulation.connect("faculties_updated",self, "_on_Faculties_update")
 
     _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
+    _rs = game_help_button.connect("pressed", self, "_on_ShowHelp_pressed")
 
     _rs = FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
 
@@ -236,8 +239,7 @@ func _on_Faculty_update(_faculty_uid):
     if CurrentGameWindow != null:
         CurrentGameWindow.queue_free()
         CurrentGameWindow = null
-    var faculty_id = simulation.Storage.FACULTY_LIST[0].uid
-    buildFacultyWindow(faculty_id)
+    buildFacultyWindow(_faculty_uid)
     MainWindow.add_child(CurrentGameWindow)
 
 func _on_Grants_updated():
@@ -389,7 +391,7 @@ func buildFacultiesMap():
             var fcTab = FacultyMapTab_res.instance()
             fcTab.game_manager = self
             fcTab.get_node("HBoxContainer/Background").color = get_color_index(i)
-            fcTab.action_type = -1
+            fcTab.action_type = null
             fcTab.setup_for_faculty_map_tab(fc, simulation.get_specialty_color(fc.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton)
             FacultyMap.get_node("VBoxContainer/Scroll/VBoxContainer").add_child(fcTab)
 ### faculties map
@@ -408,3 +410,9 @@ func choice_dialog(object_type, darkinator, action_type=null):
     choice_dialog_window.parent_uid = 0
     choice_dialog_window.action_type = action_type
     get_node("/root/Main/UI").add_child(choice_dialog_window)
+
+
+func _on_ShowHelp_pressed():
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    choice_dialog(3, darkinator)

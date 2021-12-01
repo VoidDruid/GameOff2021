@@ -37,6 +37,7 @@ BUY_,Buy,Купить
 BOUGHT_,Bought,Уже куплено
 FACULTY_LEADER,Head,Декан
 START_YEAR_,Start year,Начать год
+GAME_HELP_,Help,Помощь
 January,January,Январь
 February,February,Февраль
 March,March,Март
@@ -56,3 +57,4 @@ YEARS_GIVEN,Given,Дается
 YEARS_LEFT,Left,Осталось
 FAILED,Failed!,Провален!
 SUCCEEDED,Succeeded,Успех!
+,,
