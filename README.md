@@ -8,11 +8,10 @@
 - [KovalevVasiliy](https://github.com/KovalevVasiliy) - программирование
 - [WassupNastya](https://github.com/WassupNastya) - графика, анимации
 
-Интерпретация темы: *текст*.
+**Интерпретация темы**: *B. University of G.* - нам хотелось сделать игру про университет с инопланетянами, так что пусть он будет "университеты-слов-начинающихся-на-b", расположенном в "местах-начинающихся-на-g".
 
+Подробнее - по ссылке ниже.
 ## **[Xeno University](https://voiddruid.github.io/GameOff2021/)**
-
-Описание игры.
 
 ---
 
@@ -22,3 +21,4 @@
 
 - *Icons made by [Freepik](https://www.freepik.com)* from [Flaticon](https://www.flaticon.com/)
 - [kenney.nl](https://kenney.nl/assets)
+- [freesoud.org](https://freesound.org)
