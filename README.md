@@ -10,7 +10,7 @@
 
 Интерпретация темы: *текст*.
 
-## **[Название игры](https://voiddruid.github.io/GameOff2021/)**
+## **[Xeno University](https://voiddruid.github.io/GameOff2021/)**
 
 Описание игры.
 
