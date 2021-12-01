@@ -20,6 +20,7 @@ var FacultiesButton: TextureButton
 var CharactersButton: TextureButton
 var GrantsButton: TextureButton
 var FacultyMap: Control
+var ui_blocker = null
 
 enum {UNKNOWN_SCREEN, GRANTS_SCREEN, CHARACTERS_SCREEN, FACULTY_SCREEN}
 
@@ -52,6 +53,7 @@ var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
 var BuyButton_res = load(ui_res_folder + "BuyButton.tscn")
 var BoughtButton_res = load(ui_res_folder + "BoughtButton.tscn")
 var FacultyMapTab_res = load(ui_res_folder + "FacultyMapTab.tscn")
+var UIBlocker_res = load(ui_res_folder + "UIBlocker.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -104,10 +106,13 @@ func _ready():
 
 func _on_Year_end():
     is_year_running = false
-
+    if ui_blocker != null:
+        ui_blocker.queue_free()
 
 func _on_StartYear_pressed():
     is_year_running = true
+    ui_blocker = UIBlocker_res.instance()
+    get_node("/root/Main/UI").add_child(ui_blocker)
     simulation.start_year()
 
 
