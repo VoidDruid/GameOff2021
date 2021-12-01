@@ -129,8 +129,9 @@ NCLASS(Character, SimEntity)
     var is_available: bool = false
     var is_hired: bool = false
     var faculty_uid = null
+    var description = null
 
-    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
+    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, description_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_
         set_icon_uid(character)
         short_name = "SHORT_" + name  # TODO: or generate if no translation found
@@ -139,6 +140,9 @@ NCLASS(Character, SimEntity)
         if level_ == null:
             level_ = 2  # TODO: auto calculate level
         level = level_
+        if description_ == null:
+            description_ = "GENERIC_DESCRIPTION_" + str(level_)
+        description = description_
 
 
 NCLASS(Equipment, SimEntity)
@@ -178,6 +182,8 @@ NCLASS(Grant, SimNamedObject)
         specialty_uid = specialty_uid_
         difficulty = difficulty_
         level = level_
+        if description_ == null:
+            description_ = "DESCRIPTION_" + name_
         description = description_
         set_icon_uid(grant)
         background_uid = background_uid_

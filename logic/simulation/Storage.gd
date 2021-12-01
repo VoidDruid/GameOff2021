@@ -234,6 +234,7 @@ func load_characters():
             data.get("cost_per_year", 50),
             data.get("price", 300),
             data.get("level", null),
+            data.get("description", null),
             modifiers
         )
         var overrides = data.get("overrides", null)

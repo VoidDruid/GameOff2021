@@ -129,8 +129,9 @@ class Character extends SimEntity:
     var is_available: bool = false
     var is_hired: bool = false
     var faculty_uid = null
+    var description = null
 
-    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
+    func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, description_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_
         if icon_uid_ != null:
             icon_uid = "character" + "_" + icon_uid_
@@ -140,6 +141,9 @@ class Character extends SimEntity:
         if level_ == null:
             level_ = 2  # TODO: auto calculate level
         level = level_
+        if description_ == null:
+            description_ = "GENERIC_DESCRIPTION_" + str(level_)
+        description = description_
 
 
 class Equipment extends SimEntity:
@@ -186,6 +190,8 @@ class Grant extends SimNamedObject:
         specialty_uid = specialty_uid_
         difficulty = difficulty_
         level = level_
+        if description_ == null:
+            description_ = "DESCRIPTION_" + name_
         description = description_
         if icon_uid_ != null:
             icon_uid = "grant" + "_" + icon_uid_

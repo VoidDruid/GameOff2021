@@ -42,6 +42,7 @@ var StaffTab_res = load(ui_res_folder + "StaffTab.tscn")
 var FacultyTab_res = load(ui_res_folder + "FacultyTab.tscn")
 var ObjectDetail_res = load(ui_res_folder + "ObjectDetail.tscn")
 var ObjectChoice_res = load(ui_res_folder + "ObjectChoice.tscn")
+var Darkinator_res = load(ui_res_folder + "Darkinator3000.tscn")
 var EquipmentTab_res = load(ui_res_folder + "EquipmentTab.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")

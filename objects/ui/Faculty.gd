@@ -15,21 +15,50 @@ var faculty_cost_panel_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContaine
 var faculty_cost_label_path = faculty_cost_panel_path + "/Label"
 var leader_name_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/LeaderName/Label"
 var leader_effects_path = "TextureRect/HBoxContainer/LeaderInfo/VBoxContainer/Effects/HBoxContainer"
-var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantChance"
 var faculty_employees_sum_effect_label_path = "HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/SummEffect/EffectLabel"
 var enrolle_counter_path = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/SpinBox"
 var cost_per_year_label = "HBoxContainer/LeftTextureRect/Left/Slider/TextureRect/Control/CostPerYear"
 
-var equipment_list_path = "HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer"
+var faculty_grant_chance_tab_path = "HBoxContainer/TextureRectRight/Right/GrantChance"
 
+var equipment_list_path = "HBoxContainer/LeftTextureRect/Left/EquipmentList/TextureRect/VBoxContainer/List/ScrollContainer/VBoxContainer"
+onready var leader_button = $HBoxContainer/LeftTextureRect/Left/FacultyTab/TextureRect/HBoxContainer/Leader/Icon
 
 func _on_AddStaff_pressed():
     pass
 
 
 func _on_GrantButton_pressed():
-    #game_manager.on_GrButton_pressed(gr_id)
-    pass
+    var darkinator = game_manager.Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    
+    var grant_choice = game_manager.ObjectDetail_res.instance()
+    if faculty.grant_uid != null:
+        grant_choice.grant = simulation.get_grant_data(faculty.grant_uid)
+        grant_choice.darkinator = darkinator
+        grant_choice.game_manager = game_manager
+        grant_choice.object_type = 0
+        get_node("/root/Main/UI").add_child(grant_choice)
+    else:
+        # TODO: choice menu
+        pass
+
+
+func _on_LeaderButton_pressed():
+    var darkinator = game_manager.Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+    
+    var leader_choice = game_manager.ObjectDetail_res.instance()
+    if leader != null:
+        leader_choice.character = leader
+        leader_choice.darkinator = darkinator
+        leader_choice.game_manager = game_manager
+        leader_choice.object_type = 1
+        get_node("/root/Main/UI").add_child(leader_choice)
+    else:
+        # TODO: choice menu
+        pass
+
 
 func _on_SpinBox_value_changed(value):
     game_manager.on_EnrolleeCount_changed(faculty.uid, value)
@@ -43,6 +72,7 @@ func _ready():
 
     var _rs = get_node(grant_chance_button_path).connect("pressed", self, "_on_GrantButton_pressed")
     _rs = get_node(enrolle_counter_path).connect("value_changed", self, "_on_SpinBox_value_changed")
+    leader_button.connect("pressed", self, "_on_LeaderButton_pressed")
 
     var grant_tab_percent
     var grant_tab_description
@@ -53,7 +83,7 @@ func _ready():
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")
 
-    get_node(cost_per_year_label).text = str(faculty.enrollee_cost) + " / " + tr("ENROLLEE_COST_") 
+    get_node(cost_per_year_label).text = str(faculty.enrollee_cost) + " / " + tr("ENROLLEE_COST_")
 
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Percent").text = grant_tab_percent
     get_node(faculty_grant_chance_tab_path + "/Button/GrantChancePanel/Description").text = grant_tab_description
