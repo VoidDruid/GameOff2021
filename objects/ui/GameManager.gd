@@ -444,6 +444,7 @@ func buildGameOverTab(info):
     get_node("/root/Main/UI").add_child(gameover_choice)
 
 func _on_GameOver():
+    print_debug("PIZDEZ")
     var game_over_text = tr("GAME_OVER_")
     var game_over = GameOver.new(game_over_text,"")
     buildGameOverTab(game_over)

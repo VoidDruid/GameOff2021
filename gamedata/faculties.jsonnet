@@ -42,4 +42,14 @@ local equipment = import 'equipment.jsonnet';
             equipment.printer.uid
         ],
     },
+    "ling_soc": {
+        "name": "LING_SOC_FACULTY_",
+        "default_cost": 60,
+        "default_enrollee_count": 10,
+        "default_breakthrough_chance": 25,
+        "specialty_uid": g.lingsoc.name,
+        "equipment": [
+            equipment.printer.uid
+        ],
+    },
 }

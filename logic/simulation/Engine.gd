@@ -137,9 +137,6 @@ func update_grants():
 
 
 func update_goal(goal):
-    # TODO: check how many specific grants completed
-    # TODO: check how many grants in each required field completed
-    # TODO: calc progress
     var done_m = {}
     var total_req = len(goal.requirements.get('_GRANTS_', []))
     var done_req = 0
