@@ -321,6 +321,7 @@ func load_facultys():
             data["name"],
             data["specialty_uid"],
             data.get("icon_uid", null),
+            data.get("open_cost", 1000),
             data.get("default_cost", 100),
             data.get("default_enrollee_count", 15),
             data.get("default_enrolee_cost", 5),

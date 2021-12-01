@@ -207,3 +207,15 @@ func take_grant(grant_uid, update=true, allowed_updates=null):
         if allowed_updates == null or T.UpdateType.GRANT in allowed_updates:
             Engine.update_grant(grant)
             emitter.call_func("grant_updated", grant.uid)
+
+
+func open_faculty(faculty_uid, update=true, allowed_updates=null):
+    var faculty = Storage.get_faculty(faculty_uid)
+    if not Storage.spend_money(faculty.open_cost):
+        return
+    faculty.is_opened = true
+
+    if update:
+        if allowed_updates == null or T.UpdateType.FACULTY in allowed_updates:
+            Engine.update_faculty(faculty)
+            emitter.call_func("faculty_updated", faculty.uid)

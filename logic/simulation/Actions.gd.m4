@@ -179,3 +179,13 @@ ACTION(take_grant, grant_uid)
 
     if update:
         conditional_update(grant)
+
+
+ACTION(open_faculty, faculty_uid)
+    var faculty = Storage.get_faculty(faculty_uid)
+    if not Storage.spend_money(faculty.open_cost):
+        return
+    faculty.is_opened = true
+
+    if update:
+        conditional_update(faculty)

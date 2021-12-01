@@ -279,7 +279,8 @@ func buildGrantsWindow():
         i += 1
     
     for goal in dt.goals:
-        var goal_c = GoalC_res.instance()
+        pass
+        #var goal_c = GoalC_res.instance()
         
 
 

@@ -43,6 +43,7 @@ NCLASS(Faculty, SimNamedObject)
     var specialty_uid: String
     var equipment_uid_list = []
     var default_cost = 100
+    var open_cost = 1000
     var default_enrollee_count = 15
     var default_enrollee_cost = 5
     var default_breakthrough_chance = 15
@@ -73,10 +74,11 @@ NCLASS(Faculty, SimNamedObject)
     func get_staff_effect() -> String:
         return "STAFF EFFECT"  # TODO: calc effect
 
-    func _init(name_, specialty_uid_, icon_uid_=null, default_cost_=100, default_enrollee_count_=15, default_enrollee_cost_=5, default_breakthrough_chance_=15, equipment_uid_list_=[]).(name_):
+    func _init(name_, specialty_uid_, icon_uid_=null, open_cost_=1000, default_cost_=100, default_enrollee_count_=15, default_enrollee_cost_=5, default_breakthrough_chance_=15, equipment_uid_list_=[]).(name_):
         uid = name
         specialty_uid = specialty_uid_
         set_icon_uid(faculty)
+        open_cost = open_cost_
         default_cost = default_cost_
         default_enrollee_count = default_enrollee_count_
         default_enrollee_cost = default_enrollee_cost_
