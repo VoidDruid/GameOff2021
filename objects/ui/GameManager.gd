@@ -135,7 +135,6 @@ func on_Menu_button_pressed(is_ch, is_gr, is_fc):
         FacultiesButton.set_normal_texture(pressed_texture_res)
         GrantsButton.set_normal_texture(null)
         CharactersButton.set_normal_texture(null)
-    _on_GameOver()
 
 func _on_Characters_pressed():
     on_Menu_button_pressed(true, false, false)
