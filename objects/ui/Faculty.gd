@@ -105,7 +105,7 @@ func _ready():
             years_text += tr("YEARS_L5")
         else:
             years_text += tr("YEARS_GE5")
-        grant_tab_description = grant_f.name + "\n" + years_text
+        grant_tab_description = tr(grant_f.name) + "\n" + years_text
     else:
         grant_tab_percent = ""
         grant_tab_description = tr("GRANT_UNKNOWN")

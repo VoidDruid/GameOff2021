@@ -1,5 +1,5 @@
 var campus_level = 1
-var money = 1000
+var money = 11000
 var reputation = 80
 var datetime = {
     "month": 8,

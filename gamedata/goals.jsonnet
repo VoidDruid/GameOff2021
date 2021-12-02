@@ -1,35 +1,52 @@
+local g = import 'general.lib.jsonnet';
+local grants = import 'grants.jsonnet';
+
+local REQUIRED_GRANTS = "_GRANTS_";
+local description(obj) = obj.name + "DESCRIPTION";
+
 {
-  "goal1": {
-    "name": "GOAL1_",
-    "description": "GOAL1_DESCRIPTION",
+  "bio_goal": {
+    "name": "BIO_GOAL_",
+    "description": description(self),
     "icon_uid": null,
     "requirements": {
-      "BIOLOGY_": 5,
-      "PHYSICS_": 1,
-      "_GRANTS_": [
-        "GRANT_BIO1",
-        "GRANT_BIO2"
+      [g.biology.name]: 6,
+      [g.physics.name]: 2,
+      [REQUIRED_GRANTS]: [
+        grants.bio_start.name,
+      ]
+    },
+  },
+  "phys_goal": {
+    "name": "ENGINEER_GOAL_",
+    "description": description(self),
+    "icon_uid": null,
+    "requirements": {
+      [g.math.name]: 2,
+      [g.physics.name]: 6,
+      [REQUIRED_GRANTS]: [
+        grants.phys_start.name,
       ]
     }
   },
-  "goal2": {
-    "name": "GOAL2_",
-    "description": "GOAL2_DESCRIPTION",
+  "soc_goal": {
+    "name": "COMMUNICATION_GOAL_",
+    "description": description(self),
     "icon_uid": null,
     "requirements": {
-      "MATH_": 6,
-      "LING_SOC_": 2,
-      "_GRANTS_": []
+      [g.lingsoc.name]: 4,
+      [g.philosophy.name]: 4,
+      [REQUIRED_GRANTS]: [grants.math_start.name]
     }
   },
-  "goal3": {
-    "name": "GOAL3_",
-    "description": "GOAL3_DESCRIPTION",
+  "understanding_goal": {
+    "name": "UNDERSTANDING_GOAL_",
+    "description": description(self),
     "icon_uid": null,
     "requirements": {
-      "PHILOSOPHY_": 6,
-      "LING_SOC_": 2,
-      "_GRANTS_": []
+      [g.math.name]: 3,
+      [g.philosophy.name]: 4,
+      [REQUIRED_GRANTS]: [grants.ling_start.name]
     }
   }
 }

@@ -13,6 +13,7 @@ signal update_log(logs)
 signal characters_updated
 signal grants_updated
 signal faculties_updated
+signal goals_updated
 signal faculty_updated(faculty_uid)
 signal money_error
 signal money_updated(amount, has_increased)

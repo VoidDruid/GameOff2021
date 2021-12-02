@@ -9,7 +9,8 @@ local equipment = import 'equipment.jsonnet';
         "default_breakthrough_chance": 15,
         "specialty_uid": g.biology.name,
         "equipment": [
-            equipment.printer.uid
+            equipment.printer.uid,
+            equipment.microscope.uid
         ],
     },
     "physics": {
@@ -19,7 +20,8 @@ local equipment = import 'equipment.jsonnet';
         "default_breakthrough_chance": 25,
         "specialty_uid": g.physics.name,
         "equipment": [
-            equipment.printer.uid
+            equipment.printer.uid,
+            equipment.microscope.uid
         ],
     },
     "philosophy": {

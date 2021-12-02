@@ -89,7 +89,7 @@ func setup_none(grant, EffectLabel):
 func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance, TickButton, is_available, is_current, is_completed):
     get_node(grant_left_tab_color_path).color = left_tab_color
     var name_label = get_node(grant_label)
-    name_label.text = grant.name + ", " + tr(grant.specialty_uid)
+    name_label.text = tr(grant.name) + ", " + tr(grant.specialty_uid)
     
     var years_text = ""
     if grant.is_taken:

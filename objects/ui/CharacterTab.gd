@@ -4,9 +4,18 @@ export(Color) var good_color
 export(Color) var bad_color
 export(Color) var hired_panel_color
 export(Color) var available_panel_color
-export(Texture) var plus_texture
-export(Texture) var cross_texture
-export(Texture) var tick_texture
+
+export(Texture) var plus_texture_normal
+export(Texture) var plus_texture_pressed
+export(Texture) var plus_texture_hover
+
+export(Texture) var cross_texture_normal
+export(Texture) var cross_texture_pressed
+export(Texture) var cross_texture_hover
+
+export(Texture) var tick_texture_normal
+export(Texture) var tick_texture_pressed
+export(Texture) var tick_texture_hover
 
 var character
 var EffectLabel
@@ -47,12 +56,16 @@ func setup_hire(button):
         button.modulate = Color(1, 1, 1, 0.4)
     else:
         button.connect("pressed", self, "_on_Button_pressed")
-    button.texture_normal = plus_texture
+    button.texture_normal = plus_texture_normal
+    button.texture_hover = plus_texture_hover
+    button.texture_pressed = plus_texture_pressed
 
 
 func setup_fire(button):
     button.connect("pressed", self, "_on_Button_pressed")
-    button.texture_normal = cross_texture
+    button.texture_normal = cross_texture_normal
+    button.texture_hover = cross_texture_hover
+    button.texture_pressed = cross_texture_pressed
     button.anchor_top += 0.1
     button.anchor_top -= 0.1
     button.anchor_left += 0.01
@@ -60,7 +73,9 @@ func setup_fire(button):
 
 
 func setup_assign(button):
-    button.texture_normal = tick_texture
+    button.texture_normal = tick_texture_normal
+    button.texture_hover = tick_texture_hover
+    button.texture_pressed = tick_texture_pressed
     button.connect("pressed", self, "_on_Button_pressed")
 
 

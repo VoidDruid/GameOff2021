@@ -420,6 +420,7 @@ func _on_ShowHelp_pressed():
     get_node("/root/Main/UI").add_child(darkinator)
     choice_dialog(3, darkinator)
 
+
 class GameOver:
     static func get_name():
         return "class_GameOver"
@@ -431,6 +432,7 @@ class GameOver:
         name = name_
         description = goal_name_
 
+
 func buildGameOverTab(info):
     var darkinator = Darkinator_res.instance()
     get_node("/root/Main/UI").add_child(darkinator)
@@ -439,20 +441,12 @@ func buildGameOverTab(info):
     gameover_choice.darkinator = darkinator
     gameover_choice.game_manager = self
     gameover_choice.object_type = 3
-    gameover_choice.parent_uid = 0
-    gameover_choice.is_changable = true
     get_node("/root/Main/UI").add_child(gameover_choice)
 
 func _on_GameOver():
-    print_debug("PIZDEZ")
-    var game_over_text = tr("GAME_OVER_")
-    var game_over = GameOver.new(game_over_text,"")
-    buildGameOverTab(game_over)
+    buildGameOverTab(GameOver.new("GAME_OVER_", "GAME_OVER_DESC_"))
 
 
 func _on_Victory(goal_uid):
     var goal = simulation.get_goal_data(goal_uid)
-    var game_over_text = tr("WIN_")
-    var text = tr("COMPLETED_GOAL_") + " " + tr(goal.name) + ":" + tr(goal.description)
-    var game_over = GameOver.new(game_over_text,text)
-    buildGameOverTab(game_over)
+    buildGameOverTab(GameOver.new("WIN_", tr("COMPLETED_GOAL_") + " " + tr(goal.name) + ": " + tr(goal.description)))

@@ -6,7 +6,19 @@ local build_uid(obj) = std.md5(obj.name + obj.icon_id + obj.price + obj.modifier
     "name": "PRINTER_",
     "uid": build_uid(self),
     "icon_id": "0",
-    "price": 1000,
+    "price": 150,
+    "modifiers": [
+      {
+        "value": 0.03,
+        "property": "breakthrough_chance"
+      }
+    ]
+  },
+  "microscope": {
+    "name": "MICROSCOPE_",
+    "uid": build_uid(self),
+    "icon_id": "0",
+    "price": 250,
     "modifiers": [
       {
         "value": 0.05,

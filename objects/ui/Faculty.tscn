@@ -271,11 +271,16 @@ margin_bottom = -21.0
 custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
 custom_fonts/font = ExtResource( 10 )
 text = "EMPLOYEES_"
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AddStaff" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired/Tab" instance=ExtResource( 2 )]
+anchor_left = 0.79037
+anchor_top = 0.147912
+anchor_right = 0.927778
+anchor_bottom = 0.846715
 
 [node name="Employees" type="ScrollContainer" parent="HBoxContainer/TextureRectRight/Right/TextureRect/VBoxHired"]
 margin_top = 141.0

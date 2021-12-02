@@ -1,14 +1,49 @@
 {
-   "goal1": {
-      "description": "GOAL1_DESCRIPTION",
+   "bio_goal": {
+      "description": "BIO_GOAL_DESCRIPTION",
       "icon_uid": null,
-      "name": "GOAL1_",
+      "name": "BIO_GOAL_",
       "requirements": {
-         "BIOLOGY_": 5,
-         "PHYSICS_": 1,
+         "BIOLOGY_": 6,
+         "PHYSICS_": 2,
          "_GRANTS_": [
-            "GRANT_BIO1",
-            "GRANT_BIO2"
+            "GRANT_BIO_START"
+         ]
+      }
+   },
+   "phys_goal": {
+      "description": "ENGINEER_GOAL_DESCRIPTION",
+      "icon_uid": null,
+      "name": "ENGINEER_GOAL_",
+      "requirements": {
+         "MATH_": 2,
+         "PHYSICS_": 6,
+         "_GRANTS_": [
+            "GRANT_PHYS_START"
+         ]
+      }
+   },
+   "soc_goal": {
+      "description": "COMMUNICATION_GOAL_DESCRIPTION",
+      "icon_uid": null,
+      "name": "COMMUNICATION_GOAL_",
+      "requirements": {
+         "LING_SOC_": 4,
+         "PHILOSOPHY_": 4,
+         "_GRANTS_": [
+            "GRANT_MATH_START"
+         ]
+      }
+   },
+   "understanding_goal": {
+      "description": "UNDERSTANDING_GOAL_DESCRIPTION",
+      "icon_uid": null,
+      "name": "UNDERSTANDING_GOAL_",
+      "requirements": {
+         "MATH_": 3,
+         "PHILOSOPHY_": 4,
+         "_GRANTS_": [
+            "GRANT_LING_START"
          ]
       }
    }

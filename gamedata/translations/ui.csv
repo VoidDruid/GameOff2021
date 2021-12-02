@@ -60,7 +60,13 @@ SUCCEEDED,Succeeded,Успех!
 EXIT_,Exit,Выход
 WIN_,Win!,Победа!
 COMPLETED_GOAL_,You've completed the goal,Вы достигли цели
-GAME_OVER_,Lose,Поражение
 GRANT_COMPLETED,Grant completed,Грант успешно завершен
 GRANT_FAILED,Grant failed,Грант провален
-,,
+GAME_OVER_,Game over,Игра окончена
+SWAP_,Change,Заменить
+OH_NO_,Oh no!,Ужас!
+CHOOSE_FACULTY_,Choose faculty,Выберите факультет
+CHOOSE_CHARACTER_,Choose character,Выберите персонажа
+CHOOSE_GRANT_,Choose grant,Выберите грант
+HELP_WINDOW_,Help,Помощь
+LING_SOC_,linguistics,лингвистика

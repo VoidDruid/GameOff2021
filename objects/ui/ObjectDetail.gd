@@ -47,7 +47,8 @@ func generic_setup(obj):
             suffix = null
         3:
             suffix = null
-            
+            icon_rect.texture = utils.load_icon("game-over")
+            #change_button.get_node("Label").text = "OH_NO_"
     if suffix != null:
         name_label.text = tr(obj.name) + ", " + suffix
     else:
@@ -55,7 +56,6 @@ func generic_setup(obj):
     if "specialty_uid" in obj:
         name_label.hint_tooltip = tr(obj.specialty_uid)
     description_label.text = utils.build_text(obj.description)
-    # TODO: icon setup
 
 
 func setup_grant():

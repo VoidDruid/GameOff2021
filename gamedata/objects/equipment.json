@@ -1,5 +1,5 @@
 {
-   "printer": {
+   "microscope": {
       "icon_id": "0",
       "modifiers": [
          {
@@ -7,8 +7,20 @@
             "value": 0.050000000000000003
          }
       ],
+      "name": "MICROSCOPE_",
+      "price": 250,
+      "uid": "9fd8be176591d037cfa030a5ac7a707c"
+   },
+   "printer": {
+      "icon_id": "0",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.029999999999999999
+         }
+      ],
       "name": "PRINTER_",
-      "price": 1000,
-      "uid": "69d0f53c697aac681cf9088f1fe90337"
+      "price": 150,
+      "uid": "e10e0f37caab19c37401e1ad61228948"
    }
 }

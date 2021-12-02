@@ -3,6 +3,7 @@ extends Panel
 export(Color) var text_color
 onready var close_button = $CloseButton
 onready var container = $Margin/VBoxContainer/ScrollContainer/VBoxContainer
+onready var name_l = $Margin/VBoxContainer/NameL
 
 var darkinator
 var game_manager
@@ -25,6 +26,7 @@ func _ready():
     match object_type:
         0:
             # Grant
+            name_l.text = tr("CHOOSE_GRANT_")
             dt = game_manager.simulation.get_grants_data()
             i = 0
             for gr in dt.current_grants:
@@ -44,6 +46,7 @@ func _ready():
                 container.add_child(grTab)
         1:
             # Character
+            name_l.text = tr("CHOOSE_CHARACTER_")
             dt = game_manager.simulation.get_characters_data()
             i = 0
             for ch in dt.hired_characters:
@@ -64,6 +67,7 @@ func _ready():
                 i += 1
         2:
             # Faculty
+            name_l.text = tr("CHOOSE_FACULTY_")
             var faculties = game_manager.simulation.get_faculties()
             i = 0
             for fc in faculties:
@@ -84,6 +88,7 @@ func _ready():
                     container.add_child(fcTab)
         3:
             # Help window
+            name_l.text = tr("HELP_WINDOW_")
             var help_holder = game_manager.HelpHolder_res.instance()
             var faculties_help = help_holder.get_node("RichTextLabel")
             faculties_help.text = tr("HELP_FACULTIES_") + "\n" + tr("HELP_CHARACTERS_") + "\n" + tr("HELP_GRANTS_") + "\n" + tr("HELP_START_")

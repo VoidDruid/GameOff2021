@@ -4,17 +4,38 @@
       "default_cost": 70,
       "default_enrollee_count": 30,
       "equipment": [
-         "69d0f53c697aac681cf9088f1fe90337"
+         "e10e0f37caab19c37401e1ad61228948",
+         "9fd8be176591d037cfa030a5ac7a707c"
       ],
       "name": "BIOLOGY_FACULTY_",
       "specialty_uid": "BIOLOGY_"
+   },
+   "ling_soc": {
+      "default_breakthrough_chance": 25,
+      "default_cost": 60,
+      "default_enrollee_count": 10,
+      "equipment": [
+         "e10e0f37caab19c37401e1ad61228948"
+      ],
+      "name": "LING_SOC_FACULTY_",
+      "specialty_uid": "LING_SOC_"
+   },
+   "math": {
+      "default_breakthrough_chance": 35,
+      "default_cost": 50,
+      "default_enrollee_count": 7,
+      "equipment": [
+         "e10e0f37caab19c37401e1ad61228948"
+      ],
+      "name": "MATH_FACULTY_",
+      "specialty_uid": "PHILOSOPHY_"
    },
    "philosophy": {
       "default_breakthrough_chance": 35,
       "default_cost": 50,
       "default_enrollee_count": 7,
       "equipment": [
-         "69d0f53c697aac681cf9088f1fe90337"
+         "e10e0f37caab19c37401e1ad61228948"
       ],
       "name": "PHILOSOPHY_FACULTY_",
       "specialty_uid": "PHILOSOPHY_"
@@ -24,7 +45,8 @@
       "default_cost": 100,
       "default_enrollee_count": 20,
       "equipment": [
-         "69d0f53c697aac681cf9088f1fe90337"
+         "e10e0f37caab19c37401e1ad61228948",
+         "9fd8be176591d037cfa030a5ac7a707c"
       ],
       "name": "PHYSICS_FACULTY_",
       "specialty_uid": "PHYSICS_"

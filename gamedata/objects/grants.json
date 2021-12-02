@@ -1,27 +1,46 @@
 {
-   "bio1": {
-      "amount": 150,
-      "difficulty": 1,
-      "name": "GRANT_BIO1",
-      "specialty_uid": "BIOLOGY_"
-   },
    "bio2": {
       "amount": 200,
       "difficulty": 20,
       "name": "GRANT_BIO2",
       "specialty_uid": "BIOLOGY_"
    },
-   "phys1": {
+   "bio_start": {
+      "amount": 150,
+      "difficulty": 10,
+      "name": "GRANT_BIO_START",
+      "specialty_uid": "BIOLOGY_"
+   },
+   "ling_start": {
+      "amount": 200,
+      "difficulty": 20,
+      "name": "GRANT_LING_START",
+      "specialty_uid": "LING_SOC_"
+   },
+   "math_start": {
+      "amount": 240,
+      "difficulty": 25,
+      "level": 2,
+      "name": "GRANT_MATH_START",
+      "specialty_uid": "MATH_"
+   },
+   "philosophy_start": {
       "amount": 170,
-      "difficulty": 15,
-      "name": "GRANT_PHYS1",
-      "specialty_uid": "PHYSICS_"
+      "difficulty": 13,
+      "name": "GRANT_PHILOSOPHY_START",
+      "specialty_uid": "PHILOSOPHY_"
    },
    "phys2": {
       "amount": 240,
       "difficulty": 25,
       "level": 2,
       "name": "GRANT_PHYS2",
+      "specialty_uid": "PHYSICS_"
+   },
+   "phys_start": {
+      "amount": 180,
+      "difficulty": 15,
+      "name": "GRANT_PHYS_START",
       "specialty_uid": "PHYSICS_"
    }
 }

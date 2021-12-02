@@ -249,7 +249,6 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
             continue
 
         var roll = randi() % 100
-        print_debug(roll, " ", grant.chance)
         if roll <= grant.chance:
             grant.is_completed = true
             Storage.change_reputation(grant.difficulty)
@@ -258,7 +257,7 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
 
     Storage.set_sim_state_of(T.Goal, T.SimState.OUT_OF_SYNC)
     Engine.update_goals()
-    if 17 == 0:
+    if len(Storage.GOAL_LIST) == 0:
         emitter.call_func("game_over")
 
     if update:

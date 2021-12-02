@@ -48,7 +48,7 @@ window/size/height=1080
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/GodotTIE/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/scrolling_background/plugin.cfg" )
 
 [gdnative]
 
