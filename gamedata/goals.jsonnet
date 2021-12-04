@@ -46,7 +46,10 @@ local description(obj) = obj.name + "DESCRIPTION";
     "requirements": {
       [g.math.name]: 3,
       [g.philosophy.name]: 4,
-      [REQUIRED_GRANTS]: [grants.ling_start.name]
+      [REQUIRED_GRANTS]: [
+        grants.ling_start.name,
+        grants.philosophy_start.name
+      ]
     }
   }
 }

@@ -5,18 +5,21 @@ local key_n(obj) = if std.objectHas(obj, "uid")
     then obj.uid
     else std.md5(obj.name + obj.specialty_uid);
 
+local defaultKey(obj, field) = if !std.objectHas(obj, field) then field else null;
+
+local preprocess(index, obj) = obj + {
+    [defaultKey(obj, "name")]: "G_NAME" + (index + 1),
+    [defaultKey(obj, "icon_uid")]: (index + 1),
+};
+
 local RANDOM = "random";
 
 local characters = [
     {
-        name: "G_NAME1",
         specialty_uid: g.physics.name,
-        icon_uid: "1"
     },
     {
-        name: "G_NAME2",
         specialty_uid: g.biology.name,
-        icon_uid: "2",
         overrides: {
             is_available: true
         },
@@ -28,9 +31,7 @@ local characters = [
         ],
     },
     {
-        name: "G_NAME3",
         specialty_uid: RANDOM,
-        icon_uid: "3",
         cost_per_year: 70,
         price: 400,
         level: 2,
@@ -55,5 +56,5 @@ local characters = [
 
 {
     [key_n(character)]: character + {uid: key_n(character)},
-    for character in characters
+    for character in std.mapWithIndex(preprocess, characters)
 }

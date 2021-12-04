@@ -1,45 +1,211 @@
 {
    "bio2": {
-      "amount": 200,
-      "difficulty": 20,
+      "amount": 2000,
+      "difficulty": 28,
+      "level": 1,
       "name": "GRANT_BIO2",
       "specialty_uid": "BIOLOGY_"
    },
+   "bio3": {
+      "amount": 2040,
+      "difficulty": 28,
+      "level": 1,
+      "name": "GRANT_BIO3",
+      "specialty_uid": "BIOLOGY_"
+   },
+   "bio4": {
+      "amount": 2900,
+      "difficulty": 44,
+      "level": 2,
+      "name": "GRANT_BIO4",
+      "specialty_uid": "BIOLOGY_"
+   },
+   "bio5": {
+      "amount": 2700,
+      "difficulty": 41,
+      "level": 2,
+      "name": "GRANT_BIO5",
+      "specialty_uid": "BIOLOGY_"
+   },
+   "bio6": {
+      "amount": 4200,
+      "difficulty": 83,
+      "level": 3,
+      "name": "GRANT_BIO6",
+      "specialty_uid": "BIOLOGY_"
+   },
    "bio_start": {
-      "amount": 150,
-      "difficulty": 10,
+      "amount": 1800,
+      "difficulty": 25,
+      "level": 1,
       "name": "GRANT_BIO_START",
       "specialty_uid": "BIOLOGY_"
    },
+   "ling2": {
+      "amount": 1650,
+      "difficulty": 23,
+      "level": 1,
+      "name": "GRANT_LING2",
+      "specialty_uid": "LING_SOC_"
+   },
+   "ling3": {
+      "amount": 2200,
+      "difficulty": 31,
+      "level": 1,
+      "name": "GRANT_LING3",
+      "specialty_uid": "LING_SOC_"
+   },
+   "ling4": {
+      "amount": 2600,
+      "difficulty": 40,
+      "level": 2,
+      "name": "GRANT_LING4",
+      "specialty_uid": "LING_SOC_"
+   },
+   "ling5": {
+      "amount": 3350,
+      "difficulty": 51,
+      "level": 2,
+      "name": "GRANT_LING5",
+      "specialty_uid": "LING_SOC_"
+   },
+   "ling6": {
+      "amount": 4450,
+      "difficulty": 88,
+      "level": 3,
+      "name": "GRANT_LING6",
+      "specialty_uid": "LING_SOC_"
+   },
    "ling_start": {
-      "amount": 200,
-      "difficulty": 20,
+      "amount": 1900,
+      "difficulty": 26,
+      "level": 1,
       "name": "GRANT_LING_START",
       "specialty_uid": "LING_SOC_"
    },
-   "math_start": {
-      "amount": 240,
-      "difficulty": 25,
+   "math2": {
+      "amount": 1950,
+      "difficulty": 27,
+      "level": 1,
+      "name": "GRANT_MATH2",
+      "specialty_uid": "MATH_"
+   },
+   "math3": {
+      "amount": 1700,
+      "difficulty": 24,
+      "level": 1,
+      "name": "GRANT_MATH3",
+      "specialty_uid": "MATH_"
+   },
+   "math4": {
+      "amount": 2800,
+      "difficulty": 43,
       "level": 2,
+      "name": "GRANT_MATH4",
+      "specialty_uid": "MATH_"
+   },
+   "math5": {
+      "amount": 3000,
+      "difficulty": 46,
+      "level": 2,
+      "name": "GRANT_MATH5",
+      "specialty_uid": "MATH_"
+   },
+   "math6": {
+      "amount": 4500,
+      "difficulty": 89,
+      "level": 3,
+      "name": "GRANT_MATH6",
+      "specialty_uid": "MATH_"
+   },
+   "math_start": {
+      "amount": 1900,
+      "difficulty": 26,
+      "level": 1,
       "name": "GRANT_MATH_START",
       "specialty_uid": "MATH_"
    },
+   "phil2": {
+      "amount": 1700,
+      "difficulty": 24,
+      "level": 1,
+      "name": "GRANT_PHIL2",
+      "specialty_uid": "PHILOSOPHY_"
+   },
+   "phil3": {
+      "amount": 1650,
+      "difficulty": 23,
+      "level": 1,
+      "name": "GRANT_PHIL3",
+      "specialty_uid": "PHILOSOPHY_"
+   },
+   "phil4": {
+      "amount": 3000,
+      "difficulty": 46,
+      "level": 2,
+      "name": "GRANT_PHIL4",
+      "specialty_uid": "PHILOSOPHY_"
+   },
+   "phil5": {
+      "amount": 2720,
+      "difficulty": 42,
+      "level": 2,
+      "name": "GRANT_PHIL5",
+      "specialty_uid": "PHILOSOPHY_"
+   },
+   "phil6": {
+      "amount": 5500,
+      "difficulty": 95,
+      "level": 3,
+      "name": "GRANT_PHIL6",
+      "specialty_uid": "PHILOSOPHY_"
+   },
    "philosophy_start": {
-      "amount": 170,
-      "difficulty": 13,
+      "amount": 1900,
+      "difficulty": 26,
+      "level": 1,
       "name": "GRANT_PHILOSOPHY_START",
       "specialty_uid": "PHILOSOPHY_"
    },
    "phys2": {
-      "amount": 240,
-      "difficulty": 25,
-      "level": 2,
+      "amount": 1900,
+      "difficulty": 26,
+      "level": 1,
       "name": "GRANT_PHYS2",
       "specialty_uid": "PHYSICS_"
    },
+   "phys3": {
+      "amount": 2000,
+      "difficulty": 28,
+      "level": 1,
+      "name": "GRANT_PHYS3",
+      "specialty_uid": "PHYSICS_"
+   },
+   "phys4": {
+      "amount": 2750,
+      "difficulty": 42,
+      "level": 2,
+      "name": "GRANT_PHYS4",
+      "specialty_uid": "PHYSICS_"
+   },
+   "phys5": {
+      "amount": 3100,
+      "difficulty": 47,
+      "level": 2,
+      "name": "GRANT_PHYS5",
+      "specialty_uid": "PHYSICS_"
+   },
+   "phys6": {
+      "amount": 4300,
+      "difficulty": 85,
+      "level": 3,
+      "name": "GRANT_PHYS6",
+      "specialty_uid": "PHYSICS_"
+   },
    "phys_start": {
-      "amount": 180,
-      "difficulty": 15,
+      "amount": 2000,
+      "difficulty": 28,
+      "level": 1,
       "name": "GRANT_PHYS_START",
       "specialty_uid": "PHYSICS_"
    }

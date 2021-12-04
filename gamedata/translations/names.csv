@@ -14,10 +14,10 @@ PHYSICS_ASP,postgrad physics,аспирант-физик
 MATH_ASP,postgrad math,аспирант-математик
 LING_SOC_ASP,postgrad linguistics,аспирант-филолог
 PHILOSOPHY_ASP,postgrad phiposophy,аспирант-философ
-BIOLOGY_FACULTY_,Biology,Биологии
+BIOLOGY_FACULTY_,Xenobiology,Ксенобиологии
 PHYSICS_FACULTY_,Physics,Физики
 MATH_FACULTY_,Math,Математики
-LING_SOC_FACULTY_,Linguistics,Лингвистики
+LING_SOC_FACULTY_,Xenolinguistics,Ксенолингвистики
 PHILOSOPHY_FACULTY_,Phiposophy,Философии
 G_NAME1,Lamar Guzman,Антон Савельев
 G_NAME2,Jordan Pope,Захар Гребнев

@@ -43,7 +43,8 @@
          "MATH_": 3,
          "PHILOSOPHY_": 4,
          "_GRANTS_": [
-            "GRANT_LING_START"
+            "GRANT_LING_START",
+            "GRANT_PHILOSOPHY_START"
          ]
       }
    }
