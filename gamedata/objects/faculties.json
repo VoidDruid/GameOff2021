@@ -4,8 +4,11 @@
       "default_cost": 70,
       "default_enrollee_count": 30,
       "equipment": [
-         "e10e0f37caab19c37401e1ad61228948",
-         "9fd8be176591d037cfa030a5ac7a707c"
+         "70b6fabc5c0c9b0dbc137ee69383bbdc",
+         "5e8fa6ea9a82a2945bc252afba117f76",
+         "6a0c1641b014f2286a4c9762109542c9",
+         "03693bb3dfa10f177b8817d51e3ee49e",
+         "5bf4e96959723ce160a1e0ec9137d5a4"
       ],
       "name": "BIOLOGY_FACULTY_",
       "specialty_uid": "BIOLOGY_"
@@ -15,7 +18,11 @@
       "default_cost": 60,
       "default_enrollee_count": 10,
       "equipment": [
-         "e10e0f37caab19c37401e1ad61228948"
+         "70b6fabc5c0c9b0dbc137ee69383bbdc",
+         "5e8fa6ea9a82a2945bc252afba117f76",
+         "a243338ffee1e53cf6743871cb24c963",
+         "d9be2ab32cbe44b1679a35f3074f4995",
+         "03693bb3dfa10f177b8817d51e3ee49e"
       ],
       "name": "LING_SOC_FACULTY_",
       "specialty_uid": "LING_SOC_"
@@ -25,7 +32,10 @@
       "default_cost": 50,
       "default_enrollee_count": 7,
       "equipment": [
-         "e10e0f37caab19c37401e1ad61228948"
+         "5e8fa6ea9a82a2945bc252afba117f76",
+         "03693bb3dfa10f177b8817d51e3ee49e",
+         "036953b608537b966c104e372262f020",
+         "95ef87421a196a3b4a8f3af3a7513d89"
       ],
       "name": "MATH_FACULTY_",
       "specialty_uid": "PHILOSOPHY_"
@@ -35,7 +45,10 @@
       "default_cost": 50,
       "default_enrollee_count": 7,
       "equipment": [
-         "e10e0f37caab19c37401e1ad61228948"
+         "5e8fa6ea9a82a2945bc252afba117f76",
+         "a243338ffee1e53cf6743871cb24c963",
+         "03693bb3dfa10f177b8817d51e3ee49e",
+         "95ef87421a196a3b4a8f3af3a7513d89"
       ],
       "name": "PHILOSOPHY_FACULTY_",
       "specialty_uid": "PHILOSOPHY_"
@@ -45,8 +58,11 @@
       "default_cost": 100,
       "default_enrollee_count": 20,
       "equipment": [
-         "e10e0f37caab19c37401e1ad61228948",
-         "9fd8be176591d037cfa030a5ac7a707c"
+         "70b6fabc5c0c9b0dbc137ee69383bbdc",
+         "5e8fa6ea9a82a2945bc252afba117f76",
+         "d9be2ab32cbe44b1679a35f3074f4995",
+         "036953b608537b966c104e372262f020",
+         "21d23ab4d0dc12b47364de39dff505f8"
       ],
       "name": "PHYSICS_FACULTY_",
       "specialty_uid": "PHYSICS_"

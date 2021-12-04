@@ -1,18 +1,82 @@
 {
-   "microscope": {
-      "icon_id": "0",
+   "computing_cluster": {
+      "icon_id": "9",
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.050000000000000003
+            "value": 0.10000000000000001
+         }
+      ],
+      "name": "COMPUTING_CLUSTER",
+      "price": 1200,
+      "uid": "036953b608537b966c104e372262f020"
+   },
+   "dna_sequencer": {
+      "icon_id": "5",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.10000000000000001
+         }
+      ],
+      "name": "DNA_SEQUENCER",
+      "price": 120,
+      "uid": "5bf4e96959723ce160a1e0ec9137d5a4"
+   },
+   "library_catalog": {
+      "icon_id": "3",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.040000000000000001
+         }
+      ],
+      "name": "LIBRARY_CATALOG",
+      "price": 700,
+      "uid": "a243338ffee1e53cf6743871cb24c963"
+   },
+   "microscope": {
+      "icon_id": "6",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.070000000000000007
          }
       ],
       "name": "MICROSCOPE_",
-      "price": 250,
-      "uid": "9fd8be176591d037cfa030a5ac7a707c"
+      "price": 900,
+      "uid": "6a0c1641b014f2286a4c9762109542c9"
+   },
+   "misc_equipment": {
+      "icon_id": "8",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.029999999999999999
+         },
+         {
+            "property": "enrollee_count",
+            "value": 0.029999999999999999
+         }
+      ],
+      "name": "MISC_EQUIPMENTv",
+      "price": 500,
+      "uid": "d9be2ab32cbe44b1679a35f3074f4995"
+   },
+   "optimitzation": {
+      "icon_id": "1",
+      "modifiers": [
+         {
+            "property": "yearly_cost",
+            "value": -0.10000000000000001
+         }
+      ],
+      "name": "OPTIMIZATION_",
+      "price": 600,
+      "uid": "70b6fabc5c0c9b0dbc137ee69383bbdc"
    },
    "printer": {
-      "icon_id": "0",
+      "icon_id": "2",
       "modifiers": [
          {
             "property": "breakthrough_chance",
@@ -20,7 +84,47 @@
          }
       ],
       "name": "PRINTER_",
-      "price": 150,
-      "uid": "e10e0f37caab19c37401e1ad61228948"
+      "price": 600,
+      "uid": "5e8fa6ea9a82a2945bc252afba117f76"
+   },
+   "projector": {
+      "icon_id": "4",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.059999999999999998
+         }
+      ],
+      "name": "PROJECTOR_",
+      "price": 800,
+      "uid": "03693bb3dfa10f177b8817d51e3ee49e"
+   },
+   "quantum_stuff": {
+      "icon_id": "10",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.14999999999999999
+         }
+      ],
+      "name": "QUANTUM_STUFF",
+      "price": 1600,
+      "uid": "21d23ab4d0dc12b47364de39dff505f8"
+   },
+   "student_coworking": {
+      "icon_id": "7",
+      "modifiers": [
+         {
+            "property": "breakthrough_chance",
+            "value": 0.01
+         },
+         {
+            "property": "enrollee_count",
+            "value": 0.10000000000000001
+         }
+      ],
+      "name": "STUDENT_COWORKING",
+      "price": 750,
+      "uid": "95ef87421a196a3b4a8f3af3a7513d89"
    }
 }

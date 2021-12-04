@@ -9,7 +9,7 @@ local defaultKey(obj, field) = if !std.objectHas(obj, field) then field else nul
 
 local preprocess(index, obj) = obj + {
     [defaultKey(obj, "name")]: "G_NAME" + (index + 1),
-    [defaultKey(obj, "icon_uid")]: (index + 1),
+    [defaultKey(obj, "icon_uid")]: std.toString(index + 1),
 };
 
 local RANDOM = "random";
