@@ -12,10 +12,10 @@ substr(vb, 0, decr(index(vb, `='))) = concat(_, substr(vb, 0, decr(index(vb, `='
         ')dnl
 ')dnl
 define(`set_icon_uid', `if icon_uid_ != null:
-            icon_uid = "$1" + "_" + icon_uid_`'dnl`'
+            icon_uid = "$1" + "/" + icon_uid_`'dnl`'
 ')dnl
 enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
-enum UpdateType {FACULTY, GRANT, CHARACTER, GOAL}
+enum UpdateType {FACULTY, GRANT, CHARACTER, GOAL, MONEY, REPUTATION}
 
 class SimObject:
     var uid: String
@@ -45,11 +45,13 @@ NCLASS(Faculty, SimNamedObject)
     var default_cost = 100
     var open_cost = 1000
     var default_enrollee_count = 15
-    var default_enrollee_cost = 5
+    var default_enrollee_cost = 3
     var default_breakthrough_chance = 15
+    var default_monthly_event_chance = 3
     var icon_uid = null
 
     ### Dynamic fields ###
+    var monthly_event_chance: int
     var leader_uid = null
     var breakthrough_chance: int
     var enrollee_count: int
@@ -211,6 +213,24 @@ NCLASS(Goal, SimNamedObject)
         description = description_
         set_icon_uid(goal)
         requirements = requirements_
+
+
+NCLASS(Option, SimEntity)
+
+    func _init(name_, modifiers_=[]).(name_, null, modifiers):
+        pass
+
+
+NCLASS(Event, SimEntity)
+    var visuals = null
+    var options = null
+    var description = null
+
+    func _init(name_, description_, visuals_, options_, modifiers_=[]).(name_, null, modifiers):
+        uid = name_
+        description = description_
+        options = options_
+        visuals = visuals_
 
 
 #####################################################################################

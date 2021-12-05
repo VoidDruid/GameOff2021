@@ -8,7 +8,20 @@ export(Color) var good_color
 export(Color) var bad_color
 export(Color) var hired_panel_color
 
+export(AudioStreamMP3) var click_sound
+export(AudioStreamMP3) var clock_sound
+export(AudioStreamMP3) var failure_sound
+export(AudioStreamMP3) var important_sound
+export(AudioStreamMP3) var notification_sound
+export(AudioStreamMP3) var success_sound
+export(AudioStreamMP3) var tab_click_sound
+
 export(NodePath) var simulation_node_path
+export(NodePath) var ui_player_path = "/root/Main/UIPlayer"
+export(NodePath) var effect_player_path = "/root/Main/EffectPlayer"
+
+onready var ui_player: AudioStreamPlayer = get_node(ui_player_path)
+onready var effect_player: AudioStreamPlayer = get_node(effect_player_path)
 var simulation: SimulationCore
 var MainWindow: Control
 var CurrentGameWindow
@@ -70,6 +83,8 @@ var GOAL_RES = [GoalBlue_res, GoalRed_res, GoalTeal_res, GoalYellow_res]
 
 onready var start_year_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/StartButton
 onready var game_help_button = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer/HelpButton
+onready var campus_level_label = $__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/LevelControl/TextureRect/Label
+
 
 func get_color_index(index) -> Color:
     return dark_light_color if index % 2 == 0 else light_color
@@ -100,6 +115,7 @@ func _ready():
     _rs = simulation.connect("faculties_updated",self, "_on_Faculties_update")
     _rs = simulation.connect("game_over",self, "_on_GameOver")
     _rs = simulation.connect("victory",self, "_on_Victory")
+    _rs = simulation.connect("campus_level_updated", self, "_on_CampusLevel_updated")
 
     _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
     _rs = game_help_button.connect("pressed", self, "_on_ShowHelp_pressed")
@@ -107,15 +123,78 @@ func _ready():
     _rs = FacultyMap.get_node("VBoxContainer/Control/Add").connect("pressed", self, "_on_AddFaculty_pressed")
 
     yield(get_tree(), "idle_frame")
+    
+    var failure_notice_ref = funcref(self, "play_failure_sound")
+    var success_notice_ref = funcref(self, "play_success_sound")
+    var important_notice_ref = funcref(self, "play_important_sound")
+    simulation.failure_notice_ref = failure_notice_ref
+    simulation.success_notice_ref = success_notice_ref
+    simulation.important_notice_ref = important_notice_ref
     simulation.start()
 
 
+func play_ui_sound(sound):
+    if ui_player.playing:
+        if not (sound == failure_sound or sound == success_sound):
+            return
+    ui_player.volume_db = 0
+    ui_player.stream = sound
+    ui_player.playing = true
+
+
+func play_tab_click():
+    play_ui_sound(tab_click_sound)
+    ui_player.volume_db = -4
+
+
+func play_button_click():
+    play_ui_sound(click_sound)
+
+
+func play_failure_sound():
+    play_ui_sound(failure_sound)
+
+
+func play_success_sound():
+    play_ui_sound(success_sound)
+
+
+func play_important_sound():
+    play_ui_sound(important_sound)
+    ui_player.volume_db = -6
+
+
+func play_notification_sound():
+    play_ui_sound(notification_sound)
+
+
+func play_clock_sound(pitch_scale=1, volume_db=0):
+    effect_player.pitch_scale = pitch_scale
+    effect_player.volume_db = volume_db
+    effect_player.stream = clock_sound
+    effect_player.playing = true
+
+
+func reset_effect_sound():
+    effect_player.playing = false
+    effect_player.pitch_scale = 1
+    effect_player.volume_db = 0
+
+
+func _on_CampusLevel_updated(level):
+    campus_level_label.text = tr("CAMPUS_LEVEL") + ": " + utils.to_roman(level)
+
+
 func _on_Year_end():
+    reset_effect_sound()
     is_year_running = false
     if ui_blocker != null:
         ui_blocker.queue_free()
 
+
 func _on_StartYear_pressed():
+    play_important_sound()
+    play_clock_sound(1.7, 5)
     is_year_running = true
     ui_blocker = UIBlocker_res.instance()
     get_node("/root/Main/UI").add_child(ui_blocker)
@@ -123,6 +202,7 @@ func _on_StartYear_pressed():
 
 
 func on_Menu_button_pressed(is_ch, is_gr, is_fc):
+    play_tab_click()
     if is_ch:
         CharactersButton.set_normal_texture(pressed_texture_res)
         GrantsButton.set_normal_texture(null)
@@ -155,9 +235,11 @@ func _on_Grants_pressed():
     buildGrantsWindow()
     MainWindow.add_child(CurrentGameWindow)
 
+
 func on_Faculty_pressed(uid):
     current_faculty_uid = uid
     _on_Faculties_pressed()
+
 
 func _on_Faculties_pressed():
     if current_faculty_uid == null:
@@ -173,6 +255,7 @@ func _on_Faculties_pressed():
 
 var log_count = 0
 func _on_Update_log(log_list):
+    play_notification_sound()
     var tab
     var log_text
     var log_color = default_log_color
@@ -202,6 +285,7 @@ func _on_Update_log(log_list):
 
 # enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
 func on_ChButton_pressed(ch_id, f_id, action):
+    play_button_click()
     print_debug("CALLED CH: ", ch_id, action)
     if action == CHARACTER_FIRE:
         simulation.actions.fire_character(ch_id)
@@ -216,6 +300,7 @@ func on_ChButton_pressed(ch_id, f_id, action):
 
 
 func on_GrButton_pressed(gr_id, faculty_uid, action_type):
+    play_button_click()
     print_debug("CALLED GR: ", gr_id, " ", faculty_uid, " ", action_type)
     match action_type:
         TAKE_GRANT:
@@ -224,6 +309,7 @@ func on_GrButton_pressed(gr_id, faculty_uid, action_type):
             simulation.actions.assign_grant(faculty_uid, gr_id)
 
 func on_FcButton_pressed(faculty_uid, action_type):
+    play_button_click()
     print_debug("CALLED FC: ", faculty_uid, " ", action_type)
     match action_type:
         FACULTY_ADD:
@@ -233,6 +319,7 @@ func on_EqButton_pressed(faculty_uid, equipment_uid):
     simulation.actions.buy_equipment(faculty_uid, equipment_uid)
 
 func on_EnrolleeCount_changed(faculty_uid, count):
+    play_button_click()
     print_debug("on_EnrolleeCount_changed ", faculty_uid, count)
     simulation.actions.set_enrollee_count(faculty_uid, count)
 
@@ -269,19 +356,16 @@ func _on_Money_error():
 
 
 func _on_Money_updated(amount, has_increased):
-    print_debug(str(amount) + str(has_increased))
     MoneyCounter.get_node("TextureRect/Name").text = "MONEY_"
     MoneyCounter.get_node("TextureRect/Value").text = str(amount)
 
 
 func _on_Reputation_updated(amount, has_increased):
-    print_debug(str(amount) + str(has_increased))
     ReputationCounter.get_node("TextureRect/Name").text = "REPUTATION_"
     ReputationCounter.get_node("TextureRect/Value").text = str(amount)
 
 
 func _on_Date_updated(date_string):
-    print_debug(str(date_string))
     DateCounter.get_node("TextureRect/Label").text = str(date_string)
 
 func _on_Faculties_update():
@@ -387,6 +471,10 @@ func buildFacultyWindow(faculty_id):
     CurrentGameWindow.simulation = simulation
 
 func buildFacultiesMap():
+    var faculty_vbox = FacultyMap.get_node("VBoxContainer/Scroll/VBoxContainer")
+    for n in faculty_vbox.get_children():
+        faculty_vbox.remove_child(n)
+        n.queue_free()
     var faculties = simulation.get_faculties()
     var i = 0
     for fc in faculties:
@@ -396,10 +484,11 @@ func buildFacultiesMap():
             fcTab.get_node("HBoxContainer/Background").color = get_color_index(i)
             fcTab.action_type = null
             fcTab.setup_for_faculty_map_tab(fc, simulation.get_specialty_color(fc.specialty_uid), EffectLabel, PlusButton, GrantChance, TickButton)
-            FacultyMap.get_node("VBoxContainer/Scroll/VBoxContainer").add_child(fcTab)
-### faculties map
+            faculty_vbox.add_child(fcTab)
+
 
 func _on_AddFaculty_pressed():
+    play_tab_click()
     var darkinator = Darkinator_res.instance()
     get_node("/root/Main/UI").add_child(darkinator)
     choice_dialog(2, darkinator, FACULTY_ADD)
@@ -416,6 +505,7 @@ func choice_dialog(object_type, darkinator, action_type=null):
 
 
 func _on_ShowHelp_pressed():
+    play_tab_click()
     var darkinator = Darkinator_res.instance()
     get_node("/root/Main/UI").add_child(darkinator)
     choice_dialog(3, darkinator)
@@ -444,9 +534,11 @@ func buildGameOverTab(info):
     get_node("/root/Main/UI").add_child(gameover_choice)
 
 func _on_GameOver():
+    play_failure_sound()
     buildGameOverTab(GameOver.new("GAME_OVER_", "GAME_OVER_DESC_"))
 
 
 func _on_Victory(goal_uid):
+    play_success_sound()
     var goal = simulation.get_goal_data(goal_uid)
     buildGameOverTab(GameOver.new("WIN_", tr("COMPLETED_GOAL_") + " " + tr(goal.name) + ": " + tr(goal.description)))

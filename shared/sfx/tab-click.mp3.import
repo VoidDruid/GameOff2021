@@ -11,5 +11,5 @@ dest_files=[ "res://.import/tab-click.mp3-69c28491a90e5470a7f6a2bca2ce7c04.mp3st
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

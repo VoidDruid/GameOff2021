@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/main/Main.gd" type="Script" id=1]
 [ext_resource path="res://objects/ui/GameUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://logic/simulation/Core.gd" type="Script" id=3]
 [ext_resource path="res://shared/sfx/ambient.mp3" type="AudioStream" id=4]
+[ext_resource path="res://shared/sfx/button-click.mp3" type="AudioStream" id=5]
+[ext_resource path="res://shared/sfx/notification.mp3" type="AudioStream" id=6]
+[ext_resource path="res://shared/sfx/success.mp3" type="AudioStream" id=7]
+[ext_resource path="res://shared/sfx/important.mp3" type="AudioStream" id=8]
+[ext_resource path="res://shared/sfx/failure.mp3" type="AudioStream" id=9]
+[ext_resource path="res://shared/sfx/tab-click.mp3" type="AudioStream" id=10]
+[ext_resource path="res://shared/sfx/clock.mp3" type="AudioStream" id=11]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,13 +26,24 @@ margin_left = 2.3909
 margin_top = -2.29538
 margin_right = 2.39087
 margin_bottom = -2.29541
+click_sound = ExtResource( 5 )
+clock_sound = ExtResource( 11 )
+failure_sound = ExtResource( 9 )
+important_sound = ExtResource( 8 )
+notification_sound = ExtResource( 6 )
+success_sound = ExtResource( 7 )
+tab_click_sound = ExtResource( 10 )
 simulation_node_path = NodePath("../../SimulationHolder")
+ui_player_path = NodePath("../../UIPlayer")
 
 [node name="SimulationHolder" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="AmbientPlayer" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( 981, 457 )
+[node name="AmbientPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -17.0
 autoplay = true
+
+[node name="UIPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="EffectPlayer" type="AudioStreamPlayer" parent="."]

@@ -131,7 +131,10 @@ func _ready():
 
     var leader_tab = get_node(leader_panel_path)
     var faculty_cost_label = leader_tab.get_node(faculty_cost_label_path)
-    leader_tab.get_node(faculty_name_path).text = faculty.name
+    leader_tab.get_node(faculty_name_path).text = (
+        tr(faculty.name) + ", " +
+        utils.to_roman(faculty.level) + " " + tr("LEVEL_")
+    )
     faculty_cost_label.text = ("   " +
         str(faculty.yearly_cost) + " " + tr("FACULTY_COST_PER_YEAR_")
         + "   "
@@ -150,8 +153,6 @@ func _ready():
             var icon_res = utils.load_icon(leader.icon_uid)
             if icon_res != null:
                 leader_icon.texture = icon_res
-                leader_icon.rect_size.x = 256
-                leader_icon.rect_size.y = 256
         var leader_name_l = leader_tab.get_node(leader_name_path)
         leader_name_l.text = tr("FACULTY_LEADER") + ": " + tr(leader.name) + ", " + tr(leader.title)
         leader_name_l.hint_tooltip = tr(leader.specialty_uid)

@@ -82,7 +82,7 @@ local Eq(index) = {
     ]
   },
   misc_equipment: Eq(7) {
-    name: "MISC_EQUIPMENTv",
+    name: "MISC_EQUIPMENT",
     price: 500,
     modifiers: [
       {

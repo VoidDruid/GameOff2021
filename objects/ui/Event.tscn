@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/ui/UIInfoFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://objects/ui/EffectLabel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/ui/UIAccent.tres" type="DynamicFont" id=3]
+[ext_resource path="res://objects/ui/Event.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.992157, 0.984314, 0.976471, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Event" type="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.0
+margin_top = -395.0
+margin_right = 600.0
+margin_bottom = 395.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+good_color = Color( 0.419608, 0.627451, 0.0823529, 1 )
+bad_color = Color( 0.929412, 0.109804, 0.141176, 1 )
+
+[node name="Margins" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = 64.0
+margin_right = -64.0
+margin_bottom = -64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VLayout" type="VBoxContainer" parent="Margins"]
+margin_right = 1072.0
+margin_bottom = 662.0
+custom_constants/separation = 24
+
+[node name="Visuals" type="Control" parent="Margins/VLayout"]
+margin_right = 1072.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 1072, 250 )
+
+[node name="TextureRect" type="TextureRect" parent="Margins/VLayout/Visuals"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GlobalEffectsLayout" type="HBoxContainer" parent="Margins/VLayout"]
+margin_top = 274.0
+margin_right = 1072.0
+margin_bottom = 300.0
+
+[node name="EffectLabel" parent="Margins/VLayout/GlobalEffectsLayout" instance=ExtResource( 2 )]
+margin_right = 133.0
+margin_bottom = 26.0
+custom_colors/font_color = Color( 0.929412, 0.109804, 0.141176, 1 )
+
+[node name="NameL" type="Label" parent="Margins/VLayout"]
+margin_top = 324.0
+margin_right = 1072.0
+margin_bottom = 355.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Название"
+
+[node name="DescriptionL" type="Label" parent="Margins/VLayout"]
+margin_top = 379.0
+margin_right = 1072.0
+margin_bottom = 405.0
+custom_colors/font_color = Color( 0.407843, 0.313726, 0.266667, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Длинноеакете показа"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsControl" type="CenterContainer" parent="Margins/VLayout"]
+margin_top = 429.0
+margin_right = 1072.0
+margin_bottom = 453.0
+
+[node name="Margins" type="MarginContainer" parent="Margins/VLayout/OptionsControl"]
+margin_left = 536.0
+margin_right = 536.0
+margin_bottom = 24.0
+custom_constants/margin_top = 24
+
+[node name="OptionsGrid" type="GridContainer" parent="Margins/VLayout/OptionsControl/Margins"]
+margin_top = 24.0
+margin_bottom = 24.0
+custom_constants/vseparation = 100
+custom_constants/hseparation = 500
+columns = 2

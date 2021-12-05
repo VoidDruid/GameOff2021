@@ -1,6 +1,6 @@
 var campus_level = 1
 var money = 11000
-var reputation = 80
+var reputation = 100
 var datetime = {
     "month": 8,
     "year": 2021,
@@ -55,6 +55,7 @@ object_store(faculty, PREDEFINED)
 object_store(character, PREDEFINED)
 object_store(grant, PREDEFINED)
 object_store(goal, PREDEFINED)
+object_store(event, PREDEFINED)
 
 var grant_to_faculty = {}
 
@@ -86,6 +87,7 @@ func build_map(from_list, to_dict, _resource_name):
 
 
 func load_characters():
+    randomize()
     var character_data = utils.json_readf(OBJECT_DATA_DIR + "character.json")
     for data in character_data.values():
         var modifiers_data = data.get("modifiers", [])
@@ -94,7 +96,7 @@ func load_characters():
             modifiers.append(parse_modifier(mod_data))
         var specialty_uid = data["specialty_uid"]
         if specialty_uid == consts.RANDOM:
-            specialty_uid = SPECIALTY_LIST[randi() % SPECIALTY_LIST.size()].uid
+            specialty_uid = SPECIALTY_LIST[randi() % `'len`'(SPECIALTY_LIST)].uid
         var character = T.Character.new(
             data["name"],
             data.get("icon_uid", null),
@@ -126,7 +128,7 @@ func load_specialtys():
 
 func parse_modifier(data):
     return T.FacultyModifier.new(
-        data["value"],
+        stepify(data["value"], 0.01),
         data["property"],
         data.get("absolute", false),
         data.get("positive", true)
@@ -200,6 +202,40 @@ func load_facultys():
         load_uid(faculty, data)
         FACULTY_LIST.append(faculty)
 
+
+func parse_option(data):
+    var modifiers_data = data.get("modifiers", [])
+    var modifiers = []
+    for mod_data in modifiers_data:
+        modifiers.append(parse_modifier(mod_data))
+
+    return T.Option.new(data["name"], modifiers)
+
+
+func load_events():
+    var events_data = utils.json_readf(OBJECT_DATA_DIR + "events.json")
+    for data in events_data.values():
+        var modifiers_data = data.get("modifiers", [])
+        var modifiers = []
+        for mod_data in modifiers_data:
+            modifiers.append(parse_modifier(mod_data))
+
+        var options_data = data.get("options", [])
+        var options = []
+        for op_data in options_data:
+            options.append(parse_option(op_data))
+
+        var event = T.Event.new(
+            data["name"],
+            data.get("description", ""),
+            data.get("visuals", {}),
+            options,
+            modifiers
+        )
+        load_uid(event, data)
+        EVENT_LIST.append(event)
+
+
 define(`_load_resource', `load_`'$1`'s()
     build_map(upcase($1)_LIST, upcase($1)_MAP, "$1")dnl
 ')dnl
@@ -211,6 +247,7 @@ func load_resources():
     _load_resource(goal)
     _load_resource(faculty)
     _load_resource(character)
+    _load_resource(event)
     for grant in GRANT_LIST:
         grant_to_faculty[grant.uid] = null
 

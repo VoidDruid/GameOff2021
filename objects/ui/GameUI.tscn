@@ -88,7 +88,7 @@ custom_constants/separation = 32
 
 [node name="StatusBar" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
 margin_right = 502.0
-margin_bottom = 88.0
+margin_bottom = 80.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.12
@@ -96,7 +96,7 @@ custom_constants/separation = 32
 
 [node name="Money" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
 margin_right = 235.0
-margin_bottom = 88.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -141,7 +141,7 @@ __meta__ = {
 [node name="Reputation" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar"]
 margin_left = 267.0
 margin_right = 502.0
-margin_bottom = 88.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -180,9 +180,9 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 120.0
+margin_top = 112.0
 margin_right = 502.0
-margin_bottom = 164.0
+margin_bottom = 152.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.06
@@ -190,6 +190,7 @@ size_flags_stretch_ratio = 0.06
 [node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.0
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {
@@ -208,10 +209,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 196.0
+[node name="LevelControl" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_top = 184.0
 margin_right = 502.0
-margin_bottom = 284.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.06
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/LevelControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/LevelControl/TextureRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -21.0
+margin_bottom = 21.0
+text = "Декабрь 2021"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
+margin_top = 256.0
+margin_right = 502.0
+margin_bottom = 336.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.12
@@ -222,7 +255,7 @@ __meta__ = {
 
 [node name="StartButton" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer"]
 margin_right = 235.0
-margin_bottom = 88.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/hover = ExtResource( 4 )
@@ -259,7 +292,7 @@ __meta__ = {
 [node name="HelpButton" type="Button" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/HBoxContainer"]
 margin_left = 267.0
 margin_right = 502.0
-margin_bottom = 88.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/hover = ExtResource( 4 )
@@ -297,15 +330,15 @@ __meta__ = {
 [node name="Map" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 316.0
+margin_top = 368.0
 margin_right = 502.0
-margin_bottom = 587.0
+margin_bottom = 614.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.37
 
 [node name="ScrollFeed" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft"]
-margin_top = 619.0
+margin_top = 646.0
 margin_right = 502.0
 margin_bottom = 920.0
 size_flags_horizontal = 3
@@ -342,7 +375,7 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
 margin_right = 502.0
-margin_bottom = 52.0
+margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -361,9 +394,9 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed"]
-margin_top = 56.0
+margin_top = 50.0
 margin_right = 502.0
-margin_bottom = 267.0
+margin_bottom = 240.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.05
@@ -374,7 +407,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/ScrollFeed/Feed/ScrollContainer"]
 margin_right = 502.0
-margin_bottom = 211.0
+margin_bottom = 190.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

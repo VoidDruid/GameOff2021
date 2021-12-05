@@ -46,10 +46,17 @@ func process_object_modifiers(object, faculty, abs_container, rel_container, sca
 func update_faculty(faculty):
     if  not faculty.is_opened:
         return
-    # TODO: check enrollees and apply effect and cost
-    faculty.breakthrough_chance = faculty.default_breakthrough_chance
+
+    faculty.monthly_event_chance = faculty.default_monthly_event_chance
     faculty.enrollee_cost = faculty.default_enrollee_cost
-    faculty.yearly_cost = faculty.default_cost
+    faculty.breakthrough_chance = faculty.default_breakthrough_chance
+
+    var grant = null
+    if faculty.grant_uid != null:
+        grant = Storage.get_grant(faculty.grant_uid)
+        if grant.specialty_uid != faculty.specialty_uid:
+            faculty.breakthrough_chance *= 0.5
+        faculty.breakthrough_chance *= (1 - grant.difficulty / 200)
 
     var character_mods_abs = {}
     var character_mods_rel = {}
@@ -76,6 +83,8 @@ func update_faculty(faculty):
     for i_remove in to_remove:
         faculty.staff_uid_list.remove(i_remove)
 
+    faculty.yearly_cost = faculty.default_cost + faculty.enrollee_count * faculty.default_enrollee_cost
+
     var active_equipment_count = 0
     var equipment_mods_abs = {}
     var equipment_mods_rel = {}
@@ -101,11 +110,29 @@ func update_faculty(faculty):
     faculty.leader_mods_abs = leader_mods_abs
     faculty.leader_mods_rel = leader_mods_rel
 
-    # TODO: smarter level calculation
-    faculty.level = (leader_level + int(active_equipment_count / 5) + average_characters_level) / 3
+    faculty.level = clamp((
+        clamp(leader_level, 1, 3) +
+        clamp(int(active_equipment_count / 2), 1, 3) +
+        clamp(average_characters_level, 1, 3)
+    ) / 2, 1, 3)
+    # TODO: updating campus should be a separate function
+    var avg_level = 0
+    var fac_count = 0
+    for faculty in Storage.FACULTY_LIST:
+        if not faculty.is_opened:
+            continue
+        avg_level += faculty.level
+        fac_count += 1
+    avg_level = int(round(avg_level / fac_count))
+    if avg_level != Storage.campus_level:
+        Storage.campus_level = avg_level
+        emitter.call_func("campus_level_updated", Storage.campus_level)
+        Storage.set_sim_state_of(T.Grant, T.SimState.OUT_OF_SYNC)
+        Storage.set_sim_state_of(T.Character, T.SimState.OUT_OF_SYNC)
+        update_grants()
+        update_characters()
 
-    if faculty.grant_uid != null:
-        var grant = Storage.get_grant(faculty.grant_uid)
+    if grant != null:
         grant.chance = faculty.breakthrough_chance
 
 
@@ -145,7 +172,6 @@ func update_goal(goal):
             continue
         done_m[specialty_uid] = 0
         total_req += goal.requirements[specialty_uid]
-    print_debug(goal.requirements["_GRANTS_"])
     for grant in Storage.GRANT_LIST:
         if not grant.is_completed:
             continue

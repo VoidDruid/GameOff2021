@@ -11,5 +11,5 @@ dest_files=[ "res://.import/notification.mp3-74da3eedc543f864bec1e86da616e1f3.mp
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -1,7 +1,11 @@
+var failure_notice_ref: FuncRef
+var success_notice_ref: FuncRef
+var important_notice_ref: FuncRef
+var emitter = null
+
 var Engine = null
 var Storage = null
 var T = null
-var emitter = null
 
 
 func unassign_grant(faculty, update=true, allowed_updates=null):
@@ -227,6 +231,9 @@ func step_month():
 
 
 func decrement_years_on_grants(update=true, allowed_updates=null):
+    var has_failure = false
+    var has_success = false
+
     var updated_faculties = []
 
     for grant in Storage.GRANT_LIST:
@@ -240,7 +247,8 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
         if grant.years_left <= 0:
             grant.is_completed = true
             grant.is_failed = true
-            Storage.change_reputation(-grant.difficulty)
+            has_failure = true
+            Storage.change_reputation(-grant.difficulty*0.7)
             emitter.call_func("update_log", [tr("GRANT_FAILED") + " - " + tr(grant.name)])
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
             continue
@@ -250,8 +258,9 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
 
         var roll = randi() % 100
         if roll <= grant.chance:
+            has_success = true
             grant.is_completed = true
-            Storage.change_reputation(grant.difficulty)
+            Storage.change_reputation(int(grant.difficulty*0.4))
             emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
 
@@ -268,3 +277,29 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
         for faculty_uid in updated_faculties:
             if allowed_updates == null or T.UpdateType.FACULTY in allowed_updates:
                 emitter.call_func("faculty_updated", faculty_uid)
+
+        if has_success:
+            success_notice_ref.call_func()
+        else:
+            if has_failure:
+                failure_notice_ref.call_func()
+
+
+func substract_characters_cost(update=true, allowed_updates=null):
+    for character in Storage.CHARACTER_LIST:
+        if not character.is_hired:
+            continue
+        Storage.money -= character.cost_per_year
+
+    if allowed_updates == null or T.UpdateType.MONEY in allowed_updates:
+        emitter.call_func("money_updated", Storage.money, false)
+
+
+func substract_faculties_cost(update=true, allowed_updates=null):
+    for faculty in Storage.FACULTY_LIST:
+        if not faculty.is_opened:
+            continue
+        Storage.money -= faculty.yearly_cost
+
+    if allowed_updates == null or T.UpdateType.MONEY in allowed_updates:
+        emitter.call_func("money_updated", Storage.money, false)

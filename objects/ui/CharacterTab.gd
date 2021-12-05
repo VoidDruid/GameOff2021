@@ -52,6 +52,7 @@ func infer_action():
 
 func setup_hire(button):
     if !character.is_available and !is_hired:
+        self.queue_free()  # TODO: is this better?
         button.disabled = true
         button.modulate = Color(1, 1, 1, 0.4)
     else:

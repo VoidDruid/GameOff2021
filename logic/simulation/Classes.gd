@@ -1,5 +1,5 @@
 enum SimState {IN_SYNC=1, OUT_OF_SYNC=0}
-enum UpdateType {FACULTY, GRANT, CHARACTER, GOAL}
+enum UpdateType {FACULTY, GRANT, CHARACTER, GOAL, MONEY, REPUTATION}
 
 class SimObject:
     var uid: String
@@ -38,11 +38,13 @@ class Faculty extends SimNamedObject:
     var default_cost = 100
     var open_cost = 1000
     var default_enrollee_count = 15
-    var default_enrollee_cost = 5
+    var default_enrollee_cost = 3
     var default_breakthrough_chance = 15
+    var default_monthly_event_chance = 3
     var icon_uid = null
 
     ### Dynamic fields ###
+    var monthly_event_chance: int
     var leader_uid = null
     var breakthrough_chance: int
     var enrollee_count: int
@@ -71,7 +73,7 @@ class Faculty extends SimNamedObject:
         uid = name
         specialty_uid = specialty_uid_
         if icon_uid_ != null:
-            icon_uid = "faculty" + "_" + icon_uid_
+            icon_uid = "faculty" + "/" + icon_uid_
         open_cost = open_cost_
         default_cost = default_cost_
         default_enrollee_count = default_enrollee_count_
@@ -134,7 +136,7 @@ class Character extends SimEntity:
     func _init(name_, icon_uid_, specialty_uid_, cost_per_year_=50, price_=300, level_=null, description_=null, title_=null, modifiers_=[]).(name_, icon_uid_, modifiers_):
         specialty_uid = specialty_uid_
         if icon_uid_ != null:
-            icon_uid = "character" + "_" + icon_uid_
+            icon_uid = "character" + "/" + icon_uid_
         short_name = "SHORT_" + name  # TODO: or generate if no translation found
         cost_per_year = cost_per_year_
         price = price_
@@ -165,7 +167,7 @@ class Equipment extends SimEntity:
     func _init(name_, icon_uid_, price_, modifiers_=[]).(name_, icon_uid_, modifiers_):
         price = price_
         if icon_uid_ != null:
-            icon_uid = "equipment" + "_" + icon_uid_
+            icon_uid = "equipment" + "/" + icon_uid_
 
     func to_string():
         return "<Equipment " + name + " " + str(price) + " " + str(modifiers) + " " + str(available_for) + ">"
@@ -203,7 +205,7 @@ class Grant extends SimNamedObject:
             description_ = "DESCRIPTION_" + name_
         description = description_
         if icon_uid_ != null:
-            icon_uid = "grant" + "_" + icon_uid_
+            icon_uid = "grant" + "/" + icon_uid_
         background_uid = background_uid_
 
 
@@ -222,8 +224,32 @@ class Goal extends SimNamedObject:
         uid = name_
         description = description_
         if icon_uid_ != null:
-            icon_uid = "goal" + "_" + icon_uid_
+            icon_uid = "goal" + "/" + icon_uid_
         requirements = requirements_
+
+
+class Option extends SimEntity:
+    static func get_name():
+        return "class_Option"
+
+
+    func _init(name_, modifiers_=[]).(name_, null, modifiers):
+        pass
+
+
+class Event extends SimEntity:
+    static func get_name():
+        return "class_Event"
+
+    var visuals = null
+    var options = null
+    var description = null
+
+    func _init(name_, description_, visuals_, options_, modifiers_=[]).(name_, null, modifiers):
+        uid = name_
+        description = description_
+        options = options_
+        visuals = visuals_
 
 
 #####################################################################################

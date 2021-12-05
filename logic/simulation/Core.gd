@@ -1,6 +1,10 @@
 extends Node
 class_name SimulationCore
 
+var failure_notice_ref: FuncRef
+var success_notice_ref: FuncRef
+var important_notice_ref: FuncRef
+
 var T = load("res://logic/simulation/Classes.gd")
 var StorageT = load("res://logic/simulation/Storage.gd")
 var Storage = StorageT.new()
@@ -19,6 +23,7 @@ signal money_error
 signal money_updated(amount, has_increased)
 signal reputation_updated(amount, has_increased)
 signal date_updated(date_string)
+signal campus_level_updated(level)
 signal year_end
 
 signal game_over
@@ -53,6 +58,9 @@ func emitter(signal_name, arg1=null, arg2=null, arg3=null):
 
 
 func _ready():
+    var _rs = connect("money_updated", self, "check_money")
+    _rs = connect("reputation_updated", self, "check_reputation")
+
     var emitter_ref = funcref(self, "emitter")
     Storage.emitter = emitter_ref
     Engine.Storage = Storage
@@ -72,6 +80,16 @@ func _process(_delta):
     pass
 
 
+func check_money(amount, _has_increased):
+    if amount < 0:
+        emit_signal("game_over")
+
+
+func check_reputation(amount, _has_increased):
+    if amount < 0:
+        emit_signal("game_over")
+
+
 #####################################################################################
 ##################################### Public API ####################################
 #####################################################################################
@@ -83,7 +101,11 @@ func start():
     emit_signal("money_updated", Storage.money, true)
     emit_signal("reputation_updated", Storage.reputation, true)
     emit_signal("date_updated", Storage.format_date(Storage.datetime))
-    emit_signal("update_log", tr("START_LOG_"))  # TODO: translate
+    emit_signal("update_log", tr("START_LOG_"))
+    emit_signal("campus_level_updated", Storage.campus_level)
+    Actions.failure_notice_ref = failure_notice_ref
+    Actions.success_notice_ref = success_notice_ref
+    Actions.important_notice_ref = important_notice_ref
 
 
 func get_specialty_color(specialty_uid) -> Color:
@@ -149,7 +171,7 @@ func get_faculties():
 
 
 func start_year():
-    var month_delay = 0.3 if not utils.is_debug else 0.1
+    var month_delay = 0.2
     while true:
         Actions.step_month()
 
@@ -158,5 +180,7 @@ func start_year():
         yield(get_tree().create_timer(month_delay), "timeout")
 
     Actions.decrement_years_on_grants()
+    Actions.substract_characters_cost()
+    Actions.substract_faculties_cost()
 
     emit_signal("year_end")

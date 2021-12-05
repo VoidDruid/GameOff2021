@@ -53,7 +53,6 @@ func _ready():
         # TODO: add tooltip - why char is unavailable
     else:
         var _rs = button_n.get_node("Button").connect("pressed", self, "_on_Button_pressed")
-        print(_rs)
 
     var panel = get_node(equip_cost_panel)
     var new_style = StyleBoxFlat.new()
@@ -75,7 +74,7 @@ func _ready():
     # waiting for rect_size of label to be recalculated
     yield(get_tree(), "idle_frame")
     panel.rect_min_size.x = equip_cost_label.rect_size.x
-    
+
     if not is_available_to_buy:
         panel.hide()
 

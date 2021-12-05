@@ -49,9 +49,9 @@ func setup_take(grant, PlusButton, EffectLabel):
     get_node(grant_background).add_child(plus)
 
     if not grant.is_available:
+        self.queue_free()  # TODO: is this better?
         plus.disabled = true
         plus.modulate = Color(1, 1, 1, 0.4)
-        # TODO: add tooltip - why char is unavailable
 
     add_amount_label(grant, EffectLabel)
     add_diff_label(grant, EffectLabel)
@@ -90,7 +90,7 @@ func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance
     get_node(grant_left_tab_color_path).color = left_tab_color
     var name_label = get_node(grant_label)
     name_label.text = tr(grant.name) + ", " + tr(grant.specialty_uid)
-    
+
     var years_text = ""
     if grant.is_taken:
         years_text += tr("YEARS_LEFT") + ": "
@@ -104,7 +104,7 @@ func setup_for_grant(grant, left_tab_color, EffectLabel, PlusButton, GrantChance
     else:
         years_text += tr("YEARS_GE5")
     name_label.hint_tooltip = years_text
-    
+
     grant_uid = grant.uid
 
     if action_type == null:

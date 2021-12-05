@@ -50,5 +50,42 @@ GRANT_MATH_START,Xeno math notation,Инопланетная математич�
 GRANT_PHYS_START,Basics of quantum gravity,Основы квантовой гравитации
 GRANT_PHILOSOPHY_START,Xenological argument for existence of God,Ксенологическое доказательство бытия Бога
 GRANT_LING_START,Mood-sensitive grammar,Настроение-зависимая грамматика
-GRANT_BIO2,Silicon metabolism,Кремниевый метаболизм
+GRANT_BIO2,Silicon DNA,Кремниевая ДНК
 GRANT_PHYS2,Quantum tri-logic,Тернарная квантовая логика
+GRANT_PHYS3,Quantum gravity,Квантовая гравитация
+GRANT_PHYS4,Stable energy fields,Стабильные поля энергии
+GRANT_PHYS5,Convolution of n-dimensional spaces,Свертка n-мерных пространств
+GRANT_PHYS6,Warp field generator,Генератор варп-поля
+GRANT_BIO3,Alien cytology,Инопланетная цитология
+GRANT_BIO4,Signal transfer in xenoanatomy,Сигнальные системы ксеноанатомии
+GRANT_BIO5,Stability of silicon ecosystems,Устойчивость кремниевых экосистем
+GRANT_BIO6,Silicon metabolism,Кремниевый метаболизм
+GRANT_MATH2,Glossary of Theorem Mapping,Глоссарий сопоставления теорем
+GRANT_MATH3,Alien approach to category theory,Инопланетный подход к теории категорий
+GRANT_MATH4,Math model of alien language,Мат. модель языка пришельцев
+GRANT_MATH5,Topology of space-time,Топология пространства-времени
+GRANT_MATH6,Interplanetary math congress,Подготовка межпланетного математического съезда
+GRANT_PHIL2,Space crime and cosmic punishment,Космическое преступление и вселенское наказание
+GRANT_PHIL3,Capital: A Critique of Alien Economy,Капитал. Критика инопланетной экономии
+GRANT_PHIL4,Summa xenologica,Сумма ксенологий
+GRANT_PHIL5,The Universe as xeno- will and representation?,Космос как ксено- воля и представление?
+GRANT_PHIL6,Critique of xeno reason,Критика инопланетного разума
+GRANT_LING2,Contextual alien grammar,Контекстуальная ксенограмматика
+GRANT_LING3,Quantitative analysis of recorded speech,Численный анализ записей речи
+GRANT_LING4,Device for producing alien sounds,Устройство для произношения инопланетных звуков
+GRANT_LING5,Universal dictionary,Всеобщий словарь
+GRANT_LING6,Real-time translation systems,Системы автоматического перевода
+OPTIMIZATION_,Spending optimization,Оптимизация расходов
+LIBRARY_CATALOG,Library catalog,Библиотечная система
+PROJECTOR_,Good projector,Хороший проектор
+DNA_SEQUENCER,DNA sequencer,Секвенатор ДНК
+MICROSCOPE_,Laser microscopes,Лазерные микроскопы
+STUDENT_COWORKING,Coworking for students,Коворкинг для студентов
+MISC_EQUIPMENT,Miscellaneous equipment,Всякая всячина
+COMPUTING_CLUSTER,Computing cluster,Вычислительный кластер
+QUANTUM_STUFF,Quantum stuff,Квантовые штуки
+BIOLOGY_ACAD,Academic,Академик
+PHYSICS_ACAD,Academic,Академик
+MATH_ACAD,Academic,Академик
+LING_SOC_ACAD,Academic,Академик
+PHILOSOPHY_ACAD,Academic,Академик

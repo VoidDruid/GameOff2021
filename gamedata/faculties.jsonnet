@@ -8,7 +8,7 @@ local uid_l(arr) = [obj.uid for obj in arr];
       name: "BIOLOGY_FACULTY_",
       default_cost: 70,
       default_enrollee_count: 30,
-      default_breakthrough_chance: 15,
+      default_breakthrough_chance: 30,
       specialty_uid: g.biology.name,
       equipment: uid_l([
             equipment.optimitzation,
@@ -49,7 +49,7 @@ local uid_l(arr) = [obj.uid for obj in arr];
       name: "MATH_FACULTY_",
       default_cost: 50,
       default_enrollee_count: 7,
-      default_breakthrough_chance: 35,
+      default_breakthrough_chance: 20,
       specialty_uid: g.philosophy.name,
       equipment: uid_l([
             equipment.printer,
@@ -62,7 +62,7 @@ local uid_l(arr) = [obj.uid for obj in arr];
       name: "LING_SOC_FACULTY_",
       default_cost: 60,
       default_enrollee_count: 10,
-      default_breakthrough_chance: 25,
+      default_breakthrough_chance: 30,
       specialty_uid: g.lingsoc.name,
       equipment: uid_l([
             equipment.optimitzation,

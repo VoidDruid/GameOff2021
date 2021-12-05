@@ -1,6 +1,6 @@
 var campus_level = 1
 var money = 11000
-var reputation = 80
+var reputation = 100
 var datetime = {
     "month": 8,
     "year": 2021,
@@ -205,6 +205,38 @@ func add_goal(goal, skip_check=false):
     GOAL_LIST.append(goal)
     GOAL_MAP[goal.uid] = goal
 
+#NOTE: PREDEFINED
+var EVENT_LIST = []
+var EVENT_MAP = {}
+var _is_event_updated = T.SimState.OUT_OF_SYNC
+
+
+func get_event(event_uid):
+    return EVENT_MAP[event_uid]
+
+
+func _find_in_event_list(event):
+    var i = 0
+    var uid
+    if typeof(event) == TYPE_STRING:
+        uid = event
+    else:
+        uid = event.uid
+    for obj in EVENT_LIST:
+        if obj.uid == uid:
+            return i
+        i += 1
+    return null
+
+
+func add_event(event, skip_check=false):
+    if not skip_check:
+        var index = _find_in_event_list(event)
+        if index != null:
+            EVENT_LIST.remove(index)
+    EVENT_LIST.append(event)
+    EVENT_MAP[event.uid] = event
+
 
 var grant_to_faculty = {}
 
@@ -248,6 +280,7 @@ func build_map(from_list, to_dict, _resource_name):
 
 
 func load_characters():
+    randomize()
     var character_data = utils.json_readf(OBJECT_DATA_DIR + "character.json")
     for data in character_data.values():
         var modifiers_data = data.get("modifiers", [])
@@ -256,7 +289,7 @@ func load_characters():
             modifiers.append(parse_modifier(mod_data))
         var specialty_uid = data["specialty_uid"]
         if specialty_uid == consts.RANDOM:
-            specialty_uid = SPECIALTY_LIST[randi() % SPECIALTY_LIST.size()].uid
+            specialty_uid = SPECIALTY_LIST[randi() % len(SPECIALTY_LIST)].uid
         var character = T.Character.new(
             data["name"],
             data.get("icon_uid", null),
@@ -288,7 +321,7 @@ func load_specialtys():
 
 func parse_modifier(data):
     return T.FacultyModifier.new(
-        data["value"],
+        stepify(data["value"], 0.01),
         data["property"],
         data.get("absolute", false),
         data.get("positive", true)
@@ -362,6 +395,40 @@ func load_facultys():
         load_uid(faculty, data)
         FACULTY_LIST.append(faculty)
 
+
+func parse_option(data):
+    var modifiers_data = data.get("modifiers", [])
+    var modifiers = []
+    for mod_data in modifiers_data:
+        modifiers.append(parse_modifier(mod_data))
+
+    return T.Option.new(data["name"], modifiers)
+
+
+func load_events():
+    var events_data = utils.json_readf(OBJECT_DATA_DIR + "events.json")
+    for data in events_data.values():
+        var modifiers_data = data.get("modifiers", [])
+        var modifiers = []
+        for mod_data in modifiers_data:
+            modifiers.append(parse_modifier(mod_data))
+
+        var options_data = data.get("options", [])
+        var options = []
+        for op_data in options_data:
+            options.append(parse_option(op_data))
+
+        var event = T.Event.new(
+            data["name"],
+            data.get("description", ""),
+            data.get("visuals", {}),
+            options,
+            modifiers
+        )
+        load_uid(event, data)
+        EVENT_LIST.append(event)
+
+
 func load_resources():
     # TODO: checks for uniquness of all uids
     load_specialtys()
@@ -376,6 +443,8 @@ func load_resources():
     build_map(FACULTY_LIST, FACULTY_MAP, "faculty")
     load_characters()
     build_map(CHARACTER_LIST, CHARACTER_MAP, "character")
+    load_events()
+    build_map(EVENT_LIST, EVENT_MAP, "event")
     for grant in GRANT_LIST:
         grant_to_faculty[grant.uid] = null
 
