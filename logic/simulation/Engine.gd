@@ -1,6 +1,7 @@
 var Storage = null
 var T = null
 var emitter = null
+var logger = null
 
 
 func update_character(character):
@@ -110,11 +111,11 @@ func update_faculty(faculty):
     faculty.leader_mods_abs = leader_mods_abs
     faculty.leader_mods_rel = leader_mods_rel
 
-    faculty.level = clamp((
+    faculty.level = clamp(floor(
         clamp(leader_level, 1, 3) +
         clamp(int(active_equipment_count / 2), 1, 3) +
         clamp(average_characters_level, 1, 3)
-    ) / 2, 1, 3)
+    ) / 2.5, 1, 3)
     # TODO: updating campus should be a separate function
     var avg_level = 0
     var fac_count = 0
@@ -124,7 +125,7 @@ func update_faculty(faculty):
         avg_level += faculty.level
         fac_count += 1
     avg_level = int(round(avg_level / fac_count))
-    if avg_level != Storage.campus_level:
+    if avg_level < Storage.campus_level:
         Storage.campus_level = avg_level
         emitter.call_func("campus_level_updated", Storage.campus_level)
         Storage.set_sim_state_of(T.Grant, T.SimState.OUT_OF_SYNC)

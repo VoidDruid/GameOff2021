@@ -118,3 +118,11 @@ func to_roman(num):
             roman_num += syb[i]
         num -= val[i] * count
     return roman_num
+
+
+func with_chance(chance: float) -> bool:
+    return randi() % 100 < chance * 100
+
+
+func random_choice(arr):
+    return arr[randi() % len(arr)]

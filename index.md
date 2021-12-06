@@ -16,15 +16,17 @@
 
 ## Скриншоты
 
-![faculty](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/faculty.png)
+![faculty](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/brand/screenshots/GameOff2021/faculty.png)
 
-![detail](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/detail.png)
+![event](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/brand/screenshots/GameOff2021/event.png)
 
-![characters](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/characters.png)
+![detail](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/brand/screenshots/GameOff2021/detail.png)
 
-![choice](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/choice.png)
+![characters](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/brand/screenshots/GameOff2021/characters.png)
 
-![grants](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/.brand/screenshots/GameOff2021/grants.png)
+![choice](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/brand/screenshots/GameOff2021/choice.png)
+
+![grants](https://raw.githubusercontent.com/VoidDruid/GameOff2021/master/brand/screenshots/GameOff2021/grants.png)
 
 <details>
   <summary><b>> Attributions</b></summary>

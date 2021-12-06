@@ -1,10 +1,11 @@
 var campus_level = 1
-var money = 11000
+var money = 3500
 var reputation = 100
 var datetime = {
     "month": 8,
     "year": 2021,
 }
+var is_event_active = false
 var grant_limit = 1
 var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
@@ -289,7 +290,7 @@ func load_characters():
             modifiers.append(parse_modifier(mod_data))
         var specialty_uid = data["specialty_uid"]
         if specialty_uid == consts.RANDOM:
-            specialty_uid = SPECIALTY_LIST[randi() % len(SPECIALTY_LIST)].uid
+            specialty_uid = utils.random_choice(SPECIALTY_LIST).uid
         var character = T.Character.new(
             data["name"],
             data.get("icon_uid", null),
@@ -407,7 +408,7 @@ func parse_option(data):
 
 func load_events():
     var events_data = utils.json_readf(OBJECT_DATA_DIR + "events.json")
-    for data in events_data.values():
+    for data in events_data:
         var modifiers_data = data.get("modifiers", [])
         var modifiers = []
         for mod_data in modifiers_data:
@@ -421,6 +422,8 @@ func load_events():
         var event = T.Event.new(
             data["name"],
             data.get("description", ""),
+            data["script"],
+            data.get("params", {}),
             data.get("visuals", {}),
             options,
             modifiers

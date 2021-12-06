@@ -244,12 +244,16 @@ class Event extends SimEntity:
     var visuals = null
     var options = null
     var description = null
+    var script_name = null
+    var params = {}
 
-    func _init(name_, description_, visuals_, options_, modifiers_=[]).(name_, null, modifiers):
+    func _init(name_, description_, script_name_, params_, visuals_, options_, modifiers_=[]).(name_, null, modifiers):
         uid = name_
         description = description_
         options = options_
         visuals = visuals_
+        script_name = script_name_
+        params = params_
 
 
 #####################################################################################

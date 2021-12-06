@@ -1,1 +1,56 @@
-{ }
+[
+   {
+      "description": "DESC_EVENT_BUDGET",
+      "name": "EVENT_BUDGET",
+      "name_": "budget",
+      "options": [
+         {
+            "modifiers": [ ],
+            "name": "OPTION_TAKE"
+         },
+         {
+            "modifiers": [ ],
+            "name": "OPTION_DONATE"
+         }
+      ],
+      "params": {
+         "money": 1100,
+         "reputation": 20
+      },
+      "script": "res://gamedata/events/scripts/budget.gd",
+      "visuals": {
+         "background": "res://gamedata/events/backgrounds/university.png",
+         "object": null,
+         "video": null
+      }
+   },
+   {
+      "description": "DESC_EVENT_ALIEN_VISIT",
+      "name": "EVENT_ALIEN_VISIT",
+      "name_": "alien_visit",
+      "options": [
+         {
+            "modifiers": [ ],
+            "name": "OPTION_PHYSICS"
+         },
+         {
+            "modifiers": [ ],
+            "name": "OPTION_MATH"
+         },
+         {
+            "modifiers": [ ],
+            "name": "OPTION_BIO"
+         },
+         {
+            "modifiers": [ ],
+            "name": "OPTION_LING"
+         }
+      ],
+      "script": "res://gamedata/events/scripts/alien_visit.gd",
+      "visuals": {
+         "background": null,
+         "object": null,
+         "video": "res://gamedata/events/animations/1.webm"
+      }
+   }
+]

@@ -15,14 +15,14 @@ local preprocess(index, obj) = obj + {
 local RANDOM = "random";
 
 local calculate_cost(obj) = (
-    if obj.level == 1 then 70
-    else if obj.level == 2 then 100
-    else if obj.level == 3 then 150
+    if obj.level == 1 then 40
+    else if obj.level == 2 then 60
+    else if obj.level == 3 then 100
 );
 local calculate_price(obj) = (
-    if obj.level == 1 then 250
-    else if obj.level == 2 then 510
-    else if obj.level == 3 then 730
+    if obj.level == 1 then 230
+    else if obj.level == 2 then 460
+    else if obj.level == 3 then 640
 );
 local calculate_title(obj) = (
     null
@@ -37,7 +37,7 @@ local Character(specialty, additional_mods=[]) = {
     modifiers: [
         {
             property: "breakthrough_chance",
-            value: std.floor(4 * (std.log(this_character.level) + 1.2)) / 100,
+            value: std.floor(7 * (std.log(this_character.level) + 1.2)) / 100,
         },
     ] + additional_mods,
     title: calculate_title(self),
@@ -65,11 +65,11 @@ local characters = [
     },
     Character(RANDOM),
     Character(RANDOM) {
-        price: 150,
+        price: 90,
         modifiers: [
             {
                 property: "breakthrough_chance",
-                value: 0.5,
+                value: 0.8,
             },
         ]
     },
@@ -114,7 +114,7 @@ local characters = [
     Character(RANDOM) {
         level: 2
     },
-    Character(RANDOM, [{property: "yearly_cost", value: -0.1}],) {
+    Character(RANDOM, [{property: "yearly_cost", value: -0.15}],) {
         cost_per_year: 130,
         price: 600,
         level: 2
@@ -128,12 +128,12 @@ local characters = [
             },
             {
                 property: "breakthrough_chance",
-                value: 0.05,
+                value: 0.07,
             },
         ],
     },
     Character(RANDOM, [{property: "monthly_event_chance", value: -0.02, positive: false}],) {
-        cost_per_year: 80,
+        cost_per_year: 75,
         price: 400,
         level: 2
     },
@@ -171,7 +171,7 @@ local characters = [
         modifiers: [
             {
                 property: "breakthrough_chance",
-                value: 0.17,
+                value: 0.3,
             },
             {
                 property: "yearly_cost",
@@ -182,7 +182,7 @@ local characters = [
     },
     Character(RANDOM, [{property: "monthly_event_chance", value: 0.33}],) {
         level: 3,
-        cost_per_year: 400,
+        cost_per_year: 300,
     },
     Character(RANDOM) {
         level: 3,
@@ -190,7 +190,7 @@ local characters = [
         modifiers: [
             {
                 property: "breakthrough_chance",
-                value: 0.06,
+                value: 0.25,
             },
         ],
     },

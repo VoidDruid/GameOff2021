@@ -1,6 +1,6 @@
 {
    "0723c5e33ddcbf2f6fda864c91e5e2d8": {
-      "cost_per_year": 510,
+      "cost_per_year": 460,
       "icon_uid": "16",
       "level": 2,
       "modifiers": [
@@ -22,7 +22,7 @@
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.17000000000000001
+            "value": 0.29999999999999999
          },
          {
             "positive": false,
@@ -37,7 +37,7 @@
       "uid": "164cbd6cc3d9f506f686ac40144d4f93"
    },
    "3ba9b31b689b1ef7992e5b6cc373c94f": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "7",
       "level": 1,
       "modifiers": [
@@ -52,13 +52,13 @@
          }
       ],
       "name": "G_NAME7",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "3ba9b31b689b1ef7992e5b6cc373c94f"
    },
    "509dd8891cc17b6252afd5f4a4973e82": {
-      "cost_per_year": 510,
+      "cost_per_year": 460,
       "icon_uid": "17",
       "level": 2,
       "modifiers": [
@@ -74,13 +74,13 @@
       "uid": "509dd8891cc17b6252afd5f4a4973e82"
    },
    "571f07a13e0380286e645f3d29452f04": {
-      "cost_per_year": 730,
+      "cost_per_year": 640,
       "icon_uid": "21",
       "level": 3,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.059999999999999998
+            "value": 0.25
          }
       ],
       "name": "G_NAME21",
@@ -90,13 +90,13 @@
       "uid": "571f07a13e0380286e645f3d29452f04"
    },
    "58fdadc2f5d21fc5ba2cf60adf5aa676": {
-      "cost_per_year": 80,
+      "cost_per_year": 75,
       "icon_uid": "14",
       "level": 2,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.070000000000000007
+            "value": 0.13
          },
          {
             "positive": false,
@@ -111,29 +111,29 @@
       "uid": "58fdadc2f5d21fc5ba2cf60adf5aa676"
    },
    "64097c05e0b2fd55309a379bea86e103": {
-      "cost_per_year": 510,
+      "cost_per_year": 460,
       "icon_uid": "15",
       "level": 2,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.070000000000000007
+            "value": 0.13
          }
       ],
       "name": "G_NAME15",
-      "price": 100,
+      "price": 60,
       "specialty_uid": "random",
       "title": null,
       "uid": "64097c05e0b2fd55309a379bea86e103"
    },
    "77aaff5ac8d9742a993de2f0d7350a7f": {
-      "cost_per_year": 400,
+      "cost_per_year": 300,
       "icon_uid": "20",
       "level": 3,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.089999999999999997
+            "value": 0.16
          },
          {
             "property": "monthly_event_chance",
@@ -141,29 +141,29 @@
          }
       ],
       "name": "G_NAME20",
-      "price": 150,
+      "price": 100,
       "specialty_uid": "random",
       "title": null,
       "uid": "77aaff5ac8d9742a993de2f0d7350a7f"
    },
    "80809e088619e484df43c9cacba338cb": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "6",
       "level": 1,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.040000000000000001
+            "value": 0.080000000000000002
          }
       ],
       "name": "G_NAME6",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "80809e088619e484df43c9cacba338cb"
    },
    "85befe26a11d09dc6713c720bda4c9f9": {
-      "cost_per_year": 510,
+      "cost_per_year": 460,
       "icon_uid": "1",
       "level": 2,
       "modifiers": [
@@ -182,29 +182,29 @@
          "is_available": true,
          "is_hired": true
       },
-      "price": 100,
+      "price": 60,
       "specialty_uid": "random",
       "title": null,
       "uid": "85befe26a11d09dc6713c720bda4c9f9"
    },
    "8b13fd8f2761feb69758728045f98c43": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "2",
       "level": 1,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.040000000000000001
+            "value": 0.080000000000000002
          }
       ],
       "name": "G_NAME2",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "8b13fd8f2761feb69758728045f98c43"
    },
    "8e50534e9bbd97ee4f9aaaa1bdf22a2a": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "5",
       "level": 1,
       "modifiers": [
@@ -214,45 +214,45 @@
          }
       ],
       "name": "G_NAME5",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "8e50534e9bbd97ee4f9aaaa1bdf22a2a"
    },
    "9522d5e62883295f62c278eabb1268b0": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "8",
       "level": 1,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.040000000000000001
+            "value": 0.080000000000000002
          }
       ],
       "name": "G_NAME8",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "9522d5e62883295f62c278eabb1268b0"
    },
    "954423bc6e59f81ff6cd90974548e6a2": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "4",
       "level": 1,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.040000000000000001
+            "value": 0.080000000000000002
          }
       ],
       "name": "G_NAME4",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "954423bc6e59f81ff6cd90974548e6a2"
    },
    "9da51636a7aeacacbb2c8f37a416dfc1": {
-      "cost_per_year": 510,
+      "cost_per_year": 460,
       "icon_uid": "13",
       "level": 2,
       "modifiers": [
@@ -262,81 +262,81 @@
          },
          {
             "property": "breakthrough_chance",
-            "value": 0.050000000000000003
+            "value": 0.070000000000000007
          }
       ],
       "name": "G_NAME13",
-      "price": 100,
+      "price": 60,
       "specialty_uid": "random",
       "title": null,
       "uid": "9da51636a7aeacacbb2c8f37a416dfc1"
    },
    "acd8c13423ef687e3cb6336469601a78": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "3",
       "level": 1,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.5
+            "value": 0.80000000000000004
          }
       ],
       "name": "G_NAME3",
-      "price": 150,
+      "price": 90,
       "specialty_uid": "random",
       "title": null,
       "uid": "acd8c13423ef687e3cb6336469601a78"
    },
    "bd0c7dea9dcb534ad4e52cb113c118ae": {
-      "cost_per_year": 730,
+      "cost_per_year": 640,
       "icon_uid": "18",
       "level": 3,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.089999999999999997
+            "value": 0.16
          }
       ],
       "name": "G_NAME18",
-      "price": 150,
+      "price": 100,
       "specialty_uid": "random",
       "title": null,
       "uid": "bd0c7dea9dcb534ad4e52cb113c118ae"
    },
    "c029b299a110486a96af1e042106ebd5": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "10",
       "level": 1,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.040000000000000001
+            "value": 0.080000000000000002
          }
       ],
       "name": "G_NAME10",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "c029b299a110486a96af1e042106ebd5"
    },
    "e041a2e7ded0f34dd29c7f11296eb807": {
-      "cost_per_year": 510,
+      "cost_per_year": 460,
       "icon_uid": "11",
       "level": 2,
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.070000000000000007
+            "value": 0.13
          }
       ],
       "name": "G_NAME11",
-      "price": 100,
+      "price": 60,
       "specialty_uid": "random",
       "title": null,
       "uid": "e041a2e7ded0f34dd29c7f11296eb807"
    },
    "ec1b7f88aeafd58d4d59374fb449e18a": {
-      "cost_per_year": 250,
+      "cost_per_year": 230,
       "icon_uid": "9",
       "level": 1,
       "modifiers": [
@@ -351,7 +351,7 @@
          }
       ],
       "name": "G_NAME9",
-      "price": 70,
+      "price": 40,
       "specialty_uid": "random",
       "title": null,
       "uid": "ec1b7f88aeafd58d4d59374fb449e18a"
@@ -363,11 +363,11 @@
       "modifiers": [
          {
             "property": "breakthrough_chance",
-            "value": 0.070000000000000007
+            "value": 0.13
          },
          {
             "property": "yearly_cost",
-            "value": -0.10000000000000001
+            "value": -0.14999999999999999
          }
       ],
       "name": "G_NAME12",

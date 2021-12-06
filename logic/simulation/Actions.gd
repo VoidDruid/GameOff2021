@@ -2,6 +2,7 @@ var failure_notice_ref: FuncRef
 var success_notice_ref: FuncRef
 var important_notice_ref: FuncRef
 var emitter = null
+var logger = null
 
 var Engine = null
 var Storage = null
@@ -74,6 +75,8 @@ func assign_leader(faculty_uid,character_uid, update=true, allowed_updates=null)
     character.faculty_uid = faculty_uid
     faculty.leader_uid = character_uid
 
+    logger.call_func(tr("NEW_LEADER_LOG"), 0.4)
+
     if update:
         if allowed_updates == null or T.UpdateType.CHARACTER in allowed_updates:
             Engine.update_character(character)
@@ -93,6 +96,8 @@ func assign_grant(faculty_uid,grant_uid, update=true, allowed_updates=null):
     faculty.grant_uid = grant_uid
     Storage.grant_to_faculty[grant_uid] = faculty_uid
 
+    logger.call_func(tr("ASSIGNED_GRANT_LOG"), 0.5)
+
     if update:
         if allowed_updates == null or T.UpdateType.GRANT in allowed_updates:
             Engine.update_grant(grant)
@@ -110,6 +115,8 @@ func add_staff(faculty_uid,character_uid, update=true, allowed_updates=null):
     var faculty = Storage.get_faculty(faculty_uid)
     character.faculty_uid = faculty_uid
     faculty.staff_uid_list.append(character_uid)
+
+    logger.call_func(tr("ADDED_STAFF_LOG"), 0.3)
 
     if update:
         if allowed_updates == null or T.UpdateType.CHARACTER in allowed_updates:
@@ -145,6 +152,8 @@ func buy_equipment(faculty_uid,equipment_uid, update=true, allowed_updates=null)
         return
     equipment.is_active = true
 
+    logger.call_func(tr("BOUGHT_EQUIPMENT_LOG"), 0.6)
+
     if update:
         var faculty = Storage.get_faculty(faculty_uid)
         if allowed_updates == null or T.UpdateType.FACULTY in allowed_updates:
@@ -173,6 +182,8 @@ func hire_character(character_uid, update=true, allowed_updates=null):
     if not Storage.spend_money(character.price):
         return
     character.is_hired = true
+
+    logger.call_func(tr("HIRED_CHARACTER_LOG"), 0.3)
 
     if update:
         if allowed_updates == null or T.UpdateType.CHARACTER in allowed_updates:
@@ -219,6 +230,8 @@ func open_faculty(faculty_uid, update=true, allowed_updates=null):
         return
     faculty.is_opened = true
 
+    logger.call_func(tr("OPENED_FACULTY_LOG"), 0.7)
+
     if update:
         if allowed_updates == null or T.UpdateType.FACULTY in allowed_updates:
             Engine.update_faculty(faculty)
@@ -227,18 +240,36 @@ func open_faculty(faculty_uid, update=true, allowed_updates=null):
 
 
 func step_month():
+    var rolled_event = false
+    for faculty in Storage.FACULTY_LIST:
+        if (not faculty.is_opened or
+            faculty.monthly_event_chance == null or
+            faculty.monthly_event_chance <= 0):
+            continue
+        var roll = utils.with_chance(faculty.monthly_event_chance / 100.0)
+        print_debug("F", faculty.monthly_event_chance / 100.0, roll)
+        if roll:
+            rolled_event = true
+    if rolled_event:
+        Storage.is_event_active = true
+        emitter.call_func("event", utils.random_choice(Storage.EVENT_LIST))
+
     Storage.next_date()
+    return rolled_event
 
 
 func decrement_years_on_grants(update=true, allowed_updates=null):
     var has_failure = false
     var has_success = false
-
+    var compl_grants = 0
     var updated_faculties = []
 
     for grant in Storage.GRANT_LIST:
+        if grant.is_completed and not grant.is_failed:
+            compl_grants += 1
         if not grant.is_taken or grant.is_completed:
             continue
+
         grant.years_left -= 1
 
         if Storage.grant_to_faculty[grant.uid] != null:
@@ -258,11 +289,20 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
 
         var roll = randi() % 100
         if roll <= grant.chance:
+            compl_grants += 1
             has_success = true
             grant.is_completed = true
             Storage.change_reputation(int(grant.difficulty*0.4))
             emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, [T.UpdateType.FACULTY] if allowed_updates == null else utils.intersection([T.UpdateType.FACULTY], allowed_updates))
+
+    if compl_grants >= 5:
+        Storage.campus_level = 3
+        emitter.call_func("campus_level_updated", Storage.campus_level)
+        Storage.set_sim_state_of(T.Character, T.SimState.OUT_OF_SYNC)
+        Storage.set_sim_state_of(T.Grant, T.SimState.OUT_OF_SYNC)
+        Engine.update_characters()
+        Engine.update_grants()
 
     Storage.set_sim_state_of(T.Goal, T.SimState.OUT_OF_SYNC)
     Engine.update_goals()
@@ -280,9 +320,13 @@ func decrement_years_on_grants(update=true, allowed_updates=null):
 
         if has_success:
             success_notice_ref.call_func()
+            logger.call_func(tr("SUCCESS_LOG"), 0.3)
         else:
             if has_failure:
                 failure_notice_ref.call_func()
+                logger.call_func(tr("FAILURE_LOG"), 0.3)
+            else:
+                logger.call_func(tr("QUIER_YEAR_LOG"), 0.2)
 
 
 func substract_characters_cost(update=true, allowed_updates=null):

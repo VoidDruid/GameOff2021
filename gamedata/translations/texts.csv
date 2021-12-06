@@ -1,12 +1,35 @@
 keys,en,ru
-HELP_GRANTS_,"On the Grants Tab you can take a grant, but you also should assign it to the faculty on the Faculty Tab. ",На вкладке гранты вы можете взять грант в работу. Однако вам надо его выбрать для конкретного факультета.
+HELP_GRANTS_,"On the Grants Tab you can take a grant, but you also should assign it to the faculty on the Faculty Tab. Payment for grants occurs IMMEDIATELY AT THE MOMENT OF TAKING IT. If you won't research it in required time, you will lose reputation.","На вкладке гранты вы можете взять грант в работу. Выплаты за гранты происходят СРАЗУ ЖЕ В МОМЕНТ ВЗЯТИЯ. После взятия запустится таймер на его исследование, не успев вовремя вы потеряете репутацию."
 HELP_CHARACTERS_,On the Characters Tab you can hire or fire you characters using plus and cross.,На вкладке персонажи вы можете их нанять либо уволить используя плюс или крестик
-HELP_START_,"This game is a university simulator. Hire characters, open faculties, take grants and achieve your goals. "," Эта игра – симулятор университета. Нанимайте персонажей, создавайте факультеты, выбирайте гранты и достигайте целей."
-HELP_FACULTIES_,"Before accessing Faculty Tab you should build one of the available faculties by tapping on the green plus on the faculty map. Then assign a character as a leader, buy an equipment and increase your chance of breakthrough on the current grant\nOne step is a one game year. After hiring a characters, building faculties and taking grants you can start the simulation by pressing Start Year.","Перед тем, как вкладка факультеты будет вам доступна – вы должны построить факультет, щелкнув зеленый плюс на карте факультета. Назначайте руководителя, покупайте оборудование и увеличивайте свои шансы на прорыв по текущему гранту.\nОдин ход равен одному году. После того, как вы наняли нужных персонажей, настроили факультеты и гранты, вы можете начать игру. Для того, чтобы начать симуляцию – нажмите кнопку старт."
-GENERIC_DESCRIPTION_1,GENERIC_DESCRIPTION_1,Начинающий ученый.
-GENERIC_DESCRIPTION_2,GENERIC_DESCRIPTION_2,"Неопытный ученый, имеющий некоторые успехи."
+HELP_START_,"This game is a university simulator. Hire characters, open faculties, take grants and achieve your goals.\nGeneral advice - characters, grants, and faculties work together better if they belong to the same specialty.
+
+","Эта игра – симулятор университета. Нанимайте персонажей, создавайте факультеты, выбирайте гранты и достигайте целей.\nОбщий совет - персонажи, гранты и факультеты работают вместе лучше, если они принадлежат к одной специальности."
+HELP_FACULTIES_,"Before accessing Faculty Tab you should build one of the available faculties by tapping on the green plus on the faculty map. SELECT IT by clicking on it's name on the left. Then assign a character as a leader, buy an equipment and increase your chance of breakthrough on the current grant\nOne step is a one game year. After hiring a characters, building faculties and taking grants you can start the simulation by pressing Start Year.","Перед тем, как вкладка факультеты будет вам доступна – вы должны построить факультет, щелкнув зеленый плюс на карте факультета. ВЫБЕРИТЕ ЕГО нажав на его имя слева. Назначайте руководителя, покупайте оборудование и увеличивайте свои шансы на прорыв по текущему гранту.\nОдин ход равен одному году. После того, как вы наняли нужных персонажей, настроили факультеты и гранты, вы можете начать игру. Для того, чтобы начать симуляцию – нажмите кнопку старт."
+GENERIC_DESCRIPTION_1,An aspiring scientist.,Начинающий ученый.
+GENERIC_DESCRIPTION_2,"Inexperienced scientist, with some successes under their belt.","Неопытный ученый, имеющий некоторые успехи."
 GAME_OVER_DESC_,"Game over! You failed some critical research, required to complete goals, or have run out of possibilities.","Неудача! Вы провалили критические исследованиея для каждой из возможных целей, или у вас закончились возможности для развития."
 ENGINEER_GOAL_DESCRIPTION,"By studying their achievements in physics and maths, we can build our own jump drive and join the galactic community. ","Изучив их достижения в физике и математике, мы сможем построить собственный прыжковый двигатель и присоединится к галактическому сообществу."
 COMMUNICATION_GOAL_DESCRIPTION,"Having understood how their society works, and having learned to exchange information, we can hope for a peaceful and mutually beneficial coexistence.","Поняв, как устроено их мышление, и научившись обмениваться информацией, мы можем надеяться на мирное и взаимовыгодное сосуществование."
 BIO_GOAL_DESCRIPTION,"An end to carbon chauvinism! Silicon life forms should be celebrated (or exploited?) - by understanding how silicon comes to life, we will enter a new era of the life sciences.","Конец углеродному шовинизму! Кремниевые формы жизни имеют десятки применений в быту и на производстве - поняв, как оживает кремень, мы откроем новую эпоху в науке о жизни."
 UNDERSTANDING_GOAL_DESCRIPTION,"Did they answer the main question of philosophy? What shape, if any, take thier Gods? What axioms lay in the foundation of their science? Only by understanding the aliens can we learn to use their knowledge.",Ответили ли они на главный вопрос философии? Каков их Бог? На каких аксиомах строиться фундамент их науки? Только поняв пришельцев мы сможем научиться использовать их знания.
+START_LOG_,"Congrats everyone, we are finally open!",Поздравляю всех с открытием нашего универа!
+NEW_LEADER_LOG,"We have a new leader, I am sure now the work will go better.","У нас новый руководитель, уверен теперь работа пойдет лучше."
+ASSIGNED_GRANT_LOG,"Oh, this topic has always been interesting to me.","О, мне всегда была интересна эта тема."
+ADDED_STAFF_LOG,I hope we will work together well with new colleagues.,"Надеюсь, мы сработаемся с новыми коллегами."
+BOUGHT_EQUIPMENT_LOG,This is exactly what we needed!,Это-то нам и было нужно!
+HIRED_CHARACTER_LOG,We always need good specialists.,Хорошие специалисты нам всегда нужны.
+OPENED_FACULTY_LOG,New faculty! You don't see that every day.,"Новый факультет, не часто такое случается!"
+SUCCESS_LOG,I knew we could do it!,Я знал что у нас получится!
+FAILURE_LOG,"Hmm, something went wrong this time.","Мда, что-то не задалось в этот раз."
+QUIER_YEAR_LOG,"It turned out to be a calm year. Well, slow and steady.","Спокойный год вышел. Ну, тише едешь - дальше будешь."
+LOW_MONEY_LOG,It seems a bit tight with the budget. Maybe the bosses should take more grants?,"Кажется, с бюджетом туговато. Может начальству стоит брать больше грантов?"
+EVENT_BUDGET,Reallocation of the budget,Перераспределение бюджета
+DESC_EVENT_BUDGET,"The First Contact Committee reallocates the budget. You can take your part of the money into direct management, or give it to the arrangement of an alien reception center.","Коммитет первого контакта перераспределяет бюджет. Вы можете взять свою часть денег в прямое управление, или отдать на обустройство центра приема инопланетян."
+OPTION_TAKE,Take,Взять
+OPTION_DONATE,Donate,Отдать
+EVENT_ALIEN_VISIT,The alien will visit our university,Инопланетянин посетит наш институт
+DESC_EVENT_ALIEN_VISIT,A delegation of alien scientists is planning to visit our university. They will only stay here for a day. With the researchers from which faculty are we arranging a meeting for them?\n\nThis will probably help us with our research.,"Делегация инопланетных ученых планирует посетить наш институт. Они задержатся здесь всего на день. С исследователями из какого факультета мы организуем им встречу?\n\nВероятно, это поможет нам с исследованиями."
+OPTION_PHYSICS,Physics,Физики
+OPTION_MATH,Math,Математики
+OPTION_BIO,Xenobiology,Ксенобиологии
+OPTION_LING,Xenolinguistics,Ксенолингвистики

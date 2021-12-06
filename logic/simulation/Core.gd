@@ -24,6 +24,7 @@ signal money_updated(amount, has_increased)
 signal reputation_updated(amount, has_increased)
 signal date_updated(date_string)
 signal campus_level_updated(level)
+signal event(event_data)
 signal year_end
 
 signal game_over
@@ -62,14 +63,19 @@ func _ready():
     _rs = connect("reputation_updated", self, "check_reputation")
 
     var emitter_ref = funcref(self, "emitter")
+    var logger_ref = funcref(self, "logger")
+
     Storage.emitter = emitter_ref
     Engine.Storage = Storage
     Engine.T = T
     Engine.emitter = emitter_ref
+    Engine.logger = logger_ref
+
     Actions.Engine = Engine
     Actions.Storage = Storage
     Actions.T = T
     Actions.emitter = emitter_ref
+    Actions.logger = logger_ref
 
     Storage.load_resources()
 
@@ -86,8 +92,13 @@ func check_money(amount, _has_increased):
 
 
 func check_reputation(amount, _has_increased):
-    if amount < 0:
+    if amount <= 0:
         emit_signal("game_over")
+
+
+func logger(message, chance=1):
+    if utils.with_chance(chance):
+        emit_signal("update_log", message)
 
 
 #####################################################################################
@@ -173,7 +184,11 @@ func get_faculties():
 func start_year():
     var month_delay = 0.2
     while true:
-        Actions.step_month()
+        if Actions.step_month():
+            while true:
+                yield(get_tree().create_timer(0.05), "timeout")
+                if not Storage.is_event_active:
+                    break
 
         if Storage.datetime["month"] == 8:
             break
@@ -183,4 +198,15 @@ func start_year():
     Actions.substract_characters_cost()
     Actions.substract_faculties_cost()
 
+    if Storage.money < 900:
+        logger(tr("LOW_MONEY_LOG"), 0.8)
+
     emit_signal("year_end")
+
+
+func gain_money(amount: int) -> bool:
+    return Storage.gain_money(amount)
+
+
+func change_reputation(amount: int) -> bool:
+    return Storage.change_reputation(amount)

@@ -2,6 +2,7 @@ var failure_notice_ref: FuncRef
 var success_notice_ref: FuncRef
 var important_notice_ref: FuncRef
 var emitter = null
+var logger = null
 
 var Engine = null
 var Storage = null
@@ -68,6 +69,8 @@ ACTION(assign_leader, faculty_uid, character_uid)
     character.faculty_uid = faculty_uid
     faculty.leader_uid = character_uid
 
+    logger.call_func(tr("NEW_LEADER_LOG"), 0.4)
+
     if update:
         conditional_update(character)
         conditional_update(faculty)
@@ -83,6 +86,8 @@ ACTION(assign_grant, faculty_uid, grant_uid)
     faculty.grant_uid = grant_uid
     Storage.grant_to_faculty[grant_uid] = faculty_uid
 
+    logger.call_func(tr("ASSIGNED_GRANT_LOG"), 0.5)
+
     if update:
         conditional_update(grant)
         conditional_update(faculty)
@@ -96,6 +101,8 @@ ACTION(add_staff, faculty_uid, character_uid)
     var faculty = Storage.get_faculty(faculty_uid)
     character.faculty_uid = faculty_uid
     faculty.staff_uid_list.append(character_uid)
+
+    logger.call_func(tr("ADDED_STAFF_LOG"), 0.3)
 
     if update:
         conditional_update(character)
@@ -127,6 +134,8 @@ ACTION(buy_equipment, faculty_uid, equipment_uid)
         return
     equipment.is_active = true
 
+    logger.call_func(tr("BOUGHT_EQUIPMENT_LOG"), 0.6)
+
     if update:
         var faculty = Storage.get_faculty(faculty_uid)
         conditional_update(faculty)
@@ -151,6 +160,8 @@ ACTION(hire_character, character_uid)
     if not Storage.spend_money(character.price):
         return
     character.is_hired = true
+
+    logger.call_func(tr("HIRED_CHARACTER_LOG"), 0.3)
 
     if update:
         conditional_update(character)
@@ -191,24 +202,44 @@ ACTION(open_faculty, faculty_uid)
         return
     faculty.is_opened = true
 
+    logger.call_func(tr("OPENED_FACULTY_LOG"), 0.7)
+
     if update:
         conditional_update(faculty)
             emitter.call_func("faculties_updated")
 
 
 func step_month():
+    var rolled_event = false
+    for faculty in Storage.FACULTY_LIST:
+        if (not faculty.is_opened or
+            faculty.monthly_event_chance == null or
+            faculty.monthly_event_chance <= 0):
+            continue
+        var roll = utils.with_chance(faculty.monthly_event_chance / 100.0)
+        print_debug("F", faculty.monthly_event_chance / 100.0, roll)
+        if roll:
+            rolled_event = true
+    if rolled_event:
+        Storage.is_event_active = true
+        emitter.call_func("event", utils.random_choice(Storage.EVENT_LIST))
+
     Storage.next_date()
+    return rolled_event
 
 
 ACTION(decrement_years_on_grants)
     var has_failure = false
     var has_success = false
-
+    var compl_grants = 0
     var updated_faculties = []
 
     for grant in Storage.GRANT_LIST:
+        if grant.is_completed and not grant.is_failed:
+            compl_grants += 1
         if not grant.is_taken or grant.is_completed:
             continue
+
         grant.years_left -= 1
 
         if Storage.grant_to_faculty[grant.uid] != null:
@@ -228,11 +259,20 @@ ACTION(decrement_years_on_grants)
 
         var roll = randi() % 100
         if roll <= grant.chance:
+            compl_grants += 1
             has_success = true
             grant.is_completed = true
             Storage.change_reputation(int(grant.difficulty*0.4))
             emitter.call_func("update_log", [tr("GRANT_COMPLETED") + " - " + tr(grant.name)])
             free_grant(grant, update, ulist([T.UpdateType.FACULTY]))
+
+    if compl_grants >= 5:
+        Storage.campus_level = 3
+        emitter.call_func("campus_level_updated", Storage.campus_level)
+        Storage.set_sim_state_of(T.Character, T.SimState.OUT_OF_SYNC)
+        Storage.set_sim_state_of(T.Grant, T.SimState.OUT_OF_SYNC)
+        Engine.update_characters()
+        Engine.update_grants()
 
     Storage.set_sim_state_of(T.Goal, T.SimState.OUT_OF_SYNC)
     Engine.update_goals()
@@ -250,9 +290,13 @@ ACTION(decrement_years_on_grants)
 
         if has_success:
             success_notice_ref.call_func()
+            logger.call_func(tr("SUCCESS_LOG"), 0.3)
         else:
             if has_failure:
                 failure_notice_ref.call_func()
+                logger.call_func(tr("FAILURE_LOG"), 0.3)
+            else:
+                logger.call_func(tr("QUIER_YEAR_LOG"), 0.2)
 
 
 ACTION(substract_characters_cost)

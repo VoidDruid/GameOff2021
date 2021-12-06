@@ -124,13 +124,12 @@ __meta__ = {
 
 [node name="Value" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Money/TextureRect"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 margin_left = -117.5
-margin_top = -21.0
+margin_top = -42.0
 margin_right = 117.5
-margin_bottom = 21.0
 custom_colors/font_color = Color( 0.513726, 0.392157, 0, 1 )
 text = "90000"
 align = 1
@@ -166,13 +165,12 @@ __meta__ = {
 
 [node name="Value" type="Label" parent="__FullWindowBox__/FullWindowPanel/FullWindowBox/HBoxContainer/VBoxContainerLeft/StatusBar/Reputation/TextureRect"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 margin_left = -117.5
-margin_top = -21.0
+margin_top = -42.0
 margin_right = 117.5
-margin_bottom = 21.0
 text = "10000"
 align = 1
 __meta__ = {

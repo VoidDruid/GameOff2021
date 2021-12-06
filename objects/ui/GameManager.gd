@@ -69,6 +69,7 @@ var FacultyMapTab_res = load(ui_res_folder + "FacultyMapTab.tscn")
 var UIBlocker_res = load(ui_res_folder + "UIBlocker.tscn")
 var HelpHolder_res = load(ui_res_folder + "HelpHolder.tscn")
 var GameOver_res = load(ui_res_folder + "GameOver.tscn")
+var Event_res = load(ui_res_folder + "Event.tscn")
 
 var EffectLabel = load(ui_res_folder + "EffectLabel.tscn")
 var PlusButton = load(ui_res_folder + "PlusTButton.tscn")
@@ -116,6 +117,7 @@ func _ready():
     _rs = simulation.connect("game_over",self, "_on_GameOver")
     _rs = simulation.connect("victory",self, "_on_Victory")
     _rs = simulation.connect("campus_level_updated", self, "_on_CampusLevel_updated")
+    _rs = simulation.connect("event", self, "_on_Event")
 
     _rs = start_year_button.connect("pressed", self, "_on_StartYear_pressed")
     _rs = game_help_button.connect("pressed", self, "_on_ShowHelp_pressed")
@@ -131,6 +133,23 @@ func _ready():
     simulation.success_notice_ref = success_notice_ref
     simulation.important_notice_ref = important_notice_ref
     simulation.start()
+
+
+func continue_year():
+    play_clock_sound(1.7, 5)
+
+
+func _on_Event(event_data):
+    reset_effect_sound()
+    var darkinator = Darkinator_res.instance()
+    get_node("/root/Main/UI").add_child(darkinator)
+
+    var event_panel = Event_res.instance()
+    event_panel.darkinator = darkinator
+    event_panel.event = event_data
+    event_panel.continue_game_manager = funcref(self, "continue_year")
+    event_panel.simulation = simulation
+    get_node("/root/Main/UI").add_child(event_panel)
 
 
 func play_ui_sound(sound):
@@ -281,6 +300,7 @@ func _on_Update_log(log_list):
         tab.get_node("Panel/LeftTabColor").color = log_color
         tab.get_node("Panel/RichTextLabel").text = log_text
         FeedTable.add_child(tab)
+        FeedTable.move_child(tab, 0)
         log_count += 1
 
 # enum {CHARACTER_FIRE, CHARACTER_HIRE, STAFF_ADD, STAFF_REMOVE, LEADER_ASSIGN}
